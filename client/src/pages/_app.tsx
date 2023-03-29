@@ -1,21 +1,13 @@
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import { NextUIProvider } from '@nextui-org/react';
-import { QueryClientProvider } from 'react-query';
-import { Header, Loading } from '@/components/common';
-import { queryClient } from '@/axios/queryClient';
-import { SSRProvider } from 'react-bootstrap';
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+import { CssBaseline } from "@mui/material";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App(props: AppProps) {
+  const { Component, pageProps } = props;
   return (
-    <SSRProvider>
-      <QueryClientProvider client={queryClient}>
-        <NextUIProvider>
-          <Header />
-          <Loading />
-          <Component {...pageProps} />
-        </NextUIProvider>
-      </QueryClientProvider>
-    </SSRProvider>
+    <>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </>
   );
 }
