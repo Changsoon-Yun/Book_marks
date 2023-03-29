@@ -1,23 +1,31 @@
-import { MutationCache, QueryCache, QueryClient, QueryClientConfig } from 'react-query';
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientConfig,
+} from "react-query";
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'bottom',
+  position: "top-end",
   showConfirmButton: false,
-  timer: 2000,
+  timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer);
-    toast.addEventListener('mouseleave', Swal.resumeTimer);
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
   },
 });
 function queryErrorHandler(error: unknown): void {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const title = error instanceof Error ? error.message : 'error connecting to server';
+  const title =
+    error instanceof Error ? error.message : "error connecting to server";
 
+  // prevent duplicate toasts
+  // toast.closeAll();
   Toast.fire({
-    icon: 'success',
+    icon: "success",
     title: title,
   });
 }
