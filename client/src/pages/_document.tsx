@@ -1,7 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@mui/styles";
-import Layout from "@/components/share/Layout";
-import Header from "@/components/share/Header";
 
 export default class MyDocument extends Document {
   render() {
@@ -9,11 +7,8 @@ export default class MyDocument extends Document {
       <Html>
         <body>
           <Head />
-          <Header />
-          <Layout>
-            <Main />
-            <NextScript />
-          </Layout>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );

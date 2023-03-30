@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
 import styled from "@emotion/styled";
+import { ReactNode } from "react";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return <StLayout>{children}</StLayout>;
@@ -8,9 +8,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
 export default Layout;
 
 const StLayout = styled.div`
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;
+  background-color: #e1e1e1;
+  display: flex;
+  flex-direction: column;
 `;
