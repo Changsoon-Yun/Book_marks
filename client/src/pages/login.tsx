@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import LoginTemplate from "@/components/login/LoginTemplate";
 import { LoginData, useAuth } from "@/components/login/hooks/useAuth";
+import { useQuery } from "react-query";
+import { axiosInstance } from "@/axios";
 
 export default function Login() {
   const auth = useAuth();
@@ -17,6 +19,11 @@ export default function Login() {
   const psTypeHandler = () => {
     setPsType(!psType);
   };
+
+  const res = useQuery(["123"], async () => {
+    await axiosInstance.get("/login");
+  });
+  console.log(res);
   return (
     <LoginTemplate
       onSubmit={onSubmit}
