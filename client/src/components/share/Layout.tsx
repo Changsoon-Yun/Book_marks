@@ -13,7 +13,7 @@ const StLayout = styled.div`
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;
-  background-color: #e1e1e1;
+  background-color: #fbfbfb;
   display: flex;
   flex-direction: column;
 `;

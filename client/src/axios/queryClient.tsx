@@ -1,33 +1,17 @@
-import Swal from "sweetalert2";
 import {
   MutationCache,
   QueryCache,
   QueryClient,
   QueryClientConfig,
 } from "react-query";
+import { Snackbar } from "@mui/material";
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
-  },
-});
-function queryErrorHandler(error: unknown): void {
+function queryErrorHandler(error: unknown): JSX.Element {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const title =
+  const message =
     error instanceof Error ? error.message : "error connecting to server";
 
-  // prevent duplicate toasts
-  // toast.closeAll();
-  Toast.fire({
-    icon: "success",
-    title: title,
-  });
+  return <Snackbar autoHideDuration={6000} message={message} />;
 }
 
 const config: QueryClientConfig = {
@@ -41,9 +25,6 @@ const config: QueryClientConfig = {
     queries: {
       staleTime: 600000, // 10min
       cacheTime: 900000, // 15min,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
     },
   },
 };

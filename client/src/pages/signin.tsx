@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { LoginTemplate } from "@/template/index";
+import SigninTemplate from "@/template/SigninTemplate";
+import { useState } from "react";
 
-export default function Login() {
+export default function Signin() {
   const [psType, setPsType] = useState(false);
   const onSubmit = (e) => {
     e.preventDefault();
@@ -11,9 +11,9 @@ export default function Login() {
     setPsType(!psType);
   };
   return (
-    <LoginTemplate
-      onSubmit={onSubmit}
+    <SigninTemplate
       psType={psType}
+      onSubmit={onSubmit}
       psTypeHandler={psTypeHandler}
     />
   );

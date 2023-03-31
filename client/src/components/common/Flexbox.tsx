@@ -13,6 +13,7 @@ export default function Flexbox({
   wrap = "nowrap",
   full = false,
   direction = "row",
+  gap = 0,
   children,
 }: {
   justify?: JustifyType;
@@ -20,6 +21,7 @@ export default function Flexbox({
   wrap?: WrapType;
   direction?: DirectionType;
   full?: Boolean;
+  gap?: Number;
   children: ReactNode;
 }) {
   return (
@@ -29,6 +31,7 @@ export default function Flexbox({
       wrap={wrap}
       direction={direction}
       full={full}
+      gap={gap}
     >
       {children}
     </StFlexBox>
@@ -40,6 +43,7 @@ const StFlexBox = styled.div<{
   align: AlignType;
   wrap: WrapType;
   full: Boolean;
+  gap: Number;
   direction: DirectionType;
 }>`
   display: flex;
@@ -48,4 +52,5 @@ const StFlexBox = styled.div<{
   flex-wrap: ${({ wrap }) => wrap};
   flex: ${({ full }) => (full ? "1 1 auto" : "0 1 auto")};
   flex-direction: ${({ direction }) => direction};
+  gap: ${({ gap }) => `${gap}` + "px"};
 `;

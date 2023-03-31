@@ -10,7 +10,7 @@ export default function BottomNav() {
   const [value, setValue] = React.useState(0);
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box sx={{ maxWidth: "500px", width: "100%" }}>
       <BottomNavigation
         showLabels
         value={value}

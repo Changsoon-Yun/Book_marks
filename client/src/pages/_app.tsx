@@ -5,6 +5,8 @@ import { BottomNav, Header, InnerLayout, Layout } from "@/components/share";
 import { queryClient } from "@/axios/queryClient";
 import "@/styles/globals.css";
 import "@/styles/fonts";
+import { DevSupport } from "@react-buddy/ide-toolbox";
+import { ComponentPreviews, useInitial } from "@/dev";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -15,7 +17,12 @@ export default function App(props: AppProps) {
         <Layout>
           <Header />
           <InnerLayout>
-            <Component {...pageProps} />
+            <DevSupport
+              ComponentPreviews={ComponentPreviews}
+              useInitialHook={useInitial}
+            >
+              <Component {...pageProps} />
+            </DevSupport>
           </InnerLayout>
           <BottomNav />
         </Layout>
