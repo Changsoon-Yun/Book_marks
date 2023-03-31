@@ -14,7 +14,7 @@ import Link from "next/link";
 import { Google, Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function LoginTemplate(props) {
-  const { onSubmit, psType, psTypeHandler } = props;
+  const { onSubmit, psType, psTypeHandler, setEmail, setPassword } = props;
 
   return (
     <Main>
@@ -31,6 +31,9 @@ export default function LoginTemplate(props) {
             id="outlined-basic"
             label="ID"
             variant="outlined"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <TextField
             size={"small"}
@@ -48,6 +51,9 @@ export default function LoginTemplate(props) {
                   {psType ? <Visibility /> : <VisibilityOff />}
                 </InputAdornment>
               ),
+            }}
+            onChange={(e) => {
+              setPassword(e.target.value);
             }}
           />
           <Flexbox justify={"space-between"} align={"center"}>

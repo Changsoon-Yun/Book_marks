@@ -1,4 +1,4 @@
-import SigninTemplate from "@/template/SigninTemplate";
+import SigninTemplate from "@/components/signin/SigninTemplate";
 import { useState } from "react";
 
 export default function Signin() {
