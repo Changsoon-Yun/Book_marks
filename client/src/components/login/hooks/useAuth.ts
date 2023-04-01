@@ -1,12 +1,12 @@
 import {axiosInstance} from "@/axios";
 
-export type LoginData = {
+export type User = {
   email: string;
   password: string;
 };
 
 export function useAuth() {
-  async function authServerCall(urlEndpoint: string, data: LoginData) {
+  async function authServerCall(urlEndpoint: string, data: User) {
     try {
       const response = await axiosInstance({
         url: urlEndpoint,
@@ -17,16 +17,19 @@ export function useAuth() {
 
       console.log(response);
     } catch (err) {
-      const {response} = err;
-      console.log(response);
+      console.log(err);
     }
   }
 
-  async function signin(data: LoginData) {
+  async function login(data: User) {
     await authServerCall("/login", data);
   }
 
+  async function signin(data: User) {
+    await authServerCall("/signin", data);
+  }
+
   return {
-    signin,
+    login: login,
   };
 }

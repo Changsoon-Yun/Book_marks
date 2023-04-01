@@ -17,7 +17,7 @@ export default function LoginTemplate(props: LoginProps) {
             Login
           </Typography>
           <Typography variant="subtitle1" pb={2} component="h2">
-            Welcome Back! Please enter your details.
+            Welcome Back! Please<br/> enter your details.
           </Typography>
           <TextField
             size={"small"}
