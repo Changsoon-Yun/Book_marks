@@ -3,7 +3,7 @@ import { LoginController } from "./login.controller";
 import { LoginService } from "./login.service";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
-import { JwtStrategy } from "../auth/jwt/jwt.strategy";
+import { JwtStrategy } from "../jwt/jwt.strategy";
 
 @Module({
   imports: [

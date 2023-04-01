@@ -1,12 +1,12 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { UserLoginDto } from "./dto/UserLoginDto";
+import { User } from "@prisma/client";
 
 @Injectable()
 export class LoginService {
   constructor(private jwtService: JwtService) {}
 
-  login(body: UserLoginDto) {
+  login(body: Omit<User, "id,inserted_at">) {
     const { email, password } = body;
     if (email === "test@test.com" && password === "test") {
       const payload = { email, sub: "0" };

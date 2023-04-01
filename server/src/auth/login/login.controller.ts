@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { LoginService } from "./login.service";
-import { UserLoginDto } from "./dto/UserLoginDto";
+import { User } from "@prisma/client";
 
 @Controller("login")
 export class LoginController {
@@ -12,7 +12,7 @@ export class LoginController {
   }
 
   @Post()
-  login(@Body() body: UserLoginDto) {
+  login(@Body() body: Omit<User, "id,inserted_at">) {
     return this.loginService.login(body);
   }
 }
