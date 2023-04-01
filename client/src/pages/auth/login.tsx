@@ -1,6 +1,6 @@
 import React, {FormEvent, SetStateAction, useState} from "react";
-import LoginTemplate from "@/components/login/LoginTemplate";
-import {User, useAuth} from "@/components/login/hooks/useAuth";
+import LoginTemplate from "@/components/auth/login/LoginTemplate";
+import {User, useAuth} from "@/components/auth/hooks/useAuth";
 import {useQuery} from "react-query";
 import {axiosInstance} from "@/axios";
 

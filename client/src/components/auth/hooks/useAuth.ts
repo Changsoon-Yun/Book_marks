@@ -22,14 +22,15 @@ export function useAuth() {
   }
 
   async function login(data: User) {
-    await authServerCall("/login", data);
+    await authServerCall("auth/login", data);
   }
 
   async function signin(data: User) {
-    await authServerCall("/signin", data);
+    await authServerCall("auth/signin", data);
   }
 
   return {
-    login: login,
+    login,
+    signin
   };
 }

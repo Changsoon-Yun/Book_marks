@@ -27,7 +27,7 @@ export default function Header() {
             {pathname.substring(1).toLocaleUpperCase()}
           </Typography>
           <Button color="inherit">
-            <Link href={"/login"}>Login</Link>
+            <Link href={"/auth/login"}>Login</Link>
           </Button>
         </Toolbar>
       </AppBar>

@@ -1,34 +1,36 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {Button, Checkbox, FormControlLabel, FormGroup, InputAdornment, TextField, Typography,} from "@mui/material";
-import Flexbox from "@/components/common/Flexbox";
-import Link from "next/link";
-import {Google, Visibility, VisibilityOff} from "@mui/icons-material";
-import {LoginProps} from "@/pages/login";
+import {Button, FormGroup, InputAdornment, TextField, Typography,} from "@mui/material";
 
-export default function LoginTemplate(props: LoginProps) {
+import {Google, Visibility, VisibilityOff} from "@mui/icons-material";
+import {SigninProps} from "@/pages/auth/signin";
+
+export default function SigninTemplate(props: SigninProps) {
   const {onSubmit, psType, psTypeHandler, setEmail, setPassword} = props;
 
   return (
     <Main>
       <form onSubmit={onSubmit}>
         <FormGroup sx={{gap: "20px"}}>
-          <Typography variant="h3" component="h2">
-            Login
+          <Typography variant="h4" component="h2">
+            Sign in
           </Typography>
           <Typography variant="subtitle1" pb={2} component="h2">
-            Welcome Back! Please<br/> enter your details.
+            Welcome to Creative
           </Typography>
           <TextField
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             size={"small"}
             id="outlined-basic"
             label="ID"
             variant="outlined"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
           />
           <TextField
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             size={"small"}
             id="outlined-basic"
             label="Password"
@@ -45,19 +47,9 @@ export default function LoginTemplate(props: LoginProps) {
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
           />
-          <Flexbox justify={"space-between"} align={"center"}>
-            <FormControlLabel
-              control={<Checkbox/>}
-              sx={{fontSize: "14px"}}
-              label="Auto Login"
-            />
-          </Flexbox>
           <Button type={"submit"} variant={"contained"}>
-            login
+            Submit
           </Button>
           <Button
             type={"submit"}
@@ -67,21 +59,6 @@ export default function LoginTemplate(props: LoginProps) {
           >
             Sign in With Google
           </Button>
-          <Typography textAlign={"center"} fontSize={"14px"}>
-            Don&apos;t have account?
-            <Link href={"/signin"}>
-              <Typography
-                sx={{
-                  marginLeft: "5px",
-                  color: "primary.main",
-                  fontSize: "14px",
-                }}
-                component="span"
-              >
-                Sign Up
-              </Typography>
-            </Link>
-          </Typography>
         </FormGroup>
       </form>
     </Main>
