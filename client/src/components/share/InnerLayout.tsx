@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import {ReactNode} from "react";
 import styled from "@emotion/styled";
 
-export default function InnerLayout({ children }: { children: ReactNode }) {
+export default function InnerLayout({children}: { children: ReactNode }) {
   return <StInnerLayout>{children}</StInnerLayout>;
 }
 

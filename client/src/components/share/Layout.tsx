@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
+import {ReactNode} from "react";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({children}: { children: ReactNode }) => {
   return <StLayout>{children}</StLayout>;
 };
 

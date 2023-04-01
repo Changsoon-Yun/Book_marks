@@ -1,5 +1,4 @@
-import { axiosInstance } from "@/axios";
-import { Snackbar } from "@mui/material";
+import {axiosInstance} from "@/axios";
 
 export type LoginData = {
   email: string;
@@ -13,12 +12,12 @@ export function useAuth() {
         url: urlEndpoint,
         method: "POST",
         data: data,
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
       });
 
       console.log(response);
     } catch (err) {
-      const { response } = err;
+      const {response} = err;
       console.log(response);
     }
   }

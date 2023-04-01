@@ -1,25 +1,18 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, FormGroup, InputAdornment, TextField, Typography,} from "@mui/material";
 import Flexbox from "@/components/common/Flexbox";
 import Link from "next/link";
-import { Google, Visibility, VisibilityOff } from "@mui/icons-material";
+import {Google, Visibility, VisibilityOff} from "@mui/icons-material";
+import {LoginProps} from "@/pages/login";
 
-export default function LoginTemplate(props) {
-  const { onSubmit, psType, psTypeHandler, setEmail, setPassword } = props;
+export default function LoginTemplate(props: LoginProps) {
+  const {onSubmit, psType, psTypeHandler, setEmail, setPassword} = props;
 
   return (
     <Main>
       <form onSubmit={onSubmit}>
-        <FormGroup sx={{ gap: "20px" }}>
+        <FormGroup sx={{gap: "20px"}}>
           <Typography variant="h3" component="h2">
             Login
           </Typography>
@@ -46,9 +39,9 @@ export default function LoginTemplate(props) {
                 <InputAdornment
                   onClick={psTypeHandler}
                   position="end"
-                  sx={{ cursor: "pointer" }}
+                  sx={{cursor: "pointer"}}
                 >
-                  {psType ? <Visibility /> : <VisibilityOff />}
+                  {psType ? <Visibility/> : <VisibilityOff/>}
                 </InputAdornment>
               ),
             }}
@@ -58,8 +51,8 @@ export default function LoginTemplate(props) {
           />
           <Flexbox justify={"space-between"} align={"center"}>
             <FormControlLabel
-              control={<Checkbox />}
-              sx={{ fontSize: "14px" }}
+              control={<Checkbox/>}
+              sx={{fontSize: "14px"}}
               label="Auto Login"
             />
           </Flexbox>
@@ -68,9 +61,9 @@ export default function LoginTemplate(props) {
           </Button>
           <Button
             type={"submit"}
-            sx={{ borderColor: "#aaa", color: "#000" }}
+            sx={{borderColor: "#aaa", color: "#000"}}
             variant={"outlined"}
-            startIcon={<Google />}
+            startIcon={<Google/>}
           >
             Sign in With Google
           </Button>

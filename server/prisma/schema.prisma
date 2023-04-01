@@ -12,8 +12,8 @@ datasource db {
 
 // 만들려는 모델
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  password String
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
   inserted_at DateTime @default(now())
 }

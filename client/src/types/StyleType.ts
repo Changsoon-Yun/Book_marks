@@ -22,4 +22,4 @@ type WrapType = "wrap" | "nowrap" | "wrap-reverse";
 
 type DirectionType = "row" | "row-reverse" | "column" | "column-reverse";
 
-export type { JustifyType, AlignType, WrapType, DirectionType };
+export type {JustifyType, AlignType, WrapType, DirectionType};

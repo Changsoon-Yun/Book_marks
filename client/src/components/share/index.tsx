@@ -4,4 +4,4 @@ import Layout from "@/components/share/Layout";
 import Loading from "@/components/share/Loading";
 import InnerLayout from "@/components/share/InnerLayout";
 
-export { Header, BottomNav, Layout, Loading, InnerLayout };
+export {Header, BottomNav, Layout, Loading, InnerLayout};

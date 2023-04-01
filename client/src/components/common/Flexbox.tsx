@@ -1,21 +1,16 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
-import {
-  AlignType,
-  DirectionType,
-  JustifyType,
-  WrapType,
-} from "@/types/StyleType";
+import {ReactNode} from "react";
+import {AlignType, DirectionType, JustifyType, WrapType,} from "@/types/StyleType";
 
 export default function Flexbox({
-  justify = "normal",
-  align = "normal",
-  wrap = "nowrap",
-  full = false,
-  direction = "row",
-  gap = 0,
-  children,
-}: {
+                                  justify = "normal",
+                                  align = "normal",
+                                  wrap = "nowrap",
+                                  full = false,
+                                  direction = "row",
+                                  gap = 0,
+                                  children,
+                                }: {
   justify?: JustifyType;
   align?: AlignType;
   wrap?: WrapType;
@@ -47,10 +42,10 @@ const StFlexBox = styled.div<{
   direction: DirectionType;
 }>`
   display: flex;
-  justify-content: ${({ justify }) => justify};
-  align-items: ${({ align }) => align};
-  flex-wrap: ${({ wrap }) => wrap};
-  flex: ${({ full }) => (full ? "1 1 auto" : "0 1 auto")};
-  flex-direction: ${({ direction }) => direction};
-  gap: ${({ gap }) => `${gap}` + "px"};
+  justify-content: ${({justify}) => justify};
+  align-items: ${({align}) => align};
+  flex-wrap: ${({wrap}) => wrap};
+  flex: ${({full}) => (full ? "1 1 auto" : "0 1 auto")};
+  flex-direction: ${({direction}) => direction};
+  gap: ${({gap}) => `${gap}` + "px"};
 `;

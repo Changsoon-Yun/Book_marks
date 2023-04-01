@@ -10,7 +10,7 @@ export default function BottomNav() {
   const [value, setValue] = React.useState(0);
 
   return (
-    <Box sx={{ maxWidth: "500px", width: "100%" }}>
+    <Box sx={{maxWidth: "500px", width: "100%"}}>
       <BottomNavigation
         showLabels
         value={value}
@@ -18,9 +18,9 @@ export default function BottomNav() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon/>}/>
+        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon/>}/>
+        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon/>}/>
       </BottomNavigation>
     </Box>
   );

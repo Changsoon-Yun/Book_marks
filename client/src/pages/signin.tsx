@@ -1,9 +1,15 @@
 import SigninTemplate from "@/components/signin/SigninTemplate";
-import { useState } from "react";
+import {FormEvent, useState} from "react";
+
+export interface SigninProps {
+  psType: boolean
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void,
+  psTypeHandler: React.MouseEventHandler<HTMLDivElement>
+}
 
 export default function Signin() {
   const [psType, setPsType] = useState(false);
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("hello");
   };

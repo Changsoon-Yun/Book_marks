@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, {FormEvent, SetStateAction, useState} from "react";
 import LoginTemplate from "@/components/login/LoginTemplate";
-import { LoginData, useAuth } from "@/components/login/hooks/useAuth";
-import { useQuery } from "react-query";
-import { axiosInstance } from "@/axios";
+import {LoginData, useAuth} from "@/components/login/hooks/useAuth";
+import {useQuery} from "react-query";
+import {axiosInstance} from "@/axios";
+
+export interface LoginProps {
+  psType: Boolean,
+  psTypeHandler: React.MouseEventHandler<HTMLDivElement>
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void,
+  setPassword: React.Dispatch<SetStateAction<string>>,
+  setEmail: React.Dispatch<SetStateAction<string>>
+}
 
 export default function Login() {
   const auth = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [psType, setPsType] = useState(false);
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: LoginData = { email, password };
+    const data: LoginData = {email, password};
     auth.signin(data);
   };
   const psTypeHandler = () => {
