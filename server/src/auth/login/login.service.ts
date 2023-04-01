@@ -6,7 +6,7 @@ import { User } from "@prisma/client";
 export class LoginService {
   constructor(private jwtService: JwtService) {}
 
-  login(body: Omit<User, "id,inserted_at">) {
+  login(body: Omit<User, "id" | "inserted_at">) {
     const { email, password } = body;
     if (email === "test@test.com" && password === "test") {
       const payload = { email, sub: "0" };
