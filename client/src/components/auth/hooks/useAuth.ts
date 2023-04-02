@@ -1,7 +1,8 @@
 import {axiosInstance} from "@/axios";
 import {useRecoilState} from "recoil";
-import {snackbar} from "@/recoil/atom";
+import {snackbarAtom} from "@/recoil/atom";
 import {useRouter} from "next/router";
+import {AxiosResponse} from "axios/index";
 
 export type User = {
   email: string;
@@ -10,25 +11,32 @@ export type User = {
 
 export function useAuth() {
   const router = useRouter()
-  const [_, setSnack] = useRecoilState(snackbar)
+  const [snack, setSnack] = useRecoilState(snackbarAtom)
 
   async function authServerCall(urlEndpoint: string, data: User) {
     try {
-      const response = await axiosInstance({
+      const response: AxiosResponse<{ message: string, status: number }> = await axiosInstance({
         url: urlEndpoint,
         method: "POST",
         data: data,
         headers: {"Content-Type": "application/json"},
       });
 
-      if (response.status === 201) {
-        setSnack({open: true, text: "계정이 생성되었습니다.", severity: "success"})
-        return router.push('/auth/login')
+      console.log(response)
+      setSnack({open: true, text: response.data.message, severity: "error"})
+
+      if (urlEndpoint === "auth/login") {
+        return response.data
       }
 
-      return
+      if (urlEndpoint === "auth/signin") {
+        setSnack({open: true, text: "계정이 생성되었습니다.", severity: "success"})
+        return router.push('/auth/login')
+
+      }
+      
     } catch (err) {
-      console.log("err", err);
+      console.log(err)
       // @ts-ignore
       setSnack({open: true, text: err.response.data.message, severity: "error"})
     }
