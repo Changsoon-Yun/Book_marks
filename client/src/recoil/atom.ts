@@ -7,8 +7,8 @@ interface SnackBarType {
   severity: AlertColor
 }
 
-export const snackbar = atom<SnackBarType>({
-  key: "snackbar",
+export const snackbarAtom = atom<SnackBarType>({
+  key: "snackbarAtom",
   default: {
     open: false,
     text: "",

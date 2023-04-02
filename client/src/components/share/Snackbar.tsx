@@ -1,11 +1,11 @@
 import {Alert, Button, Snackbar as SnackbarComponent} from "@mui/material";
 import {useRecoilState} from "recoil";
-import {snackbar} from "@/recoil/atom";
+import {snackbarAtom} from "@/recoil/atom";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function Snackbar() {
-  const [{open, text, severity}, setSnack] = useRecoilState(snackbar)
+  const [{open, text, severity}, setSnack] = useRecoilState(snackbarAtom)
   const onClose = () => {
     setSnack({open: false, text: "", severity: "info"})
   }
