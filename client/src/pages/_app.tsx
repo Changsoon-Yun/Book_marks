@@ -5,28 +5,27 @@ import {BottomNav, Header, InnerLayout, Layout} from "@/components/share";
 import {queryClient} from "@/axios/queryClient";
 import "@/styles/globals.css";
 import "@/styles/fonts";
-import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "@/dev";
+import React from "react";
+import {RecoilRoot} from 'recoil';
+import Snackbar from "@/components/share/Snackbar";
 
 export default function App(props: AppProps) {
   const {Component, pageProps} = props;
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <CssBaseline/>
-        <Layout>
-          <Header/>
-          <InnerLayout>
-            <DevSupport
-              ComponentPreviews={ComponentPreviews}
-              useInitialHook={useInitial}
-            >
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <CssBaseline/>
+          <Layout>
+            <Header/>
+            <InnerLayout>
+              <Snackbar/>
               <Component {...pageProps} />
-            </DevSupport>
-          </InnerLayout>
-          <BottomNav/>
-        </Layout>
-      </QueryClientProvider>
+            </InnerLayout>
+            <BottomNav/>
+          </Layout>
+        </QueryClientProvider>
+      </RecoilRoot>
     </>
   );
 }
