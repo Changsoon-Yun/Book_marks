@@ -30,5 +30,6 @@
     "recoil": "^0.7.7",
     "sweetalert2": "^11.7.3",
     "typescript": "5.0.2"
-  }
+  },
+  "devDependencies": {}
 }
