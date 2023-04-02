@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, HttpCode, Post } from "@nestjs/common";
 import { LoginService } from "./login.service";
 import { User } from "@prisma/client";
 
@@ -6,13 +6,9 @@ import { User } from "@prisma/client";
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
-  @Get()
-  findAll(): string {
-    return "this is action";
-  }
-
+  @HttpCode(200)
   @Post()
-  login(@Body() body: Omit<User, "id,inserted_at">) {
-    return this.loginService.login(body);
+  async login(@Body() body: Omit<User, "id,inserted_at">) {
+    return await this.loginService.login(body);
   }
 }
