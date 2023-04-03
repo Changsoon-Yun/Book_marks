@@ -7,10 +7,11 @@ import {
 import { PrismaService } from "../prisma.service";
 import { AuthCredentialDto } from "./dto/auth-credential.dto";
 import * as bcrypt from "bcrypt";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
   async signup(authCredentialDto: AuthCredentialDto) {
     const { email, password } = authCredentialDto;
@@ -37,7 +38,12 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      return "Login Success";
+      //유저 토큰 생성(secret + payload)
+
+      const payload = { email };
+      const accessToken = this.jwtService.sign(payload);
+
+      return { accessToken: accessToken };
     } else {
       throw new UnauthorizedException("Login Failed");
     }
