@@ -15,19 +15,20 @@ export function useAuth() {
 
   async function authServerCall(urlEndpoint: string, data: User) {
     try {
-      const response: AxiosResponse<{ message: string; status: number }> =
-        await axiosInstance({
-          url: urlEndpoint,
-          method: "POST",
-          data: data,
-          headers: { "Content-Type": "application/json" },
-        });
+      const response: AxiosResponse = await axiosInstance({
+        url: urlEndpoint,
+        method: "POST",
+        data: data,
+        headers: { "Content-Type": "application/json" },
+      });
 
       console.log(response);
-      setSnack({ open: true, text: response.data.message, severity: "error" });
 
       if (urlEndpoint === "auth/login") {
-        return response.data;
+        console.log();
+        if (response.status === 200) {
+          return router.push("/");
+        }
       }
 
       if (urlEndpoint === "auth/signin") {

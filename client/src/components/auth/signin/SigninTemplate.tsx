@@ -1,17 +1,23 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {Button, FormGroup, InputAdornment, TextField, Typography,} from "@mui/material";
+import {
+  Button,
+  FormGroup,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-import {Google, Visibility, VisibilityOff} from "@mui/icons-material";
-import {SigninProps} from "@/pages/auth/signin";
+import { Google, Visibility, VisibilityOff } from "@mui/icons-material";
+import { SigninProps } from "@/pages/auth/signin";
 
 export default function SigninTemplate(props: SigninProps) {
-  const {onSubmit, psType, psTypeHandler, setEmail, setPassword} = props;
+  const { onSubmit, psType, psTypeHandler, setEmail, setPassword } = props;
 
   return (
     <Main>
       <form onSubmit={onSubmit}>
-        <FormGroup sx={{gap: "20px"}}>
+        <FormGroup sx={{ gap: "20px" }}>
           <Typography variant="h4" component="h2">
             Sign in
           </Typography>
@@ -23,7 +29,6 @@ export default function SigninTemplate(props: SigninProps) {
               setEmail(e.target.value);
             }}
             size={"small"}
-            id="outlined-basic"
             label="ID"
             variant="outlined"
           />
@@ -32,7 +37,6 @@ export default function SigninTemplate(props: SigninProps) {
               setPassword(e.target.value);
             }}
             size={"small"}
-            id="outlined-basic"
             label="Password"
             type={psType ? "text" : "password"}
             variant="outlined"
@@ -41,9 +45,9 @@ export default function SigninTemplate(props: SigninProps) {
                 <InputAdornment
                   onClick={psTypeHandler}
                   position="end"
-                  sx={{cursor: "pointer"}}
+                  sx={{ cursor: "pointer" }}
                 >
-                  {psType ? <Visibility/> : <VisibilityOff/>}
+                  {psType ? <Visibility /> : <VisibilityOff />}
                 </InputAdornment>
               ),
             }}
@@ -53,9 +57,9 @@ export default function SigninTemplate(props: SigninProps) {
           </Button>
           <Button
             type={"submit"}
-            sx={{borderColor: "#aaa", color: "#000"}}
+            sx={{ borderColor: "#aaa", color: "#000" }}
             variant={"outlined"}
-            startIcon={<Google/>}
+            startIcon={<Google />}
           >
             Sign in With Google
           </Button>
