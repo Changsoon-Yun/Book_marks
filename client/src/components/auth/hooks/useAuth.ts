@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { snackbarAtom } from "@/lib/recoil/atom";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
+import { deleteCookie, setCookie } from "@/lib/cookie/cookie";
 
 export type User = {
   email: string;
@@ -27,7 +28,9 @@ export function useAuth() {
       if (urlEndpoint === "auth/login") {
         console.log();
         if (response.status === 200) {
-          return router.push("/");
+          setCookie("creative-wallet", response.data.accessToken);
+
+          // return router.push("/", undefined, { shallow: true });
         }
       }
 
@@ -37,7 +40,7 @@ export function useAuth() {
           text: "계정이 생성되었습니다.",
           severity: "success",
         });
-        return router.push("/auth/login");
+        return router.push("/auth/login", undefined, { shallow: true });
       }
     } catch (err) {
       console.log(err);
@@ -61,8 +64,13 @@ export function useAuth() {
     await authServerCall("auth/signin", data);
   }
 
+  function logout() {
+    deleteCookie();
+  }
+
   return {
     login,
     signin,
+    logout,
   };
 }

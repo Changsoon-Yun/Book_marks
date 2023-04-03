@@ -7,8 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { axiosInstance } from "@/lib/axios";
+import { useUser } from "@/components/auth/hooks/useUser";
 
 export default function Header() {
+  const a = useUser();
+
+  console.log(a);
+
   const { pathname } = useRouter();
   return (
     <Box>
@@ -27,13 +33,19 @@ export default function Header() {
             {pathname.substring(1).toLocaleUpperCase()}
           </Typography>
           <Button color="inherit">
-            <Link href={"/post"}>post</Link>
+            <Link shallow={true} href={"/post"}>
+              post
+            </Link>
           </Button>
           <Button color="inherit">
-            <Link href={"/post/write"}>write</Link>
+            <Link shallow={true} href={"/post/write"}>
+              write
+            </Link>
           </Button>
           <Button color="inherit">
-            <Link href={"/auth/login"}>Login</Link>
+            <Link shallow={true} href={"/auth/login"}>
+              Login
+            </Link>
           </Button>
         </Toolbar>
       </AppBar>

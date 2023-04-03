@@ -5,6 +5,12 @@ import {
   QueryClientConfig,
 } from "react-query";
 import { Snackbar } from "@mui/material";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+const getJWTHeader = () => {
+  return { Authorization: `Bearer ${cookies.get("creative-wallet")}` };
+};
 
 function queryErrorHandler(error: unknown): JSX.Element {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
