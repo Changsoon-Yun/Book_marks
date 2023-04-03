@@ -1,12 +1,17 @@
-import {MutationCache, QueryCache, QueryClient, QueryClientConfig,} from "react-query";
-import {Snackbar} from "@mui/material";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientConfig,
+} from "react-query";
+import { Snackbar } from "@mui/material";
 
 function queryErrorHandler(error: unknown): JSX.Element {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
   const message =
     error instanceof Error ? error.message : "error connecting to server";
 
-  return <Snackbar autoHideDuration={6000} message={message}/>;
+  return <Snackbar autoHideDuration={6000} message={message} />;
 }
 
 const config: QueryClientConfig = {

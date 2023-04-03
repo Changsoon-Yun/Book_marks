@@ -1,28 +1,28 @@
-import type {AppProps} from "next/app";
-import {CssBaseline} from "@mui/material";
-import {QueryClientProvider} from "react-query";
-import {BottomNav, Header, InnerLayout, Layout} from "@/components/share";
-import {queryClient} from "@/axios/queryClient";
-import "@/styles/globals.css";
-import "@/styles/fonts";
+import type { AppProps } from "next/app";
+import { CssBaseline } from "@mui/material";
+import { QueryClientProvider } from "react-query";
+import { BottomNav, Header, InnerLayout, Layout } from "@/components/share";
+import { queryClient } from "@/lib/axios/queryClient";
+import "@/asset/styles/globals.css";
+import "@/asset/styles/fonts";
 import React from "react";
-import {RecoilRoot} from 'recoil';
+import { RecoilRoot } from "recoil";
 import Snackbar from "@/components/share/Snackbar";
 
 export default function App(props: AppProps) {
-  const {Component, pageProps} = props;
+  const { Component, pageProps } = props;
   return (
     <>
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
-          <CssBaseline/>
+          <CssBaseline />
           <Layout>
-            <Header/>
+            <Header />
             <InnerLayout>
-              <Snackbar/>
+              <Snackbar />
               <Component {...pageProps} />
             </InnerLayout>
-            <BottomNav/>
+            <BottomNav />
           </Layout>
         </QueryClientProvider>
       </RecoilRoot>
