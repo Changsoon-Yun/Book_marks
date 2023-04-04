@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { axiosInstance } from "@/lib/axios";
 import { useUser } from "@/components/auth/hooks/useUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCookie } from "@/lib/cookie/cookie";
 import { useAuth } from "@/components/auth/hooks/useAuth";
 
@@ -19,6 +19,11 @@ export default function Header() {
   const { user } = useUser();
   const { logout } = useAuth();
 
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(() => true);
+  }, []);
   return (
     <Box>
       <AppBar position="static">
@@ -45,13 +50,12 @@ export default function Header() {
               write
             </Link>
           </Button>
-          {user ? (
-            <Button color="inherit">
-              <Link onClick={logout} shallow={true} href={"/auth/login"}>
-                logout
-              </Link>
+          {mounted && user && (
+            <Button onClick={logout} color="inherit">
+              logout
             </Button>
-          ) : (
+          )}
+          {mounted && !user && (
             <Button color="inherit">
               <Link shallow={true} href={"/auth/login"}>
                 Login

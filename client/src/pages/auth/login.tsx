@@ -1,6 +1,6 @@
 import React, { FormEvent, SetStateAction, useState } from "react";
 import LoginTemplate from "@/components/auth/login/LoginTemplate";
-import { useAuth, User } from "@/components/auth/hooks/useAuth";
+import { useAuth } from "@/components/auth/hooks/useAuth";
 import { axiosInstance } from "@/lib/axios";
 import { getCookie } from "@/lib/cookie/cookie";
 
@@ -19,7 +19,7 @@ export default function Login() {
   const [psType, setPsType] = useState(false);
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: User = { email, password };
+    const data = { email, password };
     auth.login(data);
   };
   const psTypeHandler = () => {
