@@ -1,3 +1,3 @@
 export const queryKeys = {
-  login: "login",
+  login: 'login',
 };

@@ -1,10 +1,10 @@
-import { axiosInstance } from "@/lib/axios";
-import { useSetRecoilState } from "recoil";
-import { snackbarAtom } from "@/lib/recoil/atom";
-import { useRouter } from "next/router";
-import axios, { AxiosResponse } from "axios";
-import { deleteCookie, setCookie } from "@/lib/cookie/cookie";
-import { useUser } from "@/components/auth/hooks/useUser";
+import { axiosInstance } from '@/lib/axios';
+import { useSetRecoilState } from 'recoil';
+import { snackbarAtom } from '@/lib/recoil/atom';
+import { useRouter } from 'next/router';
+import axios, { AxiosResponse } from 'axios';
+import { deleteCookie, setCookie } from '@/lib/cookie/cookie';
+import { useUser } from '@/components/auth/hooks/useUser';
 
 type User = {
   email: string;
@@ -20,31 +20,37 @@ export function useAuth() {
     try {
       const response: AxiosResponse = await axiosInstance({
         url: urlEndpoint,
-        method: "POST",
+        method: 'POST',
         data: data,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (urlEndpoint === "auth/login") {
+      if (urlEndpoint === 'auth/login') {
         if (response.status === 200) {
-          setCookie("creative-wallet", response.data);
+          setCookie('creative-wallet', response.data);
           updateUser(response.data);
           setSnack({
             open: true,
-            text: "로그인 성공 !",
-            severity: "success",
+            text: '로그인 성공 !',
+            severity: 'success',
           });
-          return router.push("/", undefined, { shallow: true });
+          return router.push('/', undefined, {
+            shallow: true,
+          });
         }
       }
 
-      if (urlEndpoint === "auth/signin") {
+      if (urlEndpoint === 'auth/signin') {
         setSnack({
           open: true,
-          text: "계정이 생성되었습니다.",
-          severity: "success",
+          text: '계정이 생성되었습니다.',
+          severity: 'success',
         });
-        return router.push("/auth/login", undefined, { shallow: true });
+        return router.push('/auth/login', undefined, {
+          shallow: true,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -53,19 +59,18 @@ export function useAuth() {
         setSnack({
           open: true,
           text: err.response.data.message,
-          severity: "error",
+          severity: 'error',
         });
       }
-      // @ts-ignore
     }
   }
 
   async function login(data: User) {
-    await authServerCall("auth/login", data);
+    await authServerCall('auth/login', data);
   }
 
   async function signin(data: User) {
-    await authServerCall("auth/signin", data);
+    await authServerCall('auth/signin', data);
   }
 
   function logout() {
