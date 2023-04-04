@@ -1,36 +1,57 @@
 import { AxiosResponse } from "axios";
-import { User } from "@/components/auth/hooks/useAuth";
 import { axiosInstance } from "@/lib/axios";
 import { deleteCookie, getCookie, setCookie } from "@/lib/cookie/cookie";
 import { useQuery, useQueryClient } from "react-query";
 import jwtDecode from "jwt-decode";
+import { getJWTHeader } from "@/lib/axios/queryClient";
 
 interface UseUser {
   user: User | null;
   updateUser: (user: User) => void;
   clearUser: () => void;
 }
-async function getUser() {
-  const token = getCookie();
-  const decoded = jwtDecode();
-  console.log(decoded);
-  if (!token) return null;
-  const { data }: AxiosResponse<User | null> = await axiosInstance.post(
-    "/auth/get-user",
-    user,
+
+export interface User {
+  id: string;
+  email: string;
+  accessToken: string;
+}
+async function getUser(user: User | null, signal: AbortSignal | undefined) {
+  if (!user) return null;
+  const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
+    `/auth/get-user/${user.id}`,
     {
-      headers: getCookie(),
+      headers: getJWTHeader(),
+      signal,
     }
   );
-  console.log(data);
   return data;
 }
 
-export function useUser() {
+export function useUser(): UseUser {
   const queryClient = useQueryClient();
-  const { data } = useQuery<any, unknown, any, string[]>(["get-user"], () =>
-    getUser()
+  const { data: user } = useQuery<any, unknown, any, string[]>(
+    ["get-user"],
+    ({ signal }) => getUser(user, signal),
+    {
+      initialData: getCookie(),
+      onSuccess: (received: User | null) => {
+        if (!received) {
+          deleteCookie();
+        } else {
+          setCookie("creative-wallet", user);
+        }
+      },
+    }
   );
 
-  return { data };
+  function updateUser(user: User) {
+    queryClient.setQueryData(["get-user"], user);
+  }
+
+  function clearUser() {
+    queryClient.setQueryData(["get-user"], null);
+  }
+
+  return { user, updateUser, clearUser };
 }

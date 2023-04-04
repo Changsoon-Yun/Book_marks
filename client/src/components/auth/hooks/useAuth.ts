@@ -4,8 +4,9 @@ import { snackbarAtom } from "@/lib/recoil/atom";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
 import { deleteCookie, setCookie } from "@/lib/cookie/cookie";
+import { useUser } from "@/components/auth/hooks/useUser";
 
-export type User = {
+type User = {
   email: string;
   password: string;
 };
@@ -13,6 +14,7 @@ export type User = {
 export function useAuth() {
   const router = useRouter();
   const [snack, setSnack] = useRecoilState(snackbarAtom);
+  const { clearUser, updateUser } = useUser();
 
   async function authServerCall(urlEndpoint: string, data: User) {
     try {
@@ -23,13 +25,10 @@ export function useAuth() {
         headers: { "Content-Type": "application/json" },
       });
 
-      console.log(response);
-
       if (urlEndpoint === "auth/login") {
-        console.log();
         if (response.status === 200) {
-          setCookie("creative-wallet", response.data.accessToken);
-
+          setCookie("creative-wallet", response.data);
+          updateUser(response.data);
           // return router.push("/", undefined, { shallow: true });
         }
       }
@@ -65,7 +64,7 @@ export function useAuth() {
   }
 
   function logout() {
-    deleteCookie();
+    clearUser();
   }
 
   return {

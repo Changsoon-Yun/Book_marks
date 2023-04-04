@@ -6,18 +6,26 @@ import {
 } from "react-query";
 import { Snackbar } from "@mui/material";
 import Cookies from "universal-cookie";
+import { useRecoilState } from "recoil";
+import { snackbarAtom } from "@/lib/recoil/atom";
+import { getCookie } from "@/lib/cookie/cookie";
 
 const cookies = new Cookies();
-const getJWTHeader = () => {
-  return { Authorization: `Bearer ${cookies.get("creative-wallet")}` };
+export const getJWTHeader = () => {
+  const accessToken = getCookie("creative-wallet").accessToken;
+  return {
+    Authorization: `Bearer ${accessToken}`,
+  };
 };
 
-function queryErrorHandler(error: unknown): JSX.Element {
+function queryErrorHandler(error: unknown) {
+  // const [snack, setSnack] = useRecoilState(snackbarAtom);
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
   const message =
     error instanceof Error ? error.message : "error connecting to server";
 
-  return <Snackbar autoHideDuration={6000} message={message} />;
+  return message;
+  // return setSnack({ open: true, text: message, severity: "error" });
 }
 
 const config: QueryClientConfig = {
@@ -29,8 +37,8 @@ const config: QueryClientConfig = {
   }),
   defaultOptions: {
     queries: {
-      staleTime: 600000, // 10min
-      cacheTime: 900000, // 15min,
+      // staleTime: 600000, // 10min
+      // cacheTime: 900000, // 15min,
     },
   },
 };

@@ -9,13 +9,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { axiosInstance } from "@/lib/axios";
 import { useUser } from "@/components/auth/hooks/useUser";
+import { useEffect } from "react";
+import { getCookie } from "@/lib/cookie/cookie";
+import { useAuth } from "@/components/auth/hooks/useAuth";
 
 export default function Header() {
-  const a = useUser();
-
-  console.log(a);
-
   const { pathname } = useRouter();
+
+  const { user } = useUser();
+  const { logout } = useAuth();
+
   return (
     <Box>
       <AppBar position="static">
@@ -42,11 +45,19 @@ export default function Header() {
               write
             </Link>
           </Button>
-          <Button color="inherit">
-            <Link shallow={true} href={"/auth/login"}>
-              Login
-            </Link>
-          </Button>
+          {user ? (
+            <Button color="inherit">
+              <Link onClick={logout} shallow={true} href={"/auth/login"}>
+                logout
+              </Link>
+            </Button>
+          ) : (
+            <Button color="inherit">
+              <Link shallow={true} href={"/auth/login"}>
+                Login
+              </Link>
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

@@ -8,6 +8,7 @@ import "@/asset/styles/fonts";
 import React from "react";
 import { RecoilRoot } from "recoil";
 import Snackbar from "@/layout/Snackbar";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -23,6 +24,7 @@ export default function App(props: AppProps) {
               <Component {...pageProps} />
             </InnerLayout>
             <BottomNav />
+            <ReactQueryDevtools />
           </Layout>
         </QueryClientProvider>
       </RecoilRoot>
