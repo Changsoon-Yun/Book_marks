@@ -13,6 +13,16 @@ import { JwtService } from "@nestjs/jwt";
 export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
+  async getUser(userId: number) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (user) {
+      const payload = { email: user.email };
+      const accessToken = this.jwtService.sign(payload);
+
+      return { accessToken: accessToken, id: user.id, email: user.email };
+    }
+  }
+
   async signup(authCredentialDto: AuthCredentialDto) {
     const { email, password } = authCredentialDto;
 
@@ -20,10 +30,9 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
-      const res = await this.prisma.user.create({
+      return await this.prisma.user.create({
         data: { email, password: hashedPassword },
       });
-      return res;
     } catch (err) {
       if (err.code === "P2002") {
         throw new ConflictException("Existing username");
@@ -43,7 +52,7 @@ export class AuthService {
       const payload = { email };
       const accessToken = this.jwtService.sign(payload);
 
-      return { accessToken: accessToken };
+      return { accessToken: accessToken, id: user.id, email: user.email };
     } else {
       throw new UnauthorizedException("Login Failed");
     }

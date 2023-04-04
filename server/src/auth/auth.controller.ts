@@ -1,9 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
+  Param,
   Post,
-  Req,
   UseGuards,
   ValidationPipe,
 } from "@nestjs/common";
@@ -15,6 +16,11 @@ import { AuthGuard } from "@nestjs/passport";
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Get("/get-user/:id")
+  @UseGuards(AuthGuard())
+  getUser(@Param("id") userId: number) {
+    return this.authService.getUser(userId);
+  }
   @HttpCode(200)
   @Post("/login")
   async login(@Body(ValidationPipe) authCredentialDto: AuthCredentialDto) {
@@ -24,11 +30,5 @@ export class AuthController {
   @Post("/signin")
   async signin(@Body(ValidationPipe) authCredentialDto: AuthCredentialDto) {
     return this.authService.signup(authCredentialDto);
-  }
-
-  @Post("/get-user")
-  @UseGuards(AuthGuard())
-  getUser(@Req() req) {
-    return req.body;
   }
 }
