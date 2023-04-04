@@ -5,19 +5,16 @@ import {
   HttpCode,
   Param,
   Post,
-  UseGuards,
   ValidationPipe,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthCredentialDto } from "./dto/auth-credential.dto";
-import { AuthGuard } from "@nestjs/passport";
 
 @Controller("auth")
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Get("/get-user/:id")
-  @UseGuards(AuthGuard())
   getUser(@Param("id") userId: number) {
     return this.authService.getUser(userId);
   }

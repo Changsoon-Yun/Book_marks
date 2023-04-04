@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { snackbarAtom } from "@/lib/recoil/atom";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
@@ -13,7 +13,7 @@ type User = {
 
 export function useAuth() {
   const router = useRouter();
-  const [snack, setSnack] = useRecoilState(snackbarAtom);
+  const setSnack = useSetRecoilState(snackbarAtom);
   const { clearUser, updateUser } = useUser();
 
   async function authServerCall(urlEndpoint: string, data: User) {
@@ -29,7 +29,12 @@ export function useAuth() {
         if (response.status === 200) {
           setCookie("creative-wallet", response.data);
           updateUser(response.data);
-          // return router.push("/", undefined, { shallow: true });
+          setSnack({
+            open: true,
+            text: "로그인 성공 !",
+            severity: "success",
+          });
+          return router.push("/", undefined, { shallow: true });
         }
       }
 
@@ -64,6 +69,7 @@ export function useAuth() {
   }
 
   function logout() {
+    deleteCookie();
     clearUser();
   }
 
