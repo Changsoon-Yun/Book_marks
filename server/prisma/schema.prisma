@@ -12,12 +12,17 @@ model User {
   email      String   @unique
   password   String
   created_at DateTime @default(now())
+  Post       Post[]
 }
 
 model Post {
   id         Int      @id @default(autoincrement())
   title      String
   content    String
-  author     String
+  authorId   Int
+  published  Boolean  @default(true)
   created_at DateTime @default(now())
+  author     User     @relation(fields: [authorId], references: [id])
+
+  @@index([authorId], map: "Post_authorId_fkey")
 }

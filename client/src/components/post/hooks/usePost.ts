@@ -6,19 +6,24 @@ export type UserInput = {
   content: string;
 };
 
+export async function createPost(data: UserInput) {
+  console.log(data);
+  try {
+    const res = await axiosInstance.post("/post/write", data);
+    console.log(res);
+  } catch (err) {
+    console.log(err);
+  }
+  // return res;
+}
+
 async function getPosts() {
   const { data } = await axiosInstance.get("/post");
   return data;
 }
 
-async function createPost(data: UserInput) {
-  const res = await axiosInstance.post("/post/write", data);
-  console.log(res);
-  return res;
-}
-
 export function usePost() {
-  const { data: posts = [] } = useQuery(["getPosts"], getPosts);
+  const { data: posts = [] } = useQuery(["get-posts"], getPosts);
 
-  return { posts, createPost };
+  return { posts };
 }
