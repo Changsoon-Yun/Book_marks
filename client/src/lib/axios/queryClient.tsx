@@ -4,10 +4,7 @@ import {
   QueryClient,
   QueryClientConfig,
 } from "react-query";
-import { Snackbar } from "@mui/material";
 import Cookies from "universal-cookie";
-import { useRecoilState } from "recoil";
-import { snackbarAtom } from "@/lib/recoil/atom";
 import { getCookie } from "@/lib/cookie/cookie";
 
 const cookies = new Cookies();
