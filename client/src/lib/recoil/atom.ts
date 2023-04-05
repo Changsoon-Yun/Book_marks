@@ -1,10 +1,10 @@
-import {atom} from "recoil";
-import {AlertColor} from "@mui/material"
+import { atom } from 'recoil';
+import { AlertColor } from '@mui/material';
 
 interface SnackBarType {
-  open: boolean,
-  text: string,
-  severity: AlertColor
+  open: boolean;
+  text: string;
+  severity: AlertColor;
 }
 
 export const snackbarAtom = atom<SnackBarType>({
@@ -12,7 +12,7 @@ export const snackbarAtom = atom<SnackBarType>({
   key: `snackbarAtom/${Math.random()}`,
   default: {
     open: false,
-    text: "",
-    severity: "info"
-  }
-})
+    text: '',
+    severity: 'info',
+  },
+});

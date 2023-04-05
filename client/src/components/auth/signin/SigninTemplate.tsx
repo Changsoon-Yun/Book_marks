@@ -1,15 +1,9 @@
-import React from "react";
-import styled from "@emotion/styled";
-import {
-  Button,
-  FormGroup,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
+import React from 'react';
+import styled from '@emotion/styled';
+import { Button, FormGroup, InputAdornment, TextField, Typography } from '@mui/material';
 
-import { Google, Visibility, VisibilityOff } from "@mui/icons-material";
-import { SigninProps } from "@/pages/auth/signin";
+import { Google, Visibility, VisibilityOff } from '@mui/icons-material';
+import { SigninProps } from '@/pages/auth/signin';
 
 export default function SigninTemplate(props: SigninProps) {
   const { onSubmit, psType, psTypeHandler, setEmail, setPassword } = props;
@@ -17,7 +11,7 @@ export default function SigninTemplate(props: SigninProps) {
   return (
     <Main>
       <form onSubmit={onSubmit}>
-        <FormGroup sx={{ gap: "20px" }}>
+        <FormGroup sx={{ gap: '20px' }}>
           <Typography variant="h4" component="h2">
             Sign in
           </Typography>
@@ -28,7 +22,7 @@ export default function SigninTemplate(props: SigninProps) {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            size={"small"}
+            size={'small'}
             label="ID"
             variant="outlined"
           />
@@ -36,29 +30,25 @@ export default function SigninTemplate(props: SigninProps) {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            size={"small"}
+            size={'small'}
             label="Password"
-            type={psType ? "text" : "password"}
+            type={psType ? 'text' : 'password'}
             variant="outlined"
             InputProps={{
               endAdornment: (
-                <InputAdornment
-                  onClick={psTypeHandler}
-                  position="end"
-                  sx={{ cursor: "pointer" }}
-                >
+                <InputAdornment onClick={psTypeHandler} position="end" sx={{ cursor: 'pointer' }}>
                   {psType ? <Visibility /> : <VisibilityOff />}
                 </InputAdornment>
               ),
             }}
           />
-          <Button type={"submit"} variant={"contained"}>
+          <Button type={'submit'} variant={'contained'}>
             Submit
           </Button>
           <Button
-            type={"submit"}
-            sx={{ borderColor: "#aaa", color: "#000" }}
-            variant={"outlined"}
+            type={'submit'}
+            sx={{ borderColor: '#aaa', color: '#000' }}
+            variant={'outlined'}
             startIcon={<Google />}
           >
             Sign in With Google

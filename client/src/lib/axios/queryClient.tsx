@@ -1,15 +1,8 @@
-import {
-  MutationCache,
-  QueryCache,
-  QueryClient,
-  QueryClientConfig,
-} from "react-query";
-import Cookies from "universal-cookie";
-import { getCookie } from "@/lib/cookie/cookie";
+import { MutationCache, QueryCache, QueryClient, QueryClientConfig } from 'react-query';
+import { getCookie } from '@/lib/cookie/cookie';
 
-const cookies = new Cookies();
 export const getJWTHeader = () => {
-  const accessToken = getCookie("creative-wallet").accessToken;
+  const accessToken = getCookie('creative-wallet').accessToken;
   return {
     Authorization: `Bearer ${accessToken}`,
   };
@@ -18,8 +11,7 @@ export const getJWTHeader = () => {
 function queryErrorHandler(error: unknown) {
   // const [snack, setSnack] = useRecoilState(snackbarAtom);
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const message =
-    error instanceof Error ? error.message : "error connecting to server";
+  const message = error instanceof Error ? error.message : 'error connecting to server';
 
   return console.error(message);
   // return setSnack({ open: true, text: message, severity: "error" });
