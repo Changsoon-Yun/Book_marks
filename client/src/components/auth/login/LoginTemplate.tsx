@@ -22,7 +22,7 @@ export default function LoginTemplate(props: LoginProps) {
           </Typography>
           <TextField
             size={'small'}
-            id="outlined-basic"
+            id={'email'}
             label="ID"
             variant="outlined"
             onChange={(e) => {
@@ -31,7 +31,7 @@ export default function LoginTemplate(props: LoginProps) {
           />
           <TextField
             size={'small'}
-            id="outlined-basic"
+            id={'password'}
             label="Password"
             type={psType ? 'text' : 'password'}
             variant="outlined"

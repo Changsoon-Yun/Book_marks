@@ -1,8 +1,17 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+import { BottomNav, Header, InnerLayout } from '@/layout/index';
+import Snackbar from '@/layout/Snackbar';
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  return <StLayout>{children}</StLayout>;
+  return (
+    <StLayout>
+      <Header />
+      <Snackbar />
+      <InnerLayout>{children} </InnerLayout>
+      <BottomNav />
+    </StLayout>
+  );
 };
 
 export default Layout;
