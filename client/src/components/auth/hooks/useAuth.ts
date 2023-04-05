@@ -5,11 +5,7 @@ import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
 import { deleteCookie, setCookie } from "@/lib/cookie/cookie";
 import { useUser } from "@/components/auth/hooks/useUser";
-
-type User = {
-  email: string;
-  password: string;
-};
+import { User } from "@/types/User";
 
 export function useAuth() {
   const router = useRouter();

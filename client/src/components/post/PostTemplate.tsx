@@ -1,3 +1,7 @@
-export default function PostTemplate() {
-  return <div>PostTemplate</div>;
+import { PostProps } from "@/pages/post";
+
+export default function PostTemplate(props: PostProps) {
+  const { data } = props;
+  console.log(data);
+  return <div></div>;
 }

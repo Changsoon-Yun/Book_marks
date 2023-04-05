@@ -5,28 +5,26 @@ import { useQuery, useQueryClient } from "react-query";
 import { getJWTHeader } from "@/lib/axios/queryClient";
 
 interface UseUser {
-  user: User | null | undefined;
-  updateUser: (user: User) => void;
+  user: UserWidthToken | null | undefined;
+  updateUser: (user: UserWidthToken) => void;
   clearUser: () => void;
 }
 
-export interface User {
+export interface UserWidthToken {
   id: number;
   email: string;
   accessToken: string;
 }
 async function getUser(
-  user: User | null | undefined,
+  user: UserWidthToken | null | undefined,
   signal: AbortSignal | undefined
 ) {
   if (!user) return null;
-  const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
-    `/auth/get-user/${user.id}`,
-    {
+  const { data }: AxiosResponse<{ user: UserWidthToken }> =
+    await axiosInstance.get(`/auth/get-user/${user.id}`, {
       headers: getJWTHeader(),
       signal,
-    }
-  );
+    });
   return data;
 }
 
@@ -35,11 +33,11 @@ export function useUser(): UseUser {
   const { data: user } = useQuery<
     any,
     unknown,
-    User | null | undefined,
+    UserWidthToken | null | undefined,
     string[]
   >(["get-user"], ({ signal }) => getUser(user, signal), {
     initialData: getCookie(),
-    onSuccess: (received: User | null | undefined) => {
+    onSuccess: (received: UserWidthToken | null | undefined) => {
       if (!received) {
         deleteCookie();
       } else {
@@ -48,7 +46,7 @@ export function useUser(): UseUser {
     },
   });
 
-  function updateUser(user: User) {
+  function updateUser(user: UserWidthToken) {
     queryClient.setQueryData(["get-user"], user);
   }
 

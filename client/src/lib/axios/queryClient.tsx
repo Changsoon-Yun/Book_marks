@@ -21,7 +21,7 @@ function queryErrorHandler(error: unknown) {
   const message =
     error instanceof Error ? error.message : "error connecting to server";
 
-  return message;
+  return console.error(message);
   // return setSnack({ open: true, text: message, severity: "error" });
 }
 

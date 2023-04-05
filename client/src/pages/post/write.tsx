@@ -1,6 +1,10 @@
 import PostWriteTemplate from "@/components/post/PostWriteTemplate";
 import { FormEvent, MutableRefObject, useRef } from "react";
-import { createPost, UserInput } from "@/components/post/hooks/usePost";
+import {
+  useCreatePost,
+  UserInput,
+} from "@/components/post/hooks/useCreatePost";
+import { useUser } from "@/components/auth/hooks/useUser";
 
 export interface WriteProps {
   titleRef: MutableRefObject<HTMLDivElement | null>;
@@ -11,8 +15,13 @@ export default function Write() {
   const titleRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const { user } = useUser();
+  const { createPost } = useCreatePost();
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return alert("로그인이 필요합니다 !");
+
     if (titleRef && contentRef) {
       const titleInput = titleRef.current?.childNodes[1]
         .childNodes[0] as HTMLInputElement;
@@ -23,6 +32,7 @@ export default function Write() {
         title: titleInput.value,
         content: contentInput.value,
       };
+
       createPost(data);
     }
   };

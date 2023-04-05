@@ -9,5 +9,5 @@ export class PostDto {
   @IsString()
   @MinLength(2)
   @MaxLength(30)
-  password: string;
+  content: string;
 }
