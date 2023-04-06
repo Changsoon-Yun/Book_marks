@@ -9,6 +9,7 @@ export default function Header() {
     { href: '/auth/login', name: 'LOGIN' },
     { href: '/auth/signin', name: 'SIGNIN' },
   ];
+
   const pathname = usePathname();
   return (
     <div>
