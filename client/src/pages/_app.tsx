@@ -10,6 +10,10 @@ import Layout from "@/layout/Layout";
 export default class RootApp extends App {
   render() {
     const {Component, pageProps} = this.props;
+
+
+
+    console.log('hello')
     return (
       <>
         <RecoilRoot>
