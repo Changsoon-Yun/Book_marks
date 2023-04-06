@@ -1,11 +1,11 @@
-import { axiosInstance } from "@/lib/axios";
-import { useSetRecoilState } from "recoil";
-import { snackbarAtom } from "@/lib/recoil/atom";
-import { useRouter } from "next/router";
-import axios, { AxiosResponse } from "axios";
-import { deleteCookie, setCookie } from "@/lib/cookie/cookie";
-import { useUser } from "@/components/auth/hooks/useUser";
-import { User } from "@/types/User";
+import { axiosInstance } from '@/lib/axios';
+import { useSetRecoilState } from 'recoil';
+import { snackbarAtom } from '@/lib/recoil/atom';
+import { useRouter } from 'next/router';
+import axios, { AxiosResponse } from 'axios';
+import { deleteCookie, setCookie } from '@/lib/cookie/cookie';
+import { useUser } from '@/feature/auth/hooks/useUser';
+import { User } from '@/types/User';
 
 export function useAuth() {
   const router = useRouter();
@@ -30,7 +30,6 @@ export function useAuth() {
           setSnack({
             open: true,
             text: '로그인 성공 !',
-            severity: 'success',
           });
           return router.push('/', undefined, {
             shallow: true,
@@ -42,7 +41,6 @@ export function useAuth() {
         setSnack({
           open: true,
           text: '계정이 생성되었습니다.',
-          severity: 'success',
         });
         return router.push('/auth/login', undefined, {
           shallow: true,
@@ -55,7 +53,6 @@ export function useAuth() {
         setSnack({
           open: true,
           text: err.response.data.message,
-          severity: 'error',
         });
       }
     }

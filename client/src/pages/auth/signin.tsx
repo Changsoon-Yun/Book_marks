@@ -1,6 +1,6 @@
-import SigninTemplate from '@/components/auth/signin/SigninTemplate';
+import SigninTemplate from '@/feature/auth/signin/SigninTemplate';
 import React, { FormEvent, SetStateAction, useState } from 'react';
-import { useAuth } from '@/components/auth/hooks/useAuth';
+import { useAuth } from '@/feature/auth/hooks/useAuth';
 import { User } from '@/types/User';
 
 export interface SigninProps {

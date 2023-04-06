@@ -1,16 +1,14 @@
-import PostWriteTemplate from "@/components/post/PostWriteTemplate";
-import { FormEvent, MutableRefObject, useRef } from "react";
-import {
-  useCreatePost,
-  UserInput,
-} from "@/components/post/hooks/useCreatePost";
-import { useUser } from "@/components/auth/hooks/useUser";
+import PostWriteTemplate from '@/feature/post/PostWriteTemplate';
+import { FormEvent, MutableRefObject, useRef } from 'react';
+import { useCreatePost, UserInput } from '@/feature/post/hooks/useCreatePost';
+import { useUser } from '@/feature/auth/hooks/useUser';
 
 export interface WriteProps {
   titleRef: MutableRefObject<HTMLDivElement | null>;
   contentRef: MutableRefObject<HTMLDivElement | null>;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
+
 export default function Write() {
   const titleRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -20,13 +18,11 @@ export default function Write() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user) return alert("로그인이 필요합니다 !");
+    if (!user) return alert('로그인이 필요합니다 !');
 
     if (titleRef && contentRef) {
-      const titleInput = titleRef.current?.childNodes[1]
-        .childNodes[0] as HTMLInputElement;
-      const contentInput = contentRef.current?.childNodes[1]
-        .childNodes[0] as HTMLInputElement;
+      const titleInput = titleRef.current?.childNodes[1].childNodes[0] as HTMLInputElement;
+      const contentInput = contentRef.current?.childNodes[1].childNodes[0] as HTMLInputElement;
 
       const data: UserInput = {
         title: titleInput.value,
@@ -36,11 +32,5 @@ export default function Write() {
       createPost(data);
     }
   };
-  return (
-    <PostWriteTemplate
-      titleRef={titleRef}
-      contentRef={contentRef}
-      onSubmit={onSubmit}
-    />
-  );
+  return <PostWriteTemplate titleRef={titleRef} contentRef={contentRef} onSubmit={onSubmit} />;
 }

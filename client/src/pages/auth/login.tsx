@@ -1,6 +1,6 @@
 import React, { FormEvent, SetStateAction, useState } from 'react';
-import LoginTemplate from '@/components/auth/login/LoginTemplate';
-import { useAuth } from '@/components/auth/hooks/useAuth';
+import LoginTemplate from '@/feature/auth/login/LoginTemplate';
+import { useAuth } from '@/feature/auth/hooks/useAuth';
 
 export interface LoginProps {
   psType: boolean;

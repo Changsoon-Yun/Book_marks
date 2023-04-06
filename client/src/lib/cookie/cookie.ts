@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import { UserWidthToken } from '@/components/auth/hooks/useUser';
+import { UserWidthToken } from '@/feature/auth/hooks/useUser';
 
 const cookies = new Cookies();
 export const setCookie = (name = 'creative-wallet', value: UserWidthToken | undefined | null) => {

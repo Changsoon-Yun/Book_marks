@@ -1,10 +1,8 @@
 import { atom } from 'recoil';
-import { AlertColor } from '@mui/material';
 
 interface SnackBarType {
   open: boolean;
   text: string;
-  severity: AlertColor;
 }
 
 export const snackbarAtom = atom<SnackBarType>({
@@ -13,6 +11,5 @@ export const snackbarAtom = atom<SnackBarType>({
   default: {
     open: false,
     text: '',
-    severity: 'info',
   },
 });

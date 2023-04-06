@@ -1,4 +1,4 @@
-import PostEditTemplate from '@/components/post/PostEditTemplate';
+import PostEditTemplate from '@/feature/post/PostEditTemplate';
 
 export default function Edit() {
   return <PostEditTemplate />;
