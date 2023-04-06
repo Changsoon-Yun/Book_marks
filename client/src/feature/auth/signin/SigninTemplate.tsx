@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from '@emotion/styled';
 import { SigninProps } from '@/pages/auth/signin';
+import styled from '@emotion/styled';
+import React from 'react';
 
 export default function SigninTemplate(props: SigninProps) {
   const { onSubmit, psType, psTypeHandler, setEmail, setPassword } = props;

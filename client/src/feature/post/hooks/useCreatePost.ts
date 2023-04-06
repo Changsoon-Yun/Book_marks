@@ -1,9 +1,9 @@
 import { axiosInstance } from '@/lib/axios';
 import { getJWTHeader } from '@/lib/axios/queryClient';
-import { useSetRecoilState } from 'recoil';
 import { snackbarAtom } from '@/lib/recoil/atom';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
 export type UserInput = {
   title: string;

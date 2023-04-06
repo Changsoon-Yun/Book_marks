@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/lib/axios';
-import { useQuery } from 'react-query';
 import { Post } from '@/types/Post';
+import { useQuery } from 'react-query';
 
 async function getPosts(): Promise<Post[]> {
   const { data } = await axiosInstance.get('/post');

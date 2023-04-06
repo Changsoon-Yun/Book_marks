@@ -1,7 +1,7 @@
+import { useUser } from '@/feature/auth/hooks/useUser';
+import { useCreatePost, UserInput } from '@/feature/post/hooks/useCreatePost';
 import PostWriteTemplate from '@/feature/post/PostWriteTemplate';
 import { FormEvent, MutableRefObject, useRef } from 'react';
-import { useCreatePost, UserInput } from '@/feature/post/hooks/useCreatePost';
-import { useUser } from '@/feature/auth/hooks/useUser';
 
 export interface WriteProps {
   titleRef: MutableRefObject<HTMLDivElement | null>;

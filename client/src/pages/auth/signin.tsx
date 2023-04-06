@@ -1,7 +1,7 @@
-import SigninTemplate from '@/feature/auth/signin/SigninTemplate';
-import React, { FormEvent, SetStateAction, useState } from 'react';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
+import SigninTemplate from '@/feature/auth/signin/SigninTemplate';
 import { User } from '@/types/User';
+import React, { FormEvent, SetStateAction, useState } from 'react';
 
 export interface SigninProps {
   psType: boolean;

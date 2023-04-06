@@ -1,5 +1,5 @@
-import { MutationCache, QueryCache, QueryClient, QueryClientConfig } from 'react-query';
 import { getCookie } from '@/lib/cookie/cookie';
+import { MutationCache, QueryCache, QueryClient, QueryClientConfig } from 'react-query';
 
 export const getJWTHeader = () => {
   const accessToken = getCookie('creative-wallet').accessToken;

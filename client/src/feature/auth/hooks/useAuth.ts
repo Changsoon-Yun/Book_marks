@@ -1,11 +1,11 @@
-import { axiosInstance } from '@/lib/axios';
-import { useSetRecoilState } from 'recoil';
-import { snackbarAtom } from '@/lib/recoil/atom';
-import { useRouter } from 'next/router';
-import axios, { AxiosResponse } from 'axios';
-import { deleteCookie, setCookie } from '@/lib/cookie/cookie';
 import { useUser } from '@/feature/auth/hooks/useUser';
+import { axiosInstance } from '@/lib/axios';
+import { deleteCookie, setCookie } from '@/lib/cookie/cookie';
+import { snackbarAtom } from '@/lib/recoil/atom';
 import { User } from '@/types/User';
+import axios, { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
 export function useAuth() {
   const router = useRouter();

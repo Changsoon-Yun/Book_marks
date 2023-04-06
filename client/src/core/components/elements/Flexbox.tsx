@@ -1,6 +1,6 @@
+import { AlignType, DirectionType, JustifyType, WrapType } from '@/types/StyleType';
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
-import { AlignType, DirectionType, JustifyType, WrapType } from '@/types/StyleType';
 
 export default function Flexbox({
   justify = 'normal',

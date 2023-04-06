@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   compiler: {
-    emotion: true
-  }
+    emotion: true,
+  },
 };
 
 module.exports = nextConfig;

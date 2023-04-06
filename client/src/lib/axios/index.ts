@@ -1,5 +1,5 @@
-import axios, { CreateAxiosDefaults } from "axios";
-import { baseUrl } from "@/lib/axios/constants";
+import { baseUrl } from '@/lib/axios/constants';
+import axios, { CreateAxiosDefaults } from 'axios';
 
 const config: CreateAxiosDefaults = {
   baseURL: baseUrl,
