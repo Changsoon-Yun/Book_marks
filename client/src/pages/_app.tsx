@@ -11,9 +11,12 @@ export default class RootApp extends App {
   render() {
     const {Component, pageProps} = this.props;
 
-
-
     console.log('hello')
+
+
+
+
+    console.log("hello2")
     return (
       <>
         <RecoilRoot>
