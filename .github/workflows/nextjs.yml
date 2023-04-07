@@ -8,14 +8,9 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
-        # 노드설치
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.17.0"
-          registry-url: "https://registry.npmjs.org"
+
       - name: Install Dependencies
-        run: cd client && yarn install && yarn build && yarn export
+        run: cd client && yarn install && yarn deploy
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
