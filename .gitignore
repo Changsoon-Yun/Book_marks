@@ -70,3 +70,4 @@ lerna-debug.log*
 sql.ts
 /.idea/creative_wallet.iml
 serverless.yml
+/csforbookmark
