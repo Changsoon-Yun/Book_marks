@@ -6,14 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code.
-        uses: actions/checkout@master
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        # 노드설치
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          ref: main
-
+          node-version: "16.17.0"
+          registry-url: "https://registry.npmjs.org"
       - name: Install Dependencies
-        run: |
-          cd client && yarn install
+        run: cd client && yarn install
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -23,8 +25,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Bookmark_client
-        run: |
-          cd client && yarn deploy
+        run: cd client && yarn deploy
 
       - name: Deploy to S3
         run: aws s3 sync ./${{ secrets.BUILD_DIRECTORY }} ${{ secrets.AWS_S3_BUCKET_NAME }} --acl public-read --delete
