@@ -6,6 +6,8 @@
 | react-query | 3.39.3  |
 | recoil      | 0.7.7   |
 
+[![bookmark_client](https://github.com/Changsoon-Yun/Book_marks/actions/workflows/nextjs.yml/badge.svg?event=push)](https://github.com/Changsoon-Yun/Book_marks/actions/workflows/nextjs.yml)
+
 <br />
 <br />
 
