@@ -69,3 +69,4 @@ lerna-debug.log*
 .env
 sql.ts
 /.idea/creative_wallet.iml
+serverless.yml

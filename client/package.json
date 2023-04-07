@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "deploy": "serverless && next build && next export"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -36,6 +36,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
     "install": "^0.13.0",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "serverless": "^3.30.1"
   }
 }
