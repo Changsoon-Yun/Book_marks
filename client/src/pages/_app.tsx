@@ -1,32 +1,26 @@
-import type {AppProps} from "next/app";
-import {CssBaseline} from "@mui/material";
-import {QueryClientProvider} from "react-query";
-import {BottomNav, Header, InnerLayout, Layout} from "@/components/share";
-import {queryClient} from "@/axios/queryClient";
-import "@/styles/globals.css";
-import "@/styles/fonts";
-import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "@/dev";
+import Layout from '@/layout/Layout';
+import { queryClient } from '@/lib/axios/queryClient';
+import App from 'next/app';
+import React from 'react';
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { RecoilRoot } from 'recoil';
 
-export default function App(props: AppProps) {
-  const {Component, pageProps} = props;
-  return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <CssBaseline/>
-        <Layout>
-          <Header/>
-          <InnerLayout>
-            <DevSupport
-              ComponentPreviews={ComponentPreviews}
-              useInitialHook={useInitial}
-            >
+export default class RootApp extends App {
+  render() {
+    const { Component, pageProps } = this.props;
+
+    return (
+      <>
+        <RecoilRoot>
+          <QueryClientProvider client={queryClient}>
+            <Layout>
               <Component {...pageProps} />
-            </DevSupport>
-          </InnerLayout>
-          <BottomNav/>
-        </Layout>
-      </QueryClientProvider>
-    </>
-  );
+            </Layout>
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </RecoilRoot>
+      </>
+    );
+  }
 }

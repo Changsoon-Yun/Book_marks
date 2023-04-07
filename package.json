@@ -1,0 +1,14 @@
+{
+  "name": "creative_wallet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Changsoon-Yun/creative_wallet.git",
+  "author": "changsoonyun <changsoonyun@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently -n \"client,server\" -c \"bgWhite.bold.red,bgWhite.bold.blue\" \"cd client && yarn dev\" \" cd server && yarn start:dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

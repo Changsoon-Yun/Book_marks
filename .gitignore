@@ -67,3 +67,5 @@ lerna-debug.log*
 */node_modules
 
 .env
+sql.ts
+/.idea/creative_wallet.iml
