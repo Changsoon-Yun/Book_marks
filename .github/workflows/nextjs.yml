@@ -34,3 +34,10 @@ jobs:
 
       - name: Deploy to S3
         run: aws s3 sync client/${{ secrets.BUILD_DIRECTORY }} s3://${{ secrets.AWS_S3_BUCKET_NAME }}
+
+      - name: Invalidate CloudFront Cache
+        use: chetan/invalidate-cloudfront-action@master
+        env:
+          DISTRIBUTION: ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}}
+          PATHS: '/index.html'
+        continue-on-error: true
