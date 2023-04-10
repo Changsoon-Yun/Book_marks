@@ -2,12 +2,11 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/get-user.decorator';
-import { PostDto } from './dto/post.dto';
-import { PostService } from './post.service';
+import { BookmarkDto } from './dto/bookmark.dto';
 
 @Controller('post')
-export class PostController {
-  constructor(private postService: PostService) {}
+export class BookmarkService {
+  constructor(private postService: BookmarkService) {}
 
   @Get()
   getPosts() {
@@ -16,7 +15,7 @@ export class PostController {
 
   @Post('/write')
   @UseGuards(AuthGuard())
-  createPost(@GetUser() user: User, @Body() postDto: PostDto) {
+  createPost(@GetUser() user: User, @Body() postDto: BookmarkDto) {
     return this.postService.createPost(user, postDto);
   }
 }

@@ -8,21 +8,44 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  email      String   @unique
-  password   String
-  created_at DateTime @default(now())
-  Post       Post[]
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  bookmark  Bookmark[]
+  Folder    Folder[]
 }
 
-model Post {
-  id         Int      @id @default(autoincrement())
-  title      String
-  content    String
-  authorId   Int
-  published  Boolean  @default(true)
-  created_at DateTime @default(now())
-  author     User     @relation(fields: [authorId], references: [id])
+model Bookmark {
+  id          Int      @id @default(autoincrement())
+  title       String
+  userId      Int
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  description String?
+  folderId    Int
+  parentId    Int?
+  updatedAt   DateTime @updatedAt
+  url         String
+  folder      Folder   @relation(fields: [folderId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 
-  @@index([authorId], map: "Post_authorId_fkey")
+  @@index([userId], map: "Post_authorId_fkey")
+  @@index([folderId], map: "Bookmark_folderId_fkey")
+}
+
+model Folder {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  parentId  Int?
+  userId    Int
+  bookmarks Bookmark[]
+  parent    Folder?    @relation("ChildOf", fields: [parentId], references: [id])
+  children  Folder[]   @relation("ChildOf")
+  user      User       @relation(fields: [userId], references: [id])
+
+  @@index([parentId], map: "Folder_parentId_fkey")
+  @@index([userId], map: "Folder_userId_fkey")
 }

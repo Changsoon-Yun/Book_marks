@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Post, User } from '@prisma/client';
 import puppeteer from 'puppeteer';
 import { PrismaService } from '../prisma.service';
-import { PostDto } from './dto/post.dto';
+import { BookmarkDto } from './dto/bookmark.dto';
 
 //import iconv from 'iconv-lite';
 
 @Injectable()
-export class PostService {
+export class BookmarkService {
   constructor(private prisma: PrismaService) {}
 
   async getPosts(): Promise<Post[] | null> {
@@ -16,7 +16,7 @@ export class PostService {
     return res;
   }
 
-  async createPost(user: User, postDto: PostDto) {
+  async createPost(user: User, postDto: BookmarkDto) {
     const { title: url, content } = postDto;
     try {
       const browser = await puppeteer.launch();
@@ -36,7 +36,7 @@ export class PostService {
     }
   }
 
-  // async createPost(user: User, postDto: PostDto): Promise<Post> {
+  // async createPost(user: User, postDto: BookmarkDto): Promise<Post> {
   //   const { title, content } = postDto;
   //   return this.prisma.post.create({
   //     data: {

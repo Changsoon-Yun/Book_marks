@@ -1,6 +1,6 @@
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 
-export class PostDto {
+export class BookmarkDto {
   @IsString()
   @MinLength(2)
   title: string;
