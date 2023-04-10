@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Post, User } from '@prisma/client';
+import puppeteer from 'puppeteer';
 import { PrismaService } from '../prisma.service';
 import { PostDto } from './dto/post.dto';
-import axios from 'axios';
-import cheerio from 'cheerio';
-import iconv from 'iconv-lite';
+
+//import iconv from 'iconv-lite';
 
 @Injectable()
 export class PostService {
@@ -14,6 +14,26 @@ export class PostService {
     const res = await this.prisma.post.findMany({});
     console.log(res);
     return res;
+  }
+
+  async createPost(user: User, postDto: PostDto) {
+    const { title: url, content } = postDto;
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(url);
+      const name = await page.$eval('head > meta[property="og:title"]', (element) => element.content);
+      const image = await page.$eval('head > meta[property="og:image"]', (element) => element.content);
+      const description = await page.$eval('head > meta[property="og:description"]', (element) => element.content);
+
+      return {
+        name,
+        image,
+        description,
+      };
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // async createPost(user: User, postDto: PostDto): Promise<Post> {
@@ -26,18 +46,4 @@ export class PostService {
   //     },
   //   });
   // }
-
-  async createPost(user: User, postDto: PostDto) {
-    const { title, content } = postDto;
-    try {
-      const res = await axios.get(title);
-      const $ = cheerio.load(res.data);
-      console.log($);
-      // const content = iconv.decode(res.data, 'EUC-KR');
-      // console.log($.html());
-      // console.log(content);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 }
