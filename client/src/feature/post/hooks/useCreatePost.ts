@@ -24,7 +24,8 @@ export function useCreatePost() {
           open: true,
           text: '게시글이 생성되었습니다.',
         });
-        return router.push('/post');
+        //todo:원복
+        // return router.push('/post');
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
