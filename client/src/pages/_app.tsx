@@ -1,5 +1,6 @@
 import Layout from '@/layout/Layout';
 import { queryClient } from '@/lib/axios/queryClient';
+import { ChakraProvider } from '@chakra-ui/react';
 import App from 'next/app';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
@@ -14,10 +15,12 @@ export default class RootApp extends App {
       <>
         <RecoilRoot>
           <QueryClientProvider client={queryClient}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ReactQueryDevtools />
+            <ChakraProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              <ReactQueryDevtools />
+            </ChakraProvider>
           </QueryClientProvider>
         </RecoilRoot>
       </>

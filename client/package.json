@@ -10,6 +10,10 @@
     "deploy": "next build && next export"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.2",
+    "@chakra-ui/react": "^2.5.5",
+    "@react-buddy/ide-toolbox": "^2.3.1",
+    "@react-buddy/palette-mui": "^5.0.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fontsource/roboto": "^4.5.8",
@@ -29,7 +33,11 @@
     "react-query": "^3.39.3",
     "recoil": "^0.7.7",
     "typescript": "5.0.2",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "dayjs": "^1.11.7",
+    "framer-motion": "^10.10.0",
+    "json-server": "^0.17.3",
+    "react-icons": "^4.8.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0",
