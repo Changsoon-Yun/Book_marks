@@ -5,7 +5,12 @@ const nextConfig = {
     emotion: true,
   },
   images: {
-    domains: ['fastly.picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
 };
 
