@@ -1,29 +1,36 @@
 import Layout from '@/layout/Layout';
 import { queryClient } from '@/lib/axios/queryClient';
 import { ChakraProvider } from '@chakra-ui/react';
-import App from 'next/app';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
+import { appWithTranslation } from 'next-i18next';
+import { AppProps } from 'next/app';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export default class RootApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
+const MyApp = (props: AppProps) => {
+  const { Component, pageProps } = props;
+  console.log(props);
+  return (
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider>
+          <Layout {...pageProps}>
+            <Component {...pageProps} />
+          </Layout>
+          <ReactQueryDevtools />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
+  );
+};
 
-    return (
-      <>
-        <RecoilRoot>
-          <QueryClientProvider client={queryClient}>
-            <ChakraProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              <ReactQueryDevtools />
-            </ChakraProvider>
-          </QueryClientProvider>
-        </RecoilRoot>
-      </>
-    );
-  }
-}
+export default appWithTranslation(MyApp);
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'ko' }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['header'])),
+  },
+});
