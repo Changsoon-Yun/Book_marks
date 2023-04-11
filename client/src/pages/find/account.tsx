@@ -1,13 +1,12 @@
-import Header from '@/layout/Header';
-import React from 'react';
+import Layout from '@/layout/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React from 'react';
 
 export default function Account() {
   return (
     <>
-      <Header />
-      아이디 찾기입니다
+      <Layout>아이디 찾기입니다</Layout>
     </>
   );
 }

@@ -1,13 +1,15 @@
 import BookmarkItemTemplate from '@/feature/bookmark/BookmarkItemTemplate';
+import Layout from '@/layout/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Header from '@/layout/Header';
+import React from 'react';
 
 export default function PostItem() {
   return (
     <>
-      <Header />
-      <BookmarkItemTemplate />
+      <Layout>
+        <BookmarkItemTemplate />
+      </Layout>
     </>
   );
 }

@@ -1,16 +1,17 @@
-import { useGetBookmarks } from '@/feature/bookmark/hooks/useGetBookmarks';
 import BookmarkTemplate from '@/feature/bookmark/BookmarkTemplate';
-import Header from '@/layout/Header';
-import React from 'react';
+import { useGetBookmarks } from '@/feature/bookmark/hooks/useGetBookmarks';
+import Layout from '@/layout/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React from 'react';
 
 export default function Post() {
   const { data: bookmarks } = useGetBookmarks();
   return (
     <>
-      <Header />
-      <BookmarkTemplate bookmarks={bookmarks} />
+      <Layout>
+        <BookmarkTemplate bookmarks={bookmarks} />
+      </Layout>
     </>
   );
 }

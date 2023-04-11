@@ -1,10 +1,10 @@
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import SigninTemplate from '@/feature/auth/signin/SigninTemplate';
+import Layout from '@/layout/Layout';
 import { User } from '@/types/User';
-import React, { FormEvent, SetStateAction, useState } from 'react';
-import Header from '@/layout/Header';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React, { FormEvent, SetStateAction, useState } from 'react';
 
 export interface SigninProps {
   psType: boolean;
@@ -30,14 +30,15 @@ export default function Signin() {
   };
   return (
     <>
-      <Header />
-      <SigninTemplate
-        onSubmit={onSubmit}
-        psType={psType}
-        psTypeHandler={psTypeHandler}
-        setEmail={setEmail}
-        setPassword={setPassword}
-      />
+      <Layout>
+        <SigninTemplate
+          onSubmit={onSubmit}
+          psType={psType}
+          psTypeHandler={psTypeHandler}
+          setEmail={setEmail}
+          setPassword={setPassword}
+        />
+      </Layout>
     </>
   );
 }

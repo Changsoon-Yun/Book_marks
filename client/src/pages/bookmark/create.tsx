@@ -1,10 +1,10 @@
 import { useUser } from '@/feature/auth/hooks/useUser';
-import { useCreateBookmark, UserInput } from '@/feature/bookmark/hooks/useCreateBookmark';
 import BookmarkCreateTemplate from '@/feature/bookmark/BookmarkCreateTemplate';
-import { FormEvent, MutableRefObject, useRef } from 'react';
-import Header from '@/layout/Header';
+import { useCreateBookmark, UserInput } from '@/feature/bookmark/hooks/useCreateBookmark';
+import Layout from '@/layout/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { FormEvent, MutableRefObject, useRef } from 'react';
 
 export interface WriteProps {
   urlRef: MutableRefObject<HTMLInputElement | null>;
@@ -34,8 +34,9 @@ export default function Create() {
   };
   return (
     <>
-      <Header />
-      <BookmarkCreateTemplate urlRef={urlRef} contentRef={contentRef} onSubmit={onSubmit} />
+      <Layout>
+        <BookmarkCreateTemplate urlRef={urlRef} contentRef={contentRef} onSubmit={onSubmit} />
+      </Layout>
     </>
   );
 }

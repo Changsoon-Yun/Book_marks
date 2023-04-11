@@ -1,3 +1,5 @@
+import homepageLogo from '@/asset/images/logos/hompageLogo.png';
+import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -5,11 +7,7 @@ import {
   Flex,
   Icon,
   IconButton,
-  Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  Link as ChakraLink,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -18,27 +16,28 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import homepageLogo from '@/asset/images/logos/hompageLogo.png';
-import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
-import { AiOutlineGlobal } from 'react-icons/ai';
+import { Url } from 'next/dist/shared/lib/router/router';
+import Image from 'next/image';
+import Link from 'next/link';
+//import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Header() {
+  const { locale } = useRouter();
   const { isOpen, onToggle } = useDisclosure();
   const { t } = useTranslation('header');
 
   return (
-    <Box>
+    <Box borderBottom={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.900')}>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
+        maxW={'8xl'}
+        m={'auto'}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}>
         <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
           <IconButton
@@ -49,8 +48,10 @@ export default function Header() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Link href={'/'}>
-            <Image src={homepageLogo} alt={'logo'} width={30} height={30} />
+          <Link href={'/'} locale={locale}>
+            <ChakraLink as={'span'}>
+              <Image src={homepageLogo} alt={'logo'} width={30} height={30} />
+            </ChakraLink>
           </Link>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -59,33 +60,21 @@ export default function Header() {
         </Flex>
 
         <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
-          <Menu>
-            <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
-              <Icon as={AiOutlineGlobal} w={'20px'} h={'20px'} />
-            </MenuButton>
-            <MenuList>
-              <MenuItem>
-                <Icon as={} />
-                Link 1
-              </MenuItem>
-              <MenuItem>Link 2</MenuItem>
-            </MenuList>
-          </Menu>
-          <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
-            {t('signin')}
+          <Button as={'div'} fontSize={'sm'} fontWeight={400} variant={'link'}>
+            <Link href={'/auth/login'}>{t('signin')}</Link>
           </Button>
+
           <Button
-            as={'a'}
+            as={'div'}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
             bg={'blue.400'}
-            href={'#'}
             _hover={{
               bg: 'blue.300',
             }}>
-            {t('signup')}
+            <Link href={'/auth/signin'}>{t('signup')}</Link>
           </Button>
         </Stack>
       </Flex>
@@ -102,15 +91,16 @@ const DesktopNav = () => {
   const linkHoverColor = useColorModeValue('gray.800', 'white');
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   const { t } = useTranslation('header');
+  const { locale } = useRouter();
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link
+              <ChakraLink
+                as={'span'}
                 p={2}
-                href={navItem.href ?? '#'}
                 fontSize={'sm'}
                 fontWeight={500}
                 color={linkColor}
@@ -118,8 +108,10 @@ const DesktopNav = () => {
                   textDecoration: 'none',
                   color: linkHoverColor,
                 }}>
-                {t(navItem.label)}
-              </Link>
+                <Link href={navItem.href ?? '#'} locale={locale}>
+                  {t(navItem.label)}
+                </Link>
+              </ChakraLink>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -140,32 +132,35 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   const { t } = useTranslation('header');
+  const { locale } = useRouter();
   return (
-    <Link
-      href={href}
-      role={'group'}
-      display={'block'}
-      p={2}
-      rounded={'md'}
-      _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
-      <Stack direction={'row'} align={'center'}>
-        <Box>
-          <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
-            {t(label)}
-          </Text>
-          {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
-        </Box>
-        <Flex
-          transition={'all .3s ease'}
-          transform={'translateX(-10px)'}
-          opacity={0}
-          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-          justify={'flex-end'}
-          align={'center'}
-          flex={1}>
-          <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
-      </Stack>
+    <Link href={href} locale={locale}>
+      <ChakraLink
+        as={'span'}
+        role={'group'}
+        display={'block'}
+        p={2}
+        rounded={'md'}
+        _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
+        <Stack direction={'row'} align={'center'}>
+          <Box>
+            <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
+              {t(label)}
+            </Text>
+            {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
+          </Box>
+          <Flex
+            transition={'all .3s ease'}
+            transform={'translateX(-10px)'}
+            opacity={0}
+            _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+            justify={'flex-end'}
+            align={'center'}
+            flex={1}>
+            <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
+          </Flex>
+        </Stack>
+      </ChakraLink>
     </Link>
   );
 };
@@ -180,9 +175,10 @@ const MobileNav = () => {
   );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href }: { label: string; href?: Url; children: NavItem[] }) => {
   const { isOpen, onToggle } = useDisclosure();
   const { t } = useTranslation('header');
+  const { locale } = useRouter();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -219,8 +215,10 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           align={'start'}>
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
-                {t(child.label)}
+              <Link key={child.label} href={child.href} locale={locale}>
+                <ChakraLink as={'span'} py={2}>
+                  {t(child.label)}
+                </ChakraLink>
               </Link>
             ))}
         </Stack>
@@ -233,10 +231,10 @@ interface NavItem {
   label: string;
   subLabel?: string;
   children?: Array<NavItem>;
-  href?: string;
+  href: Url;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+const NAV_ITEMS: { label: string; href?: Url; children: NavItem[] }[] = [
   {
     label: 'menu-1',
     children: [

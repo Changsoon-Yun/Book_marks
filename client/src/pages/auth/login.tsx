@@ -1,9 +1,9 @@
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import LoginTemplate from '@/feature/auth/login/LoginTemplate';
-import React, { FormEvent, SetStateAction, useState } from 'react';
-import Header from '@/layout/Header';
+import Layout from '@/layout/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React, { FormEvent, SetStateAction, useState } from 'react';
 
 export interface LoginProps {
   psType: boolean;
@@ -29,14 +29,15 @@ export default function Login() {
 
   return (
     <>
-      <Header />
-      <LoginTemplate
-        onSubmit={onSubmit}
-        psType={psType}
-        psTypeHandler={psTypeHandler}
-        setEmail={setEmail}
-        setPassword={setPassword}
-      />
+      <Layout>
+        <LoginTemplate
+          onSubmit={onSubmit}
+          psType={psType}
+          psTypeHandler={psTypeHandler}
+          setEmail={setEmail}
+          setPassword={setPassword}
+        />
+      </Layout>
     </>
   );
 }

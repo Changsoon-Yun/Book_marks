@@ -1,13 +1,14 @@
 import BookmarkEditTemplate from '@/feature/bookmark/BookmarkEditTemplate';
-import Header from '@/layout/Header';
+import Layout from '@/layout/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Edit() {
   return (
     <>
-      <Header />
-      <BookmarkEditTemplate />
+      <Layout>
+        <BookmarkEditTemplate />
+      </Layout>
     </>
   );
 }
