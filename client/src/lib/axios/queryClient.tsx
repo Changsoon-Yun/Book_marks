@@ -1,5 +1,6 @@
 import { getCookie } from '@/lib/cookie/cookie';
 import { MutationCache, QueryCache, QueryClient, QueryClientConfig } from 'react-query';
+import { createStandaloneToast } from '@chakra-ui/react';
 
 export const getJWTHeader = () => {
   const accessToken = getCookie('creative-wallet').accessToken;
@@ -7,14 +8,13 @@ export const getJWTHeader = () => {
     Authorization: `Bearer ${accessToken}`,
   };
 };
-
+const { toast } = createStandaloneToast();
 function queryErrorHandler(error: unknown) {
   // const [snack, setSnack] = useRecoilState(snackbarAtom);
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const message = error instanceof Error ? error.message : 'error connecting to server';
+  const title = error instanceof Error ? error.message : 'error connecting to server';
 
-  return console.error(message);
-  // return setSnack({ open: true, text: message, severity: "error" });
+  return toast({ title, status: 'error', variant: 'subtle', isClosable: true });
 }
 
 const config: QueryClientConfig = {

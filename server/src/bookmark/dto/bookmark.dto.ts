@@ -1,11 +1,10 @@
-import { IsString, MinLength } from 'class-validator';
+import { IsString, IsUrl, MaxLength } from 'class-validator';
 
 export class BookmarkDto {
-  @IsString()
-  @MinLength(2)
-  title: string;
+  @IsUrl()
+  url: string;
 
   @IsString()
-  @MinLength(2)
+  @MaxLength(200)
   content: string;
 }

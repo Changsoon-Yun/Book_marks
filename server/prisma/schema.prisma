@@ -23,14 +23,15 @@ model Bookmark {
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   description String?
-  folderId    Int
+  folderId    Int      @default(1)
   parentId    Int?
   updatedAt   DateTime @updatedAt
   url         String
+  imageUrl    String
   folder      Folder   @relation(fields: [folderId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 
-  @@index([userId], map: "Post_authorId_fkey")
+  @@index([userId], map: "Bookmark_userId_fkey")
   @@index([folderId], map: "Bookmark_folderId_fkey")
 }
 

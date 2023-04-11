@@ -1,32 +1,33 @@
 import { useUser } from '@/feature/auth/hooks/useUser';
-import { useCreatePost, UserInput } from '@/feature/post/hooks/useCreatePost';
-import PostWriteTemplate from '@/feature/post/PostWriteTemplate';
+import { useCreateBookmark, UserInput } from '@/feature/bookmark/hooks/useCreateBookmark';
+import BookmarkCreateTemplate from '@/feature/bookmark/BookmarkCreateTemplate';
 import { FormEvent, MutableRefObject, useRef } from 'react';
 
 export interface WriteProps {
-  titleRef: MutableRefObject<HTMLInputElement | null>;
+  urlRef: MutableRefObject<HTMLInputElement | null>;
   contentRef: MutableRefObject<HTMLTextAreaElement | null>;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export default function Write() {
-  const titleRef = useRef<HTMLInputElement>(null);
+export default function Create() {
+  const urlRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const { user } = useUser();
-  const { createPost } = useCreatePost();
+  const { createBookmark } = useCreateBookmark();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!user) return alert('로그인이 필요합니다 !');
 
-    if (titleRef.current && contentRef.current) {
+    if (urlRef.current && contentRef.current) {
       const data: UserInput = {
-        title: titleRef.current.value,
+        url: urlRef.current.value,
         content: contentRef.current.value,
       };
-      createPost(data);
+      createBookmark(data);
     }
   };
-  return <PostWriteTemplate titleRef={titleRef} contentRef={contentRef} onSubmit={onSubmit} />;
+  return <BookmarkCreateTemplate urlRef={urlRef} contentRef={contentRef} onSubmit={onSubmit} />;
 }
