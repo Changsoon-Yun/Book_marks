@@ -6,6 +6,10 @@ import {
   Icon,
   IconButton,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -18,8 +22,9 @@ import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@ch
 import homepageLogo from '@/asset/images/logos/hompageLogo.png';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
+import { AiOutlineGlobal } from 'react-icons/ai';
 
-export default function Header({ ...pageProps }) {
+export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
   const { t } = useTranslation('header');
 
@@ -44,7 +49,9 @@ export default function Header({ ...pageProps }) {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Image src={homepageLogo} alt={'logo'} width={30} height={30} />
+          <Link href={'/'}>
+            <Image src={homepageLogo} alt={'logo'} width={30} height={30} />
+          </Link>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
@@ -52,6 +59,18 @@ export default function Header({ ...pageProps }) {
         </Flex>
 
         <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
+          <Menu>
+            <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
+              <Icon as={AiOutlineGlobal} w={'20px'} h={'20px'} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem>
+                <Icon as={} />
+                Link 1
+              </MenuItem>
+              <MenuItem>Link 2</MenuItem>
+            </MenuList>
+          </Menu>
           <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
             {t('signin')}
           </Button>
@@ -82,7 +101,7 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200');
   const linkHoverColor = useColorModeValue('gray.800', 'white');
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-
+  const { t } = useTranslation('header');
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -99,7 +118,7 @@ const DesktopNav = () => {
                   textDecoration: 'none',
                   color: linkHoverColor,
                 }}>
-                {navItem.label}
+                {t(navItem.label)}
               </Link>
             </PopoverTrigger>
 
@@ -120,6 +139,7 @@ const DesktopNav = () => {
 };
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  const { t } = useTranslation('header');
   return (
     <Link
       href={href}
@@ -131,9 +151,9 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
-            {label}
+            {t(label)}
           </Text>
-          <Text fontSize={'sm'}>{subLabel}</Text>
+          {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
         </Box>
         <Flex
           transition={'all .3s ease'}
@@ -162,6 +182,7 @@ const MobileNav = () => {
 
 const MobileNavItem = ({ label, children, href }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure();
+  const { t } = useTranslation('header');
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -175,7 +196,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           textDecoration: 'none',
         }}>
         <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
-          {label}
+          {t(label)}
         </Text>
         {children && (
           <Icon
@@ -199,7 +220,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           {children &&
             children.map((child) => (
               <Link key={child.label} py={2} href={child.href}>
-                {child.label}
+                {t(child.label)}
               </Link>
             ))}
         </Stack>
@@ -217,17 +238,17 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: '즐겨찾기',
+    label: 'menu-1',
     children: [
       {
-        label: '즐겨찾기 구경하기',
-        subLabel: '당신에게 영감을 주는 인기 즐겨찾기',
+        label: 'menu-1-label-1',
+        subLabel: 'menu-1-sub-1',
         href: '/bookmark',
       },
       {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
+        label: 'menu-1-label-2',
+        subLabel: 'menu-1-sub-2',
+        href: '/bookmark/new',
       },
     ],
   },

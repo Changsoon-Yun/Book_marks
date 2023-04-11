@@ -1,6 +1,9 @@
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import LoginTemplate from '@/feature/auth/login/LoginTemplate';
 import React, { FormEvent, SetStateAction, useState } from 'react';
+import Header from '@/layout/Header';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export interface LoginProps {
   psType: boolean;
@@ -25,12 +28,21 @@ export default function Login() {
   };
 
   return (
-    <LoginTemplate
-      onSubmit={onSubmit}
-      psType={psType}
-      psTypeHandler={psTypeHandler}
-      setEmail={setEmail}
-      setPassword={setPassword}
-    />
+    <>
+      <Header />
+      <LoginTemplate
+        onSubmit={onSubmit}
+        psType={psType}
+        psTypeHandler={psTypeHandler}
+        setEmail={setEmail}
+        setPassword={setPassword}
+      />
+    </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'ko' }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['header'])),
+  },
+});
