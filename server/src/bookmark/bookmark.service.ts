@@ -15,22 +15,29 @@ export class BookmarkService {
   }
 
   async createBookmark(user: User, bookmarkDto: BookmarkDto) {
-    const { url, content } = bookmarkDto;
+    const { url, title, description } = bookmarkDto;
+
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(url);
-      const title = await page.$eval('head > meta[property="og:title"]', (element) => element.content);
+      const pageTitle = await page.$eval('head > meta[property="og:title"]', (element) => element.content);
       const imageUrl = await page.$eval('head > meta[property="og:image"]', (element) => element.content);
-      const description = await page.$eval('head > meta[property="og:description"]', (element) => element.content);
-
-      return this.prisma.bookmark.create({
-        data: {
-          title,
-          url,
+      const pageDescription = await page.$eval('head > meta[property="og:description"]', (element) => element.content);
+      const folderId = await this.prisma.folder.findFirst({
+        where: {
           userId: user.id,
-          imageUrl,
-          description,
+        },
+      });
+      return this.prisma.bookmark.create({
+        //TODO: imageUrl 유저에게 받아 처리할지 확인
+        data: {
+          url,
+          title: title ?? pageTitle,
+          description: description ?? pageDescription,
+          imageUrl: imageUrl ?? imageUrl,
+          userId: user.id,
+          folderId: folderId.id,
         },
       });
     } catch (err) {

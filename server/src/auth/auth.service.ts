@@ -37,12 +37,22 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
-      return await this.prisma.user.create({
+      const userData = await this.prisma.user.create({
         data: {
           email,
           password: hashedPassword,
         },
       });
+      await this.prisma.folder.create({
+        data: {
+          name: 'root',
+          userId: userData.id,
+        },
+      });
+      return {
+        status: 'created',
+        code: 201,
+      };
     } catch (err) {
       if (err.code === 'P2002') {
         throw new ConflictException('Existing username');

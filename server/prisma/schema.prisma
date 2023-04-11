@@ -23,7 +23,7 @@ model Bookmark {
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   description String?
-  folderId    Int      @default(1)
+  folderId    Int
   parentId    Int?
   updatedAt   DateTime @updatedAt
   url         String
