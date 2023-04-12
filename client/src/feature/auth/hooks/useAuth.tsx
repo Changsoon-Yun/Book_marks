@@ -7,6 +7,8 @@ import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 
 const { toast } = createStandaloneToast();
+
+const SERVER_ERROR = 'There was an error contacting the server.';
 export function useAuth() {
   const router = useRouter();
   const { clearUser, updateUser } = useUser();
@@ -43,12 +45,12 @@ export function useAuth() {
     } catch (err) {
       console.log(err);
       // axios에서 error를 처리하는 방법
-      if (axios.isAxiosError(err) && err.response) {
-        const message = err.response.data.message.map((item: string, i: number) => <div key={i}>{item}</div>);
-        const title = err instanceof Error ? message : 'error connecting to server';
+      const message =
+        axios.isAxiosError(err) && err?.response?.data?.message ? err?.response?.data?.message : SERVER_ERROR;
 
-        return toast({ title, status: 'error', variant: 'subtle', isClosable: true });
-      }
+      const title =
+        typeof message === 'string' ? message : message.map((item: string, i: number) => <div key={i}>{item}</div>);
+      return toast({ title, status: 'error', variant: 'subtle', isClosable: true });
     }
   }
 

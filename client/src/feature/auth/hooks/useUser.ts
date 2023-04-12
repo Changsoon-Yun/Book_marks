@@ -16,7 +16,7 @@ export interface UserWidthToken {
   accessToken: string;
 }
 
-async function getUser(user: UserWidthToken | null | undefined, signal: AbortSignal | undefined) {
+export async function getUser(user: UserWidthToken | null | undefined, signal: AbortSignal | undefined) {
   if (!user) return null;
   const { data }: AxiosResponse<{ user: UserWidthToken }> = await axiosInstance.get(`/auth/get-user/${user.id}`, {
     headers: getJWTHeader(),

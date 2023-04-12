@@ -1,42 +1,53 @@
 import { useAuth } from '@/feature/auth/hooks/useAuth';
-import SigninTemplate from '@/feature/auth/signin/SigninTemplate';
+import SigninTemplate from '@/feature/auth/components/templates/SigninTemplate';
 import Layout from '@/layout/components/templates/Layout';
 import { User } from '@/types/User';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React, { FormEvent, SetStateAction, useState } from 'react';
+import React, { FormEvent, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/hooks';
+import { useToast } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
+import { AuthProps, ConfirmPassword } from '@/feature/auth/interface/AuthProps';
 
-export interface SigninProps {
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  setPassword: React.Dispatch<SetStateAction<string>>;
-  setUserName: React.Dispatch<SetStateAction<string>>;
-  pwWatch: boolean;
-  setPwWatch: { toggle: () => void };
-  pwConfirmWatch: boolean;
-  setPwConfirmWatch: { toggle: () => void };
-}
+export interface SigninProps extends ConfirmPassword, AuthProps {}
 
 export default function Signin() {
   const auth = useAuth();
+  const { t } = useTranslation('auth');
+  const toast = useToast();
+
   const [pwWatch, setPwWatch] = useBoolean(false);
   const [pwConfirmWatch, setPwConfirmWatch] = useBoolean(false);
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const pwRef = useRef<HTMLInputElement>(null);
+  const pwConfirmRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: User = { userName, password };
-    auth.signin(data);
+    const userName = userNameRef.current?.value;
+    const password = pwRef.current?.value;
+    const confirmPassword = pwConfirmRef.current?.value;
+    if (password !== confirmPassword) {
+      toast({ title: t('password-not-matched'), status: 'warning', isClosable: true });
+      return;
+    }
+
+    if (userName && password) {
+      const data: User = { userName, password };
+      auth.signin(data);
+    }
   };
   return (
     <>
       <Layout>
         <SigninTemplate
           onSubmit={onSubmit}
-          setUserName={setUserName}
-          setPassword={setPassword}
+          userNameRef={userNameRef}
+          pwRef={pwRef}
           pwWatch={pwWatch}
+          pwConfirmRef={pwConfirmRef}
           setPwWatch={setPwWatch}
           pwConfirmWatch={pwConfirmWatch}
           setPwConfirmWatch={setPwConfirmWatch}
