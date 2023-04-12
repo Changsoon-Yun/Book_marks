@@ -10,7 +10,6 @@ import {
   Link as ChakraLink,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Stack,
@@ -24,19 +23,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { DesktopNav } from '@/layout/components/molecules/DesktopNav';
 import { MobileNav } from '@/layout/components/molecules/MobileNav';
-import { useUser } from '@/feature/auth/hooks/useUser';
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
+import { useAuth } from '@/feature/auth/hooks/useAuth';
 
-const Header = ({ accessToken }: { accessToken: string | undefined }) => {
-  console.log(accessToken);
+const Header = () => {
   const [mounted, setMounted] = useState(false);
   const { locale } = useRouter();
   const { isOpen, onToggle } = useDisclosure();
   const { t } = useTranslation('header');
-  const { user } = useUser();
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { logout } = useAuth();
+
   return (
     <Box borderBottom={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.900')}>
       <Flex
@@ -68,7 +64,7 @@ const Header = ({ accessToken }: { accessToken: string | undefined }) => {
           </Flex>
         </Flex>
 
-        {user && mounted ? (
+        {false ? (
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
@@ -80,9 +76,8 @@ const Header = ({ accessToken }: { accessToken: string | undefined }) => {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
+                <MenuItem onClick={logout}>로그아웃</MenuItem>
                 <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
                 <MenuItem>Link 3</MenuItem>
               </MenuList>
             </Menu>

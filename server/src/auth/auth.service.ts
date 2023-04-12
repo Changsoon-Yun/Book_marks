@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service';
 import { AuthCredentialDto } from './dto/auth-credential.dto';
 import { User } from '@prisma/client';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -63,7 +64,7 @@ export class AuthService {
     }
   }
 
-  async login(authCredentialDto: AuthCredentialDto) {
+  async login(authCredentialDto: AuthCredentialDto, res: Response) {
     const { userName, password } = authCredentialDto;
     const user = await this.prisma.user.findUnique({
       where: {
@@ -77,11 +78,18 @@ export class AuthService {
       const payload = { userName };
       const accessToken = this.jwtService.sign(payload);
 
-      return {
+      console.log(accessToken, 'accessToken');
+
+      res.cookie('Authorization', accessToken, {
+        httpOnly: true,
+        maxAge: 48 * 60 * 60 * 1000,
+      });
+
+      return res.send({
         accessToken: accessToken,
         id: user.id,
         userName: user.userName,
-      };
+      });
     } else {
       throw new UnauthorizedException('Login Failed');
     }

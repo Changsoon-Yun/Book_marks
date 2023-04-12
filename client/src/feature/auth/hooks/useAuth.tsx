@@ -1,6 +1,6 @@
 import { useUser } from '@/feature/auth/hooks/useUser';
 import { axiosInstance } from '@/lib/axios';
-import { deleteCookie, setCookie } from '@/lib/cookie/cookie';
+import { COOKIE_NAME, deleteCookie, setCookie } from '@/lib/cookie/cookie';
 import { User } from '@/types/User';
 import { createStandaloneToast } from '@chakra-ui/react';
 import axios, { AxiosResponse } from 'axios';
@@ -26,7 +26,7 @@ export function useAuth() {
 
       if (urlEndpoint === 'auth/login') {
         if (response.status === 200) {
-          setCookie('creative-wallet', response.data);
+          setCookie(COOKIE_NAME, response.data);
           updateUser(response.data);
           toast({ title: '로그인 성공 !', status: 'success', variant: 'subtle', isClosable: true });
 

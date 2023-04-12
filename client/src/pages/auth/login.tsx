@@ -1,11 +1,11 @@
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import LoginTemplate from '@/feature/auth/components/templates/LoginTemplate';
 import Layout from '@/layout/components/templates/Layout';
-import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { FormEvent, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/hooks';
 import { User } from '@/types/User';
+import { GetServerSideProps } from 'next';
 
 export default function Login() {
   const auth = useAuth();
@@ -40,8 +40,13 @@ export default function Login() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'ko' }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['header', 'auth'])),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale = 'ko' } = context;
+  const cookie = context.req.cookies['bookmark'] ?? null;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['header'])),
+      cookie,
+    },
+  };
+};

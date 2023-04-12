@@ -1,9 +1,11 @@
 import Layout from '@/layout/components/templates/Layout';
-import type { GetStaticProps, NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import type { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import React from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import axios from 'axios';
 
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
   return (
     <>
       <Layout>
@@ -15,8 +17,18 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'ko' }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['header'])),
-  },
-});
+// TODO: getServerSideProps 리턴타입 확인해야됌
+export const getServerSideProps: GetServerSideProps<{ cookie: string | null }> = async (context) => {
+  const { locale = 'ko' } = context;
+  const cookie = context.req.cookies['bookmark'] ?? null;
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['header'])),
+      cookie,
+    },
+  };
+};
