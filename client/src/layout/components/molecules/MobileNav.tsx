@@ -1,3 +1,6 @@
+import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
+import { NavItem } from '@/types/NavItem';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Collapse,
   Flex,
@@ -8,13 +11,10 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Url } from 'next/dist/shared/lib/router/router';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+import { Url } from 'next/dist/shared/lib/router/router';
 import Link from 'next/link';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
-import { NavItem } from '@/types/NavItem';
+import { useRouter } from 'next/router';
 
 export const MobileNav = () => {
   return (
@@ -28,7 +28,7 @@ export const MobileNav = () => {
 
 export const MobileNavItem = ({ label, children, href }: { label: string; href?: Url; children?: NavItem[] }) => {
   const { isOpen, onToggle } = useDisclosure();
-  const { t } = useTranslation('header');
+  const { t } = useTranslation('common');
   const { locale } = useRouter();
 
   return (

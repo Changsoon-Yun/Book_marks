@@ -11,7 +11,7 @@ const { toast } = createStandaloneToast();
 const SERVER_ERROR = 'There was an error contacting the server.';
 export function useAuth() {
   const router = useRouter();
-  const { clearUser, updateUser } = useUser();
+  const { clearUser, updateUser, user } = useUser();
 
   async function authServerCall(urlEndpoint: string, data: User) {
     try {
@@ -62,12 +62,14 @@ export function useAuth() {
     await authServerCall('auth/signin', data);
   }
 
-  function logout() {
-    deleteCookie();
-    clearUser();
+  async function logout() {
+    await deleteCookie();
+    await clearUser();
+    router.reload();
   }
 
   return {
+    user,
     login,
     signin,
     logout,

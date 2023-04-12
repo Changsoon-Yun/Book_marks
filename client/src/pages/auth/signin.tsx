@@ -1,13 +1,14 @@
-import { useAuth } from '@/feature/auth/hooks/useAuth';
 import SigninTemplate from '@/feature/auth/components/templates/SigninTemplate';
+import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
+import { useAuth } from '@/feature/auth/hooks/useAuth';
+import { AuthProps, ConfirmPassword } from '@/feature/auth/interface/AuthProps';
 import Layout from '@/layout/components/templates/Layout';
 import { User } from '@/types/User';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React, { FormEvent, useRef } from 'react';
 import { useBoolean } from '@chakra-ui/hooks';
 import { useToast } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
-import { AuthProps, ConfirmPassword } from '@/feature/auth/interface/AuthProps';
+import React, { FormEvent, useRef } from 'react';
 
 export interface SigninProps extends ConfirmPassword, AuthProps {}
 
@@ -57,12 +58,5 @@ export default function Signin() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { locale = 'ko' } = context;
-  const cookie = context.req.cookies['bookmark'] ?? null;
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['header'])),
-      cookie,
-    },
-  };
+  return prefetchUserData(context, ['common', 'auth']);
 };

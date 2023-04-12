@@ -1,3 +1,6 @@
+import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
+import { NavItem } from '@/types/NavItem';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
   Box,
   Flex,
@@ -11,17 +14,14 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { ChevronRightIcon } from '@chakra-ui/icons';
-import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
-import { NavItem } from '@/types/NavItem';
+import { useRouter } from 'next/router';
 
 export const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200');
   const linkHoverColor = useColorModeValue('gray.800', 'white');
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-  const { t } = useTranslation('header');
+  const { t } = useTranslation('common');
   const { locale } = useRouter();
   return (
     <Stack direction={'row'} spacing={4}>
@@ -62,7 +62,7 @@ export const DesktopNav = () => {
 };
 
 export const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-  const { t } = useTranslation('header');
+  const { t } = useTranslation('common');
   const { locale } = useRouter();
   return (
     <Link href={href} locale={locale}>

@@ -8,7 +8,7 @@ export const setCookie = (name = COOKIE_NAME, value: UserWidthToken | undefined 
   return cookies.set(name, value, { path: '/' });
 };
 
-export const getCookie = (name = COOKIE_NAME) => {
+export const getCookie = (name = COOKIE_NAME): UserWidthToken => {
   return cookies.get(name);
 };
 

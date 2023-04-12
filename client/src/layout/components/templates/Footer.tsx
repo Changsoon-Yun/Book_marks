@@ -1,3 +1,4 @@
+import { useGetColor } from '@/core/hooks/useGetColor';
 import {
   Box,
   Button,
@@ -20,7 +21,6 @@ import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { AiOutlineGlobal } from 'react-icons/ai';
 import { FaGithub, FaMoon, FaSun } from 'react-icons/fa';
-import { useGetColor } from '@/core/hooks/useGetColor';
 
 const SocialButton = ({ children, label, href }: { children: ReactNode; label: string; href: string }) => {
   return (
@@ -53,6 +53,7 @@ export default function SmallWithSocial() {
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const { color: footerBg } = useGetColor('white');
   const { color: footerText } = useGetColor(700);
+
   const languageHandler = (language: string) => {
     push(pathname, undefined, { locale: language });
   };
@@ -85,7 +86,7 @@ export default function SmallWithSocial() {
             size={'md'}
           />
           <Menu>
-            <MenuButton as={Button} rounded={'full'} variant={'unstyled'} cursor={'pointer'} minW={0}>
+            <MenuButton as={Button} rounded={'full'} cursor={'pointer'} minW={0}>
               <Flex align={'center'} fontSize={'12px'}>
                 <Icon as={AiOutlineGlobal} w={'20px'} h={'20px'} mr={'5px'} /> {locale?.toUpperCase()}
               </Flex>

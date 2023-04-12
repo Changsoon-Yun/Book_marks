@@ -1,53 +1,51 @@
+//@ts-nocheck
+//TODO: tscheck해야됌
+
+import { queryKeys } from '@/feature/auth/hooks/queryKey';
 import { axiosInstance } from '@/lib/axios';
-import { getJWTHeader } from '@/lib/axios/queryClient';
-import { deleteCookie, getCookie, setCookie } from '@/lib/cookie/cookie';
-import { AxiosResponse } from 'axios';
+import { COOKIE_NAME, deleteCookie, getCookie, setCookie } from '@/lib/cookie/cookie';
 import { useQuery, useQueryClient } from 'react-query';
 
 interface UseUser {
-  user: UserWidthToken | null | undefined;
+  user: UserWidthToken;
   updateUser: (user: UserWidthToken) => void;
   clearUser: () => void;
 }
 
 export interface UserWidthToken {
   id: number;
-  email: string;
+  userName: string;
   accessToken: string;
 }
 
-export async function getUser(user: UserWidthToken | null | undefined, signal: AbortSignal | undefined) {
+export async function getUser({ user, signal }: { user: UserWidthToken; signal?: AbortSignal }) {
   if (!user) return null;
-  const { data }: AxiosResponse<{ user: UserWidthToken }> = await axiosInstance.get(`/auth/get-user/${user.id}`, {
-    headers: getJWTHeader(),
+  const { data } = await axiosInstance.get(`/auth/get-user/${user.id}`, {
+    headers: { Authorization: `Bearer ${user.accessToken}` },
     signal,
   });
   return data;
 }
 
-export function useUser(): UseUser {
+export function useUser() {
   const queryClient = useQueryClient();
-  const { data: user } = useQuery<any, unknown, UserWidthToken | null | undefined, string[]>(
-    ['get-user'],
-    ({ signal }) => getUser(user, signal),
-    {
-      initialData: getCookie(),
-      onSuccess: (received: UserWidthToken | null | undefined) => {
-        if (!received) {
-          deleteCookie();
-        } else {
-          setCookie('creative-wallet', received);
-        }
-      },
-    }
-  );
+  const { data: user } = useQuery(queryKeys.userData, ({ signal }) => getUser({ user, signal }), {
+    initialData: getCookie(),
+    onSuccess: (received) => {
+      if (!received) {
+        deleteCookie();
+      } else {
+        setCookie(COOKIE_NAME, received);
+      }
+    },
+  });
 
   function updateUser(user: UserWidthToken) {
-    queryClient.setQueryData(['get-user'], user);
+    queryClient.setQueryData(queryKeys.userData, user);
   }
 
   function clearUser() {
-    queryClient.setQueryData(['get-user'], null);
+    queryClient.setQueryData(queryKeys.userData, null);
   }
 
   return { user, updateUser, clearUser };

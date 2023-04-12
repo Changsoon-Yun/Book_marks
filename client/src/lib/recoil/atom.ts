@@ -1,15 +1,12 @@
+import { UserWidthToken } from '@/feature/auth/hooks/useUser';
 import { atom } from 'recoil';
 
-interface SnackBarType {
-  open: boolean;
-  text: string;
-}
-
-export const snackbarAtom = atom<SnackBarType>({
+export const userDataAtom = atom<UserWidthToken>({
   // next + recoil 사용시 atom key 관련 duplicated 문제가 있음
-  key: `snackbarAtom/${Math.random()}`,
+  key: `userDataAtom/${Math.random()}`,
   default: {
-    open: false,
-    text: '',
+    id: 0,
+    userName: '',
+    accessToken: '',
   },
 });

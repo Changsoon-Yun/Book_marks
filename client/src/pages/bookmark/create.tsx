@@ -1,10 +1,10 @@
+import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import { useUser } from '@/feature/auth/hooks/useUser';
 import BookmarkCreateTemplate from '@/feature/bookmark/BookmarkCreateTemplate';
 import { useCreateBookmark, UserInput } from '@/feature/bookmark/hooks/useCreateBookmark';
 import Layout from '@/layout/components/templates/Layout';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { FormEvent, MutableRefObject, useRef } from 'react';
 import { GetServerSideProps } from 'next';
+import { FormEvent, MutableRefObject, useRef } from 'react';
 
 export interface WriteProps {
   urlRef: MutableRefObject<HTMLInputElement | null>;
@@ -42,12 +42,5 @@ export default function Create() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { locale = 'ko' } = context;
-  const cookie = context.req.cookies['bookmark'] ?? null;
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['header'])),
-      cookie,
-    },
-  };
+  return prefetchUserData(context, ['common']);
 };

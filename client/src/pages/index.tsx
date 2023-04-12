@@ -1,11 +1,10 @@
+import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import Layout from '@/layout/components/templates/Layout';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import React from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import axios from 'axios';
 
-const Home: NextPage = (props) => {
+const Home: NextPage = () => {
   return (
     <>
       <Layout>
@@ -17,18 +16,6 @@ const Home: NextPage = (props) => {
 
 export default Home;
 
-// TODO: getServerSideProps 리턴타입 확인해야됌
-export const getServerSideProps: GetServerSideProps<{ cookie: string | null }> = async (context) => {
-  const { locale = 'ko' } = context;
-  const cookie = context.req.cookies['bookmark'] ?? null;
-  if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
-  }
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['header'])),
-      cookie,
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return prefetchUserData(context, ['common']);
 };

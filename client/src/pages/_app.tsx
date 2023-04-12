@@ -1,22 +1,28 @@
-import { queryClient } from '@/lib/axios/queryClient';
+import '@/asset/styles/globals.css';
+import { config } from '@/lib/axios/queryClient';
+//import { queryClient } from '@/lib/axios/queryClient';
 import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { RecoilRoot } from 'recoil';
 import { appWithTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
-import '@/asset/styles/globals.css';
+import React from 'react';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { RecoilRoot } from 'recoil';
 
 const MyApp = (props: AppProps) => {
   const { Component, pageProps } = props;
+
+  const [queryClient] = React.useState(() => new QueryClient(config));
+
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <ChakraProvider>
-          <Component {...pageProps} />
-          <ReactQueryDevtools />
-        </ChakraProvider>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ChakraProvider>
+            <Component {...pageProps} />
+            <ReactQueryDevtools />
+          </ChakraProvider>
+        </Hydrate>
       </QueryClientProvider>
     </RecoilRoot>
   );

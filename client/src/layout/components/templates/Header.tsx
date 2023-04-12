@@ -1,4 +1,9 @@
+'use client';
+
 import homepageLogo from '@/asset/images/logos/homepageLogo.png';
+import { useAuth } from '@/feature/auth/hooks/useAuth';
+import { DesktopNav } from '@/layout/components/molecules/DesktopNav';
+import { MobileNav } from '@/layout/components/molecules/MobileNav';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   Avatar,
@@ -21,17 +26,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 //import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { DesktopNav } from '@/layout/components/molecules/DesktopNav';
-import { MobileNav } from '@/layout/components/molecules/MobileNav';
-import { memo, useState } from 'react';
-import { useAuth } from '@/feature/auth/hooks/useAuth';
+import { memo } from 'react';
 
 const Header = () => {
-  const [mounted, setMounted] = useState(false);
   const { locale } = useRouter();
   const { isOpen, onToggle } = useDisclosure();
-  const { t } = useTranslation('header');
-  const { logout } = useAuth();
+  const { t } = useTranslation('common');
+  const { logout, user } = useAuth();
 
   return (
     <Box borderBottom={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.900')}>
@@ -63,8 +64,7 @@ const Header = () => {
             <DesktopNav />
           </Flex>
         </Flex>
-
-        {false ? (
+        {user ? (
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
@@ -84,25 +84,22 @@ const Header = () => {
           </Flex>
         ) : (
           <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
-            <Link href={'/auth/login'}>
-              <Button fontSize={'sm'} fontWeight={400} variant={'ghost'}>
-                {t('signin')}
-              </Button>
-            </Link>
-            <Link href={'/auth/signin'}>
-              <Button
-                as={'div'}
-                display={{ base: 'none', md: 'inline-flex' }}
-                fontSize={'sm'}
-                fontWeight={600}
-                color={'white'}
-                bg={'blue.400'}
-                _hover={{
-                  bg: 'blue.300',
-                }}>
-                {t('signup')}
-              </Button>
-            </Link>
+            <Button as={'div'} fontSize={'sm'} fontWeight={400} variant={'ghost'}>
+              <Link href={'/auth/login'}>{t('signin')}</Link>
+            </Button>
+
+            <Button
+              as={'div'}
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'blue.400'}
+              _hover={{
+                bg: 'blue.300',
+              }}>
+              <Link href={'/auth/signin'}>{t('signup')}</Link>
+            </Button>
           </Stack>
         )}
       </Flex>
