@@ -6,8 +6,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import { appWithTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
-import { GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import '@/asset/styles/globals.css';
 
 const MyApp = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -24,9 +23,3 @@ const MyApp = (props: AppProps) => {
 };
 
 export default appWithTranslation(MyApp);
-
-export const getStaticProps: GetStaticProps = async ({ locale = 'ko' }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['header'])),
-  },
-});

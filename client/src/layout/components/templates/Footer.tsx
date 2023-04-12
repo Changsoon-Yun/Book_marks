@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { AiOutlineGlobal } from 'react-icons/ai';
 import { FaGithub, FaMoon, FaSun } from 'react-icons/fa';
+import { useGetColor } from '@/core/hooks/useGetColor';
 
 const SocialButton = ({ children, label, href }: { children: ReactNode; label: string; href: string }) => {
   return (
@@ -50,23 +51,28 @@ export default function SmallWithSocial() {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
+  const { color: footerBg } = useGetColor('white');
+  const { color: footerText } = useGetColor(700);
   const languageHandler = (language: string) => {
     push(pathname, undefined, { locale: language });
   };
   return (
-    <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
+    <Box bg={footerBg} color={footerText}>
       <Container
         as={Stack}
         maxW={'8xl'}
-        py={4}
+        py={2}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}>
-        <Text>help me...</Text>
+        <Text display={{ base: 'none', md: 'block' }}>help me...</Text>
         <Stack direction={'row'} spacing={4}>
           <SocialButton label={'github'} href={'https://github.com/Changsoon-Yun/Book_marks'}>
-            <FaGithub style={{ width: '18px', height: '18px' }} />
+            <FaGithub
+              fill={useColorModeValue('whiteAlpha.100', 'blackAlpha.100')}
+              style={{ width: '18px', height: '18px' }}
+            />
           </SocialButton>
           <IconButton
             bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}

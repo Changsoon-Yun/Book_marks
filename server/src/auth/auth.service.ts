@@ -3,13 +3,14 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service';
 import { AuthCredentialDto } from './dto/auth-credential.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
   async getUser(userId: number) {
-    const user = await this.prisma.user.findUnique({
+    const user: User = await this.prisma.user.findUnique({
       where: {
         id: userId,
       },
@@ -17,7 +18,7 @@ export class AuthService {
 
     if (user) {
       const payload = {
-        email: user.email,
+        userName: user.userName,
       };
 
       const accessToken = this.jwtService.sign(payload);
@@ -25,13 +26,13 @@ export class AuthService {
       return {
         accessToken: accessToken,
         id: user.id,
-        email: user.email,
+        userName: user.userName,
       };
     }
   }
 
   async signup(authCredentialDto: AuthCredentialDto) {
-    const { email, password } = authCredentialDto;
+    const { userName, password } = authCredentialDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -39,13 +40,13 @@ export class AuthService {
     try {
       const userData = await this.prisma.user.create({
         data: {
-          email,
+          userName,
           password: hashedPassword,
         },
       });
       await this.prisma.folder.create({
         data: {
-          name: 'root',
+          name: '/',
           userId: userData.id,
         },
       });
@@ -63,23 +64,23 @@ export class AuthService {
   }
 
   async login(authCredentialDto: AuthCredentialDto) {
-    const { email, password } = authCredentialDto;
+    const { userName, password } = authCredentialDto;
     const user = await this.prisma.user.findUnique({
       where: {
-        email,
+        userName,
       },
     });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       //유저 토큰 생성(secret + payload)
 
-      const payload = { email };
+      const payload = { userName };
       const accessToken = this.jwtService.sign(payload);
 
       return {
         accessToken: accessToken,
         id: user.id,
-        email: user.email,
+        userName: user.userName,
       };
     } else {
       throw new UnauthorizedException('Login Failed');

@@ -1,5 +1,5 @@
 import BookmarkItemTemplate from '@/feature/bookmark/BookmarkItemTemplate';
-import Layout from '@/layout/Layout';
+import Layout from '@/layout/components/templates/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';

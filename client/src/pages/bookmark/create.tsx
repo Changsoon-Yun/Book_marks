@@ -1,7 +1,7 @@
 import { useUser } from '@/feature/auth/hooks/useUser';
 import BookmarkCreateTemplate from '@/feature/bookmark/BookmarkCreateTemplate';
 import { useCreateBookmark, UserInput } from '@/feature/bookmark/hooks/useCreateBookmark';
-import Layout from '@/layout/Layout';
+import Layout from '@/layout/components/templates/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { FormEvent, MutableRefObject, useRef } from 'react';

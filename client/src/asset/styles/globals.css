@@ -1,16 +1,22 @@
 html, body {
+    height: 100%;
+    min-height: 100vh !important;
     width: 100%;
+}
+
+#__next {
     height: 100%;
 }
+
 
 /* a tag style reset*/
 a {
     color: #000;
+    outline: none;
     text-decoration: none;
-    outline: none
 }
 
 a:hover, a:active {
-    text-decoration: none;
     color: #000;
+    text-decoration: none;
 }

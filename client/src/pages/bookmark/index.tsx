@@ -1,6 +1,6 @@
 import BookmarkTemplate from '@/feature/bookmark/BookmarkTemplate';
 import { useGetBookmarks } from '@/feature/bookmark/hooks/useGetBookmarks';
-import Layout from '@/layout/Layout';
+import Layout from '@/layout/components/templates/Layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
