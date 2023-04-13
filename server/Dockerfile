@@ -1,7 +1,7 @@
 # Dockerfile
 
 # base image
-FROM node:16.16.0-alpine
+FROM node:16.16.0
 
 # 작업 디렉토리 생성
 WORKDIR /app
