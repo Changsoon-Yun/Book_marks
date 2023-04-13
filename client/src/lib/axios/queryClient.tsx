@@ -1,12 +1,13 @@
+import { COOKIE_NAME, getCookie } from '@/lib/cookie/cookie';
 import { createStandaloneToast } from '@chakra-ui/react';
 import { MutationCache, QueryCache, QueryClientConfig } from 'react-query';
 
-//export const getJWTHeader = () => {
-//  const accessToken = getCookie(COOKIE_NAME);
-//  return {
-//    Authorization: `Bearer ${accessToken}`,
-//  };
-//};
+export const getJWTHeader = () => {
+  const accessToken = getCookie(COOKIE_NAME);
+  return {
+    Authorization: `Bearer ${accessToken}`,
+  };
+};
 
 const { toast } = createStandaloneToast();
 function queryErrorHandler(error: unknown) {

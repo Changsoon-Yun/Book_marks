@@ -65,7 +65,6 @@ export function useAuth() {
   async function logout() {
     await deleteCookie();
     await clearUser();
-    router.reload();
   }
 
   return {
