@@ -23,5 +23,3 @@ EXPOSE 4000
 
 # 컨테이너 시작 시 실행할 명령어 지정
 CMD ["yarn", "start"]
-
-LABEL image=changsoonyun/bm_server:v1
