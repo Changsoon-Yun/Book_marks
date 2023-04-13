@@ -1,23 +1,23 @@
 import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 import { PrismaService } from '../prisma.service';
 import { AuthCredentialDto } from './dto/auth-credential.dto';
-import { User } from '@prisma/client';
-import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
-  async getUser(userId: number) {
-    const user: User = await this.prisma.user.findUnique({
+  async getUser(user: User) {
+    const userData = await this.prisma.user.findUnique({
       where: {
-        id: userId,
+        id: user.id,
       },
     });
 
-    if (user) {
+    if (userData) {
       const payload = {
         userName: user.userName,
       };
