@@ -1,13 +1,10 @@
-//@ts-nocheck
-//TODO: tscheck해야됌
-
 import { queryKeys } from '@/feature/auth/hooks/queryKey';
 import { axiosInstance } from '@/lib/axios';
-import { COOKIE_NAME, deleteCookie, getCookie, setCookie } from '@/lib/cookie/cookie';
+import { COOKIE_NAME, deleteCookie, setCookie } from '@/lib/cookie/cookie';
 import { useQuery, useQueryClient } from 'react-query';
 
 interface UseUser {
-  user: UserWidthToken;
+  user: UnKnownUserToken;
   updateUser: (user: UserWidthToken) => void;
   clearUser: () => void;
 }
@@ -18,19 +15,19 @@ export interface UserWidthToken {
   accessToken: string;
 }
 
-export async function getUser({ user, signal }: { user: UserWidthToken; signal?: AbortSignal }) {
+type UnKnownUserToken = UserWidthToken | null | undefined;
+
+export async function getUser(user: UnKnownUserToken): Promise<UnKnownUserToken> {
   if (!user) return null;
-  const { data } = await axiosInstance.get(`/auth/get-user/${user.id}`, {
+  const { data } = await axiosInstance.get(`/auth/get-user`, {
     headers: { Authorization: `Bearer ${user.accessToken}` },
-    signal,
   });
   return data;
 }
 
-export function useUser() {
+export function useUser(): UseUser {
   const queryClient = useQueryClient();
-  const { data: user } = useQuery(queryKeys.userData, ({ signal }) => getUser({ user, signal }), {
-    initialData: getCookie(),
+  const { data: userToken } = useQuery(queryKeys.userData, (): Promise<UnKnownUserToken> => getUser(userToken), {
     onSuccess: (received) => {
       if (!received) {
         deleteCookie();
@@ -48,5 +45,5 @@ export function useUser() {
     queryClient.setQueryData(queryKeys.userData, null);
   }
 
-  return { user, updateUser, clearUser };
+  return { user: userToken, updateUser, clearUser };
 }
