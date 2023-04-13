@@ -2,8 +2,8 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/get-user.decorator';
-import { BookmarkDto } from './dto/bookmark.dto';
 import { BookmarkService } from './bookmark.service';
+import { BookmarkDto } from './dto/bookmark.dto';
 
 @Controller('bookmark')
 export class BookmarkController {

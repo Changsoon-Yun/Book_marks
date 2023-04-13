@@ -1,6 +1,5 @@
-import { Url } from 'next/dist/shared/lib/router/router';
-
 import { NavItem } from '@/types/NavItem';
+import { Url } from 'next/dist/shared/lib/router/router';
 
 export const NAV_ITEMS: { label: string; href?: Url; children: NavItem[] }[] = [
   {

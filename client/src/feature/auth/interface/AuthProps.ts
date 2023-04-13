@@ -1,5 +1,5 @@
-import React, { FormEvent } from 'react';
 import { DefaultNamespace } from 'next-i18next';
+import React, { FormEvent } from 'react';
 
 export interface AuthProps {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;

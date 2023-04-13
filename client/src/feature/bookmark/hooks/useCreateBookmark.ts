@@ -1,8 +1,8 @@
 import { axiosInstance } from '@/lib/axios';
 import { getJWTHeader } from '@/lib/axios/queryClient';
+import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { createStandaloneToast } from '@chakra-ui/react';
 
 export type UserInput = {
   url: string;
@@ -11,6 +11,7 @@ export type UserInput = {
 };
 
 const { toast } = createStandaloneToast();
+
 export function useCreateBookmark() {
   const router = useRouter();
 

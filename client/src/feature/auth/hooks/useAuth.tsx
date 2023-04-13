@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 const { toast } = createStandaloneToast();
 
 const SERVER_ERROR = 'There was an error contacting the server.';
+
 export function useAuth() {
   const router = useRouter();
   const { clearUser, updateUser, user } = useUser();

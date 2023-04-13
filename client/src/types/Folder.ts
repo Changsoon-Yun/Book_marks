@@ -1,5 +1,5 @@
-import { User } from '@/types/User';
 import { Bookmark } from '@/types/Bookmark';
+import { User } from '@/types/User';
 
 export interface Folder {
   id: number;

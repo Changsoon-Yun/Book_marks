@@ -1,6 +1,6 @@
+import { InputFormProps } from '@/feature/auth/interface/AuthProps';
 import { FormControl, FormLabel, IconButton, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { InputFormProps } from '@/feature/auth/interface/AuthProps';
 
 export default function InputForm({ id, isRequired, inputType, inputRef, setInputType, label }: InputFormProps) {
   return (

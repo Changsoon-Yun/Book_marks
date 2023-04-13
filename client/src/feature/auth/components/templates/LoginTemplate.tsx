@@ -1,7 +1,7 @@
+import InputForm from '@/feature/auth/components/molecules/InputForm';
+import { AuthProps } from '@/feature/auth/interface/AuthProps';
 import { Box, Button, Checkbox, Flex, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import { AuthProps } from '@/feature/auth/interface/AuthProps';
-import InputForm from '@/feature/auth/components/molecules/InputForm';
 
 export default function LoginTemplate(props: AuthProps) {
   const { onSubmit, userNameRef, pwRef, pwWatch, setPwWatch } = props;

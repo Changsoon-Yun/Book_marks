@@ -10,6 +10,7 @@ export const getJWTHeader = () => {
 };
 
 const { toast } = createStandaloneToast();
+
 function queryErrorHandler(error: unknown) {
   const title = error instanceof Error ? error.message : 'error connecting to server';
   return toast({ title, status: 'error', variant: 'subtle', isClosable: true });

@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import { Bookmark } from '@/types/Bookmark';
+import Image from 'next/image';
 
 export default function BookmarkTemplate({ bookmarks }: { bookmarks: Bookmark[] }) {
   return (

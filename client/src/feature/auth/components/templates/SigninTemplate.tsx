@@ -1,7 +1,7 @@
+import InputForm from '@/feature/auth/components/molecules/InputForm';
+import { SigninProps } from '@/pages/auth/signin';
 import { Box, Button, Checkbox, Flex, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import { SigninProps } from '@/pages/auth/signin';
-import InputForm from '@/feature/auth/components/molecules/InputForm';
 
 export default function SigninTemplate(props: SigninProps) {
   const { onSubmit, userNameRef, pwRef, pwWatch, pwConfirmWatch, setPwWatch, setPwConfirmWatch, pwConfirmRef } = props;
