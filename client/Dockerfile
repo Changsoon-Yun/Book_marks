@@ -22,6 +22,4 @@ RUN yarn build
 EXPOSE 3000
 
 # 컨테이너 시작 시 실행할 명령어 지정
-CMD ["yarn", "dev"]
-
-LABEL image=changsoonyun/bm_client:v3
+CMD ["yarn", "start"]
