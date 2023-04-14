@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <>
       <Flex direction={'column'} h={'100%'}>
         <Header />
-        <Container maxW={'8xl'} minH={'0'} flex={1} overflow={'auto'}>
+        <Container maxW={'8xl'} flex={1} overflow={{ base: 'auto', md: 'visible' }}>
           {children}
         </Container>
         <Footer />
