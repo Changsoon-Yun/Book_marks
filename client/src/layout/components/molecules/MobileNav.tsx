@@ -1,19 +1,10 @@
 import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
 import { NavItem } from '@/types/NavItem';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import {
-  Collapse,
-  Flex,
-  Icon,
-  Link as ChakraLink,
-  Stack,
-  Text,
-  useColorModeValue,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Collapse, Flex, Icon, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { Url } from 'next/dist/shared/lib/router/router';
-import Link from 'next/link';
+import { Link } from '@chakra-ui/next-js';
 import { useRouter } from 'next/router';
 
 export const MobileNav = () => {
@@ -36,7 +27,7 @@ export const MobileNavItem = ({ label, children, href }: { label: string; href?:
       <Flex
         py={2}
         as={Link}
-        href={href ?? '#'}
+        href={href ?? ''}
         justify={'space-between'}
         align={'center'}
         _hover={{
@@ -66,10 +57,8 @@ export const MobileNavItem = ({ label, children, href }: { label: string; href?:
           align={'start'}>
           {children &&
             children.map((child) => (
-              <Link key={child.label} href={child.href} locale={locale}>
-                <ChakraLink as={'span'} py={2}>
-                  {t(child.label)}
-                </ChakraLink>
+              <Link key={child.label} href={child.href} locale={locale} as={'span'} py={2}>
+                {t(child.label)}
               </Link>
             ))}
         </Stack>

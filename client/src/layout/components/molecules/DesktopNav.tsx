@@ -5,7 +5,6 @@ import {
   Box,
   Flex,
   Icon,
-  Link as ChakraLink,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -14,7 +13,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
+import { Link } from '@chakra-ui/next-js';
 import { useRouter } from 'next/router';
 
 export const DesktopNav = () => {
@@ -29,8 +28,9 @@ export const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <ChakraLink
-                as={'span'}
+              <Link
+                href={navItem.href ?? ''}
+                locale={locale}
                 p={2}
                 fontSize={'sm'}
                 fontWeight={500}
@@ -39,10 +39,8 @@ export const DesktopNav = () => {
                   textDecoration: 'none',
                   color: linkHoverColor,
                 }}>
-                <Link href={navItem.href ?? '#'} locale={locale}>
-                  {t(navItem.label)}
-                </Link>
-              </ChakraLink>
+                {t(navItem.label)}
+              </Link>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -65,33 +63,32 @@ export const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
   return (
-    <Link href={href} locale={locale}>
-      <ChakraLink
-        as={'span'}
-        role={'group'}
-        display={'block'}
-        p={2}
-        rounded={'md'}
-        _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
-        <Stack direction={'row'} align={'center'}>
-          <Box>
-            <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
-              {t(label)}
-            </Text>
-            {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
-          </Box>
-          <Flex
-            transition={'all .3s ease'}
-            transform={'translateX(-10px)'}
-            opacity={0}
-            _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-            justify={'flex-end'}
-            align={'center'}
-            flex={1}>
-            <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
-          </Flex>
-        </Stack>
-      </ChakraLink>
+    <Link
+      href={href}
+      locale={locale}
+      role={'group'}
+      display={'block'}
+      p={2}
+      rounded={'md'}
+      _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
+      <Stack direction={'row'} align={'center'}>
+        <Box>
+          <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
+            {t(label)}
+          </Text>
+          {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
+        </Box>
+        <Flex
+          transition={'all .3s ease'}
+          transform={'translateX(-10px)'}
+          opacity={0}
+          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+          justify={'flex-end'}
+          align={'center'}
+          flex={1}>
+          <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
     </Link>
   );
 };
