@@ -25,9 +25,10 @@ export const config: QueryClientConfig = {
   }),
   defaultOptions: {
     queries: {
-      // staleTime: 600000, // 10min
-      // cacheTime: 900000, // 15min,
+      // staleTime: 1000 * 20, // 10min
+      // cacheTime: 1000 * 30, // 15min,
       refetchOnWindowFocus: false,
+      refetchOnReconnect: true,
     },
   },
 };
