@@ -27,7 +27,8 @@ model Bookmark {
   parentId    Int?
   updatedAt   DateTime @updatedAt
   url         String
-  imageUrl    String
+  imageUrl    String?
+  faviconUrl  String
   folder      Folder   @relation(fields: [folderId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 

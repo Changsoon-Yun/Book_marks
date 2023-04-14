@@ -12,4 +12,7 @@ export class BookmarkDto {
   @IsString()
   @MaxLength(200)
   description: string;
+
+  @IsUrl()
+  imageUrl: string;
 }

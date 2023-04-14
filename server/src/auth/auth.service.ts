@@ -11,6 +11,7 @@ export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
   async getUser(user: User) {
+    console.log('is here?');
     const userData = await this.prisma.user.findUnique({
       where: {
         id: user.id,

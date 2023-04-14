@@ -14,7 +14,13 @@ export class BookmarkController {
     return this.bookmarkService.getBookmark();
   }
 
-  @Post('/write')
+  @Post('/check')
+  @UseGuards(AuthGuard())
+  checkUrl(@GetUser() user: User, @Body() url: string) {
+    return this.bookmarkService.checkUrl(user, url);
+  }
+
+  @Post('/create')
   @UseGuards(AuthGuard())
   createPost(@GetUser() user: User, @Body() bookmarkDto: BookmarkDto) {
     return this.bookmarkService.createBookmark(user, bookmarkDto);
