@@ -1,11 +1,15 @@
 import InputForm from '@/feature/auth/components/molecules/InputForm';
 import { AuthProps } from '@/feature/auth/interface/AuthProps';
-import { Box, Button, Checkbox, Flex, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import SocialMediaButtons from '@/layout/components/molecules/SocialMediaButtons';
+import { Box, Button, Checkbox, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/next-js';
 import { useTranslation } from 'next-i18next';
+import { useGetColor } from '@/core/hooks/useGetColor';
 
 export default function LoginTemplate(props: AuthProps) {
   const { onSubmit, userNameRef, pwRef, pwWatch, setPwWatch } = props;
   const { t } = useTranslation('auth');
+  const { color: textColor } = useGetColor(500);
 
   return (
     <Flex minH={'100%'} align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -15,7 +19,11 @@ export default function LoginTemplate(props: AuthProps) {
             {t('login-heading1')}
           </Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            {t('auth-message-1')} <Link color={'blue.400'}>{t('auth-message-2')}</Link> ✌️
+            {t('auth-message-1')}{' '}
+            <Link href={'/'} color={'blue.400'}>
+              {t('auth-message-2')}
+            </Link>
+            ✌️
           </Text>
         </Stack>
         <Box
@@ -38,7 +46,9 @@ export default function LoginTemplate(props: AuthProps) {
             <Stack spacing={10}>
               <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
                 <Checkbox>{t('checkbox-auto-login')}</Checkbox>
-                <Link color={'blue.400'}>{t('link-forgot-password')}</Link>
+                <Link href={'/find/account'} color={'blue.400'}>
+                  {t('link-forgot-password')}
+                </Link>
               </Stack>
               <Button
                 type={'submit'}
@@ -51,6 +61,13 @@ export default function LoginTemplate(props: AuthProps) {
               </Button>
             </Stack>
           </Stack>
+          <SocialMediaButtons />
+          <Text p={'20px 5px 10px 5px'} color={textColor} fontSize={'sm'} textAlign={'center'}>
+            {t('dont-have-account')}
+            <Link href={'/auth/signup'} ml={2} fontWeight={'bold'}>
+              {t('signup-button')}
+            </Link>
+          </Text>
         </Box>
       </Stack>
     </Flex>

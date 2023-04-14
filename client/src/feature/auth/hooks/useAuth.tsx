@@ -37,7 +37,7 @@ export function useAuth() {
         }
       }
 
-      if (urlEndpoint === 'auth/signin') {
+      if (urlEndpoint === 'auth/signup') {
         toast({ title: '계정 생성 성공 !', status: 'success', variant: 'subtle', isClosable: true });
         return router.push('/auth/login', undefined, {
           shallow: true,
@@ -59,8 +59,8 @@ export function useAuth() {
     await authServerCall('auth/login', data);
   }
 
-  async function signin(data: User) {
-    await authServerCall('auth/signin', data);
+  async function signup(data: User) {
+    await authServerCall('auth/signup', data);
   }
 
   async function logout() {
@@ -71,7 +71,7 @@ export function useAuth() {
   return {
     user,
     login,
-    signin,
+    signup,
     logout,
   };
 }

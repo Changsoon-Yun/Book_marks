@@ -1,9 +1,9 @@
 import InputForm from '@/feature/auth/components/molecules/InputForm';
-import { SigninProps } from '@/pages/auth/signin';
+import { signupProps } from '@/pages/auth/signup';
 import { Box, Button, Checkbox, Flex, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 
-export default function SigninTemplate(props: SigninProps) {
+export default function SignupTemplate(props: signupProps) {
   const { onSubmit, userNameRef, pwRef, pwWatch, pwConfirmWatch, setPwWatch, setPwConfirmWatch, pwConfirmRef } = props;
   const { t } = useTranslation('auth');
 
@@ -12,7 +12,7 @@ export default function SigninTemplate(props: SigninProps) {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading maxW={'380px'} w={'full'} textAlign={'center'} fontSize={'3xl'}>
-            {t('signin-heading1')}
+            {t('signup-heading1')}
           </Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
             {t('auth-message-1')} <Link color={'blue.400'}>{t('auth-message-2')}</Link> ✌️

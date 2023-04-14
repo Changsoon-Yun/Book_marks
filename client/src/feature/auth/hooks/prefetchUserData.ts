@@ -5,6 +5,11 @@ import { GetServerSidePropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { dehydrate, QueryClient } from 'react-query';
 
+/**
+ *
+ * @param context GetServerSidePropsContext
+ * @param locales 이 페이지에 필요한 언어파일
+ */
 const prefetchUserData = async (context: GetServerSidePropsContext, locales: string[]) => {
   const { locale = 'ko' } = context;
   const userData: UserWidthToken | null = context.req.cookies[COOKIE_NAME]
