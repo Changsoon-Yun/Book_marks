@@ -1,4 +1,4 @@
-import SigninTemplate from '@/feature/auth/components/templates/SigninTemplate';
+import SignupTemplate from '@/feature/auth/components/templates/SignupTemplate';
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import { AuthProps, ConfirmPassword } from '@/feature/auth/interface/AuthProps';
@@ -10,9 +10,9 @@ import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import React, { FormEvent, useRef } from 'react';
 
-export interface SigninProps extends ConfirmPassword, AuthProps {}
+export interface signupProps extends ConfirmPassword, AuthProps {}
 
-export default function Signin() {
+export default function Signup() {
   const auth = useAuth();
   const { t } = useTranslation('auth');
   const toast = useToast();
@@ -36,13 +36,13 @@ export default function Signin() {
 
     if (userName && password) {
       const data: User = { userName, password };
-      auth.signin(data);
+      auth.signup(data);
     }
   };
   return (
     <>
       <Layout>
-        <SigninTemplate
+        <SignupTemplate
           onSubmit={onSubmit}
           userNameRef={userNameRef}
           pwRef={pwRef}
