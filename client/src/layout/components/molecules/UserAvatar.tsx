@@ -1,8 +1,10 @@
 import { Avatar, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
+import { useTranslation } from 'next-i18next';
 
 export default function UserAvatar() {
   const { logout } = useAuth();
+  const { t } = useTranslation('common');
   return (
     <>
       <Flex alignItems={'center'}>
@@ -16,9 +18,7 @@ export default function UserAvatar() {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={logout}>로그아웃</MenuItem>
-            <MenuItem>Link 2</MenuItem>
-            <MenuItem>Link 3</MenuItem>
+            <MenuItem onClick={logout}>{t('headers.common.logout')}</MenuItem>
           </MenuList>
         </Menu>
       </Flex>

@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as express from 'express';
 import { winstonLogger } from './utils/winston';
 
 const Port = 4000;
@@ -10,6 +11,7 @@ async function bootstrap() {
     logger: winstonLogger,
   });
   app.enableCors();
+  app.use('/public', express.static('public'));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

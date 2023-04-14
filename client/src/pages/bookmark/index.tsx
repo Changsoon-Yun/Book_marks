@@ -17,5 +17,5 @@ export default function Post() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return prefetchUserData(context, ['common']);
+  return prefetchUserData(context);
 };

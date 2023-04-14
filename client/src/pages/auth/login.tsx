@@ -41,5 +41,5 @@ export default function Login() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return prefetchUserData(context, ['common', 'auth']);
+  return prefetchUserData(context);
 };

@@ -1,19 +1,21 @@
 import { Link } from '@chakra-ui/next-js';
 import { Button, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export default function AuthButtons() {
   const { t } = useTranslation('common');
+  const { locale } = useRouter();
   return (
     <>
       <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
-        <Link href={'/auth/login'}>
+        <Link href={'/auth/login'} locale={locale}>
           <Button as={'div'} fontSize={'sm'} fontWeight={400} variant={'ghost'}>
-            {t('signup')}
+            {t('header.common.login')}
           </Button>
         </Link>
 
-        <Link href={'/auth/signup'}>
+        <Link href={'/auth/signup'} locale={locale}>
           <Button
             as={'div'}
             display={{ base: 'none', md: 'inline-flex' }}
@@ -24,7 +26,7 @@ export default function AuthButtons() {
             _hover={{
               bg: 'blue.300',
             }}>
-            {t('signup')}
+            {t('header.common.signup')}
           </Button>
         </Link>
       </Stack>

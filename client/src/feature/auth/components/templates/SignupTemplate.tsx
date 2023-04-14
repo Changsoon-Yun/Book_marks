@@ -1,21 +1,28 @@
 import InputForm from '@/feature/auth/components/molecules/InputForm';
 import { signupProps } from '@/pages/auth/signup';
-import { Box, Button, Checkbox, Flex, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/next-js';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export default function SignupTemplate(props: signupProps) {
   const { onSubmit, userNameRef, pwRef, pwWatch, pwConfirmWatch, setPwWatch, setPwConfirmWatch, pwConfirmRef } = props;
-  const { t } = useTranslation('auth');
+  const { t } = useTranslation('common');
+  const { locale } = useRouter();
 
   return (
     <Flex minH={'100%'} align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading maxW={'380px'} w={'full'} textAlign={'center'} fontSize={'3xl'}>
-            {t('signup-heading1')}
+            {t('auth.signup.heading')}
           </Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
-            {t('auth-message-1')} <Link color={'blue.400'}>{t('auth-message-2')}</Link> ✌️
+            {t('auth.common.message-1')}{' '}
+            <Link href={'/'} color={'blue.400'} locale={locale}>
+              {t('auth.common.message-2')}
+            </Link>
+            ✌️
           </Text>
         </Stack>
         <Box
@@ -26,10 +33,16 @@ export default function SignupTemplate(props: signupProps) {
           as={'form'}
           onSubmit={onSubmit}>
           <Stack spacing={4}>
-            <InputForm id={'id'} label={t('label-id')} inputRef={userNameRef} inputType={'text'} isRequired={true} />
             <InputForm
-              id={'password'}
-              label={t('label-pw')}
+              id={'id'}
+              label={t('auth.common.label-id')}
+              inputRef={userNameRef}
+              inputType={'text'}
+              isRequired={true}
+            />
+            <InputForm
+              id={'pw'}
+              label={t('auth.common.label-pw')}
               inputRef={pwRef}
               inputType={pwWatch}
               isRequired={true}
@@ -37,17 +50,13 @@ export default function SignupTemplate(props: signupProps) {
             />
             <InputForm
               id={'confirm-password'}
-              label={t('label-confirm-pw')}
+              label={t('auth.signup.label-confirm-pw')}
               inputRef={pwConfirmRef}
               inputType={pwConfirmWatch}
               isRequired={true}
               setInputType={setPwConfirmWatch}
             />
             <Stack spacing={10}>
-              <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
-                <Checkbox>{t('checkbox-auto-login')}</Checkbox>
-                <Link color={'blue.400'}>{t('link-forgot-password')}</Link>
-              </Stack>
               <Button
                 type={'submit'}
                 bg={'blue.400'}
@@ -55,7 +64,7 @@ export default function SignupTemplate(props: signupProps) {
                 _hover={{
                   bg: 'blue.500',
                 }}>
-                {t('signup-button')}
+                {t('auth.common.signup-button')}
               </Button>
             </Stack>
           </Stack>

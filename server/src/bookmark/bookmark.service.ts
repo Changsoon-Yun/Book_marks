@@ -3,10 +3,9 @@ import { Bookmark, User } from '@prisma/client';
 import puppeteer from 'puppeteer';
 import { PrismaService } from '../prisma.service';
 import { BookmarkDto } from './dto/bookmark.dto';
-import defaultImage from './../../assets/images/default/default-image.jpg';
 
 //import iconv from 'iconv-lite';
-
+const DEFAULT_IMAGE = 'http://localhost:4000/public/images/image.jpg';
 @Injectable()
 export class BookmarkService {
   constructor(private prisma: PrismaService) {}
@@ -43,7 +42,7 @@ export class BookmarkService {
           url,
           title: title,
           description: description,
-          imageUrl: imageUrl ?? defaultImage,
+          imageUrl: imageUrl ?? DEFAULT_IMAGE,
           userId: user.id,
           faviconUrl,
           folderId: null,

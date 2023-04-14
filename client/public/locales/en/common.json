@@ -1,18 +1,46 @@
 {
-  "menu-1":"Bookmark",
-  "menu-1-label-1": "Explore Bookmarks",
-  "menu-1-sub-1" : "Trending Bookmarks that inspire to you",
-  "menu-1-label-2": "Explore New Bookmarks",
-  "menu-1-sub-2" : "New Bookmarks that inspire to you",
-  "login": "Sign In",
-  "signup": "Sign Up",
-
-
+  "header": {
+    "common": {
+      "login": "Log In",
+      "signup": "Sign Up",
+      "logout": "Log Out"
+    },
+    "menu-1": {
+      "title": "Bookmark",
+      "label-1": "Explore Bookmarks",
+      "sub-1": "Trending Bookmarks that inspire to you",
+      "label-2": "Explore New Bookmarks",
+      "sub-2": "New Bookmarks that inspire to you"
+    }
+  },
+  "auth": {
+    "common": {
+      "message-1":"to enjoy all of our cool",
+      "message-2": "features",
+      "login-button": "Log In",
+      "signup-button": "Sign Up",
+      "label-id": "ID",
+      "label-pw": "Password",
+      "placeholder-input-id": "Please enter your ID.",
+      "placeholder-input-pw": "Please enter your Password."
+    },
+    "login": {
+      "heading":"Log In",
+      "checkbox-auto-login": "Remember me",
+      "label-confirm-pw": "Confirm Password",
+      "link-forgot-password": "Forgot password",
+      "dont-have-account": "Don't you have an account ?"
+    },
+    "signup": {
+      "heading": "Sign up",
+      "placeholder-input-confirm-pw": "Please enter your Confirm Password.",
+      "password-not-matched": "Password and confirm password do not match. Please try again."
+    },
+  },
   "bookmark": {
     "add": {
       "add-button": "Save"
     },
-
     "modal": {
       "title": "Save Bookmark",
       "label-url": "URL",
@@ -25,5 +53,4 @@
       "modify-button": "Modify"
     }
   }
-
 }

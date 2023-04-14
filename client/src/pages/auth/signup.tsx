@@ -14,7 +14,7 @@ export interface signupProps extends ConfirmPassword, AuthProps {}
 
 export default function Signup() {
   const auth = useAuth();
-  const { t } = useTranslation('auth');
+  const { t } = useTranslation('common');
   const toast = useToast();
 
   const [pwWatch, setPwWatch] = useBoolean(false);
@@ -58,5 +58,5 @@ export default function Signup() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return prefetchUserData(context, ['common', 'auth']);
+  return prefetchUserData(context);
 };

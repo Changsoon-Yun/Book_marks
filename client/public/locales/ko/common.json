@@ -1,13 +1,41 @@
 {
-  "menu-1":"즐겨찾기",
-  "menu-1-label-1": "즐겨찾기 구경하기",
-  "menu-1-sub-1" : "당신에게 영감을 주는 인기 즐겨찾기",
-  "menu-1-label-2": "새로운 즐겨찾기 구경하기",
-  "menu-1-sub-2" : "당신에게 활력을 주는 최신 즐겨찾기",
-  "login": "로그인",
-  "signup": "회원가입",
-
-
+  "menu-1": {
+    "title": "즐겨찾기",
+    "label-1": "즐겨찾기 구경하기",
+    "sub-1": "당신에게 영감을 주는 인기 즐겨찾기",
+    "label-2": "새로운 즐겨찾기 구경하기",
+    "sub-2": "당신에게 활력을 주는 최신 즐겨찾기"
+  },
+  "header": {
+    "common": {
+      "login": "로그인",
+      "signup": "회원가입",
+      "logout": "로그아웃"
+    }
+  },
+  "auth": {
+    "common": {
+      "message-1": "즐겨찾기 구경은",
+      "message-2": "여기로",
+      "login-button": "로그인",
+      "signup-button": "회원가입",
+      "label-id": "아이디",
+      "label-pw": "비밀번호",
+      "placeholder-input-id": "아이디를 입력해 주세요.",
+      "placeholder-input-pw": "비밀번호를 입력해주세요."
+    },
+    "login": {
+      "heading": "로그인",
+      "checkbox-auto-login": "날 기억해줘!",
+      "link-forgot-password": "비밀번호를 분실 했어요",
+      "dont-have-account": "계정이 없으신가요?"
+    },
+    "signup": {
+      "heading": "회원가입",
+      "label-confirm-pw": "비밀번호 확인",
+      "password-not-matched": "비밀번호와 확인용 비밀번호가 일치하지 않습니다. 다시 입력해주세요."
+    }
+  },
   "bookmark": {
     "add": {
       "add-button": "저장"
@@ -24,5 +52,4 @@
       "modify-button": "수정"
     }
   }
-
 }

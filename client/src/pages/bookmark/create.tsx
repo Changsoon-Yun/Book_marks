@@ -42,5 +42,5 @@ export default function Create() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return prefetchUserData(context, ['common']);
+  return prefetchUserData(context);
 };
