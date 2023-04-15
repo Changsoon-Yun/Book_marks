@@ -21,7 +21,7 @@ import React from 'react';
 export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
   const { isOpen, onClose, initialRef, isLoading, checkedData, createHandler } = props;
 
-  const { url, title, description, imageUrl, faviconUrl, type, alt, width, height, locale, site_name } = checkedData;
+  const { url, title, description, imageUrl, faviconUrl } = checkedData;
   const { t } = useTranslation('common');
 
   return (

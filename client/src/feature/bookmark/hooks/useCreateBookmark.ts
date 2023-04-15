@@ -2,7 +2,7 @@ import { getJWTHeader } from '@/lib/async/queryClient';
 import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { axiosInstance } from '../../../lib/async/axiosInstance';
+import { axiosInstance } from '@/lib/async/axiosInstance';
 
 export type UserInput = {
   url: string;

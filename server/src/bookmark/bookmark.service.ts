@@ -93,30 +93,28 @@ const getPageInfo = async (url: string) => {
     const ogTags: PageData = {};
     const faviconTags: string[] = [];
 
+    const head = $('head');
+
     // og 태그 파싱
-    $('head')
-      .find('meta')
-      .each((index, element) => {
-        const property = $(element).attr('property');
-        if (property?.startsWith('og:')) {
-          const key = property.replace('og:', '');
-          key.replace('image', '');
-          ogTags[key] = $(element).attr('content');
-        }
-      });
+    head.find('meta').each((index, element) => {
+      const property = $(element).attr('property');
+      if (property?.startsWith('og:')) {
+        const key = property.replace('og:', '');
+        key.replace('image', '');
+        ogTags[key] = $(element).attr('content');
+      }
+    });
 
     // favicon 태그 파싱
-    $('head')
-      .find('link')
-      .each((index, element) => {
-        const rel = $(element).attr('rel');
-        if (rel === 'shortcut icon' || rel === 'icon') {
-          // href 속성에서 URL 절대경로로 바꾸기
-          const href = $(element).attr('href');
-          const hrefUrl = new URL(href, url).href;
-          faviconTags.push(hrefUrl);
-        }
-      });
+    head.find('link').each((index, element) => {
+      const rel = $(element).attr('rel');
+      if (rel === 'shortcut icon' || rel === 'icon') {
+        // href 속성에서 URL 절대경로로 바꾸기
+        const href = $(element).attr('href');
+        const hrefUrl = new URL(href, url).href;
+        faviconTags.push(hrefUrl);
+      }
+    });
 
     return {
       ...ogTags,

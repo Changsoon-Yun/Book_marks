@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { axiosInstance } from '../../../lib/async/axiosInstance';
+import { axiosInstance } from '@/lib/async/axiosInstance';
 
 async function getBookmarks() {
   const { data } = await axiosInstance.get('/bookmark');
