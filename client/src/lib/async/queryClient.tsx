@@ -5,7 +5,7 @@ import { MutationCache, QueryCache, QueryClientConfig } from 'react-query';
 export const getJWTHeader = () => {
   const accessToken = getCookie(COOKIE_NAME);
   return {
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${accessToken.accessToken}`,
   };
 };
 

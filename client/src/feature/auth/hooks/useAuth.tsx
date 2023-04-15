@@ -1,5 +1,6 @@
 import { useUser } from '@/feature/auth/hooks/useUser';
-import { axiosInstance } from '@/lib/axios';
+import { axiosInstance } from '@/lib/async/axiosInstance';
+import { authAPI } from '@/lib/async/constants';
 import { COOKIE_NAME, deleteCookie, setCookie } from '@/lib/cookie/cookie';
 import { User } from '@/types/User';
 import { createStandaloneToast } from '@chakra-ui/react';
@@ -25,7 +26,7 @@ export function useAuth() {
         },
       });
 
-      if (urlEndpoint === 'auth/login') {
+      if (urlEndpoint === authAPI.login) {
         if (response.status === 200) {
           setCookie(COOKIE_NAME, response.data);
           updateUser(response.data);
@@ -37,15 +38,13 @@ export function useAuth() {
         }
       }
 
-      if (urlEndpoint === 'auth/signup') {
+      if (urlEndpoint === authAPI.signup) {
         toast({ title: '계정 생성 성공 !', status: 'success', variant: 'subtle', isClosable: true });
         return router.push('/auth/login', undefined, {
           shallow: true,
         });
       }
     } catch (err) {
-      console.log(err);
-      // axios에서 error를 처리하는 방법
       const message =
         axios.isAxiosError(err) && err?.response?.data?.message ? err?.response?.data?.message : SERVER_ERROR;
 
@@ -56,11 +55,11 @@ export function useAuth() {
   }
 
   async function login(data: User) {
-    await authServerCall('auth/login', data);
+    await authServerCall(authAPI.login, data);
   }
 
   async function signup(data: User) {
-    await authServerCall('auth/signup', data);
+    await authServerCall(authAPI.signup, data);
   }
 
   async function logout() {

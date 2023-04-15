@@ -4,7 +4,7 @@ export interface CreateBookmarkProps {
   description: string;
 }
 
-export interface BookmarkReturn {
+export interface CheckBookmarkReturn {
   url: string;
   title: string;
   description: string;
@@ -12,7 +12,7 @@ export interface BookmarkReturn {
   faviconUrl: string;
 }
 
-export interface CreateBookmark extends BookmarkReturn {
+export interface CreateBookmarkReturn extends CheckBookmarkReturn {
   userId: string;
   folderId: null;
 }

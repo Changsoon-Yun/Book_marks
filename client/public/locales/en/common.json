@@ -35,7 +35,7 @@
       "heading": "Sign up",
       "placeholder-input-confirm-pw": "Please enter your Confirm Password.",
       "password-not-matched": "Password and confirm password do not match. Please try again."
-    },
+    }
   },
   "bookmark": {
     "add": {

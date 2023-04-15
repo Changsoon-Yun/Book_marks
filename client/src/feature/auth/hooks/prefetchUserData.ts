@@ -1,5 +1,5 @@
-import { queryKeys } from '@/feature/auth/hooks/queryKey';
 import { getUser, UserWidthToken } from '@/feature/auth/hooks/useUser';
+import { authAPI } from '@/lib/async/constants';
 import { COOKIE_NAME } from '@/lib/cookie/cookie';
 import { GetServerSidePropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -14,7 +14,7 @@ const prefetchUserData = async (context: GetServerSidePropsContext) => {
     ? JSON.parse(context.req.cookies[COOKIE_NAME])
     : null;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(queryKeys.userData, () => getUser(userData));
+  await queryClient.prefetchQuery([authAPI.getUser], () => getUser(userData));
 
   return {
     props: {

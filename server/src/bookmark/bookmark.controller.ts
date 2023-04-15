@@ -10,13 +10,13 @@ export class BookmarkController {
   constructor(private bookmarkService: BookmarkService) {}
 
   @Get()
-  getPosts() {
+  getBookmarks() {
     return this.bookmarkService.getBookmark();
   }
 
   @Post('/check')
   @UseGuards(AuthGuard())
-  checkUrl(@GetUser() user: User, @Body() url: string) {
+  checkUrl(@GetUser() user: User, @Body('url') url: string) {
     return this.bookmarkService.checkUrl(user, url);
   }
 

@@ -15,9 +15,10 @@ export class BookmarkService {
   }
 
   async checkUrl(user: User, url: string) {
+    if (!url) return;
     try {
       const { pageTitle, pageDescription, imageUrl, faviconUrl } = await getPageInfo(url);
-
+      console.log(pageTitle, pageDescription, imageUrl, faviconUrl);
       return {
         url,
         title: pageTitle ?? '페이지 제목을 찾을 수 없습니다.',

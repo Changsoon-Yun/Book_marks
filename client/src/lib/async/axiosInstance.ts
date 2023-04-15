@@ -1,8 +1,7 @@
-import { baseUrl } from '@/lib/axios/constants';
 import axios, { CreateAxiosDefaults } from 'axios';
 
 const config: CreateAxiosDefaults = {
-  baseURL: baseUrl,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 };
 
 export const axiosInstance = axios.create(config);

@@ -18,7 +18,7 @@ export default function UserAvatar() {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={logout}>{t('headers.common.logout')}</MenuItem>
+            <MenuItem onClick={logout}>{t('header.common.logout')}</MenuItem>
           </MenuList>
         </Menu>
       </Flex>
