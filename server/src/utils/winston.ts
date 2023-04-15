@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
-import { utilities, WinstonModule } from 'nest-winston';
-import * as winston from 'winston';
+import { utilities, WinstonModule } from "nest-winston";
+import * as winston from "winston";
 
 const logLevel = process.env.LOG_LEVEL || 'info';
 const env = process.env.NODE_ENV;

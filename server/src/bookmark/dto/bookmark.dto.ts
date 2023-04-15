@@ -1,4 +1,4 @@
-import { IsString, IsUrl, MaxLength, MinLength } from 'class-validator';
+import { IsString, IsUrl } from 'class-validator';
 
 export class BookmarkDto {
   @IsUrl()

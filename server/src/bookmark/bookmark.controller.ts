@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Header, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
-import axios from 'axios';
 import { GetUser } from '../auth/get-user.decorator';
 import { BookmarkService } from './bookmark.service';
 import { BookmarkDto } from './dto/bookmark.dto';

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Bookmark, User } from '@prisma/client';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import puppeteer from 'puppeteer';
 import { PrismaService } from '../prisma.service';
 import { BookmarkDto } from './dto/bookmark.dto';
 
