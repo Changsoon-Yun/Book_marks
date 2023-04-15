@@ -1,9 +1,9 @@
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
+import IndexTemplate from '@/feature/index/components/templates/IndexTemplate';
 import Layout from '@/layout/components/templates/Layout';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import React from 'react';
-import IndexTemplate from '@/feature/index/components/templates/IndexTemplate';
 
 const Home: NextPage = () => {
   return (

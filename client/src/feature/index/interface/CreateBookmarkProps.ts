@@ -1,5 +1,3 @@
-import buffer from 'buffer';
-
 export interface CreateBookmarkProps {
   url: string;
   title: string;

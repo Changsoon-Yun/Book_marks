@@ -1,10 +1,10 @@
 import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
 import { NavItem } from '@/types/NavItem';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Link } from '@chakra-ui/next-js';
 import { Collapse, Flex, Icon, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { Url } from 'next/dist/shared/lib/router/router';
-import { Link } from '@chakra-ui/next-js';
 import { useRouter } from 'next/router';
 
 export const MobileNav = () => {

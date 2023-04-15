@@ -1,8 +1,8 @@
-import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
-import { SiLinkedin, SiMessenger } from 'react-icons/si';
-import { Box, Button, Center, Flex, IconButton, Stack, Text, theme, useColorModeValue } from '@chakra-ui/react';
 import { useGetColor } from '@/core/hooks/useGetColor';
+import { Flex, IconButton, Text } from '@chakra-ui/react';
+import { FaFacebook } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { SiLinkedin, SiMessenger } from 'react-icons/si';
 
 export default function SocialMediaButtons() {
   const { color: textColor } = useGetColor(500);

@@ -1,6 +1,7 @@
 import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
 import { NavItem } from '@/types/NavItem';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import { Link } from '@chakra-ui/next-js';
 import {
   Box,
   Flex,
@@ -13,7 +14,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import { Link } from '@chakra-ui/next-js';
 import { useRouter } from 'next/router';
 
 export const DesktopNav = () => {

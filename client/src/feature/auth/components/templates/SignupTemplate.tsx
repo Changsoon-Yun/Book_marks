@@ -1,7 +1,7 @@
 import InputForm from '@/feature/auth/components/molecules/InputForm';
 import { signupProps } from '@/pages/auth/signup';
-import { Box, Button, Checkbox, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/next-js';
+import { Box, Button, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 

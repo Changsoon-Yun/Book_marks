@@ -1,16 +1,12 @@
-import { UnKnownUserToken, useUser } from '@/feature/auth/hooks/useUser';
+import { useUser } from '@/feature/auth/hooks/useUser';
+import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
+
+import BookmarkGrid from '@/feature/index/components/molecules/BookmarkGrid';
 import useCreateBookmark, { checkUrl } from '@/feature/index/hooks/useCreateBookmark';
 import { CreateBookmarkData } from '@/feature/index/interface/CreateBookmarkData';
 import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
-import { axiosInstance } from '@/lib/async/axiosInstance';
 import { useDisclosure } from '@chakra-ui/react';
-
-import * as buffer from 'buffer';
 import React, { useRef, useState } from 'react';
-
-import BookmarkGrid from '@/feature/index/components/molecules/BookmarkGrid';
-import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
-import { useMutation } from 'react-query';
 
 export default function IndexTemplate() {
   const { isOpen, onClose, onOpen } = useDisclosure();

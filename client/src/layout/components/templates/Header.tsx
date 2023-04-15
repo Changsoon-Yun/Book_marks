@@ -2,16 +2,16 @@
 
 import homepageLogo from '@/asset/images/logos/homepageLogo.png';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
+import AuthButtons from '@/layout/components/molecules/AuthButtons';
 import { DesktopNav } from '@/layout/components/molecules/DesktopNav';
 import { MobileNav } from '@/layout/components/molecules/MobileNav';
+import UserAvatar from '@/layout/components/molecules/UserAvatar';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { Link } from '@chakra-ui/next-js';
 import { Box, Collapse, Flex, IconButton, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
-import { Link } from '@chakra-ui/next-js';
 import { useRouter } from 'next/router';
 import { memo } from 'react';
-import UserAvatar from '@/layout/components/molecules/UserAvatar';
-import AuthButtons from '@/layout/components/molecules/AuthButtons';
 
 const Header = () => {
   const { locale } = useRouter();

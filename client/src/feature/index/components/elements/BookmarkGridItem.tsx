@@ -1,6 +1,6 @@
+import { Box, Flex, GridItem, Heading, HStack, Img, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Box, Heading, Text, Img, Flex, Center, useColorModeValue, HStack, GridItem } from '@chakra-ui/react';
-import { BsArrowUpRight, BsHeartFill, BsHeart } from 'react-icons/bs';
+import { BsArrowUpRight, BsHeart, BsHeartFill } from 'react-icons/bs';
 
 export default function BookmarkGridItem() {
   const [liked, setLiked] = useState(false);

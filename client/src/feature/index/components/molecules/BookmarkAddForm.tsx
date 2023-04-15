@@ -1,9 +1,9 @@
-import { UnKnownUserToken, useUser } from '@/feature/auth/hooks/useUser';
-import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
-import { Box, Button, Flex, Input, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { UnKnownUserToken } from '@/feature/auth/hooks/useUser';
 import BookmarkAddModal from '@/feature/index/components/molecules/BookmarkAddModal';
-import React, { MouseEventHandler, RefObject, useRef } from 'react';
+import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
+import { Box, Button, Flex, Input, Tooltip } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import React, { MouseEventHandler, RefObject } from 'react';
 
 export interface BookmarkAddFormProps {
   urlRef: RefObject<HTMLInputElement>;

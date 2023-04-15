@@ -1,5 +1,5 @@
-import { Avatar, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
+import { Avatar, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 
 export default function UserAvatar() {

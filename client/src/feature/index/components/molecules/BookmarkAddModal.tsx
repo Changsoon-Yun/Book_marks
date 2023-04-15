@@ -1,3 +1,4 @@
+import { CreateBookmarkModalProps } from '@/feature/index/interface/CreateBookmarkModalProps';
 import {
   Box,
   Button,
@@ -14,9 +15,8 @@ import {
   ModalOverlay,
   Skeleton,
 } from '@chakra-ui/react';
-import React from 'react';
 import { useTranslation } from 'next-i18next';
-import { CreateBookmarkModalProps } from '@/feature/index/interface/CreateBookmarkModalProps';
+import React from 'react';
 
 export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
   const { isOpen, onClose, initialRef, isLoading, checkedData, createHandler } = props;

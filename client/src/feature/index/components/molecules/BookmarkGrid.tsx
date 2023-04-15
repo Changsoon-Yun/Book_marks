@@ -1,5 +1,5 @@
-import { Box, Grid } from '@chakra-ui/react';
 import BookmarkGridItem from '@/feature/index/components/elements/BookmarkGridItem';
+import { Box, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 export default function BookmarkGrid() {

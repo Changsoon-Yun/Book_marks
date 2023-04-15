@@ -1,10 +1,10 @@
+import { useGetColor } from '@/core/hooks/useGetColor';
 import InputForm from '@/feature/auth/components/molecules/InputForm';
 import { AuthProps } from '@/feature/auth/interface/AuthProps';
 import SocialMediaButtons from '@/layout/components/molecules/SocialMediaButtons';
-import { Box, Button, Checkbox, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/next-js';
+import { Box, Button, Checkbox, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import { useGetColor } from '@/core/hooks/useGetColor';
 import { useRouter } from 'next/router';
 
 export default function LoginTemplate(props: AuthProps) {
