@@ -6,7 +6,7 @@
 const bookmarkAPI = {
   getBookmarks: '/bookmark',
   check: (url?: string) => (url ? `/bookmark/check/${url}` : `/bookmark/check`),
-  create: (url: string) => (url ? `/bookmark/check/${url}` : `/bookmark/create`),
+  create: (url?: string) => (url ? `/bookmark/check/${url}` : `/bookmark/create`),
 };
 
 const authAPI = {

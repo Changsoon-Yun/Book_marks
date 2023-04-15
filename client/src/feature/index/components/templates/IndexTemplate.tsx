@@ -1,39 +1,59 @@
 import { UnKnownUserToken, useUser } from '@/feature/auth/hooks/useUser';
-import { checkUrl } from '@/feature/index/hooks/useBookmark';
+import useCreateBookmark, { checkUrl } from '@/feature/index/hooks/useCreateBookmark';
+import { CreateBookmarkData } from '@/feature/index/interface/CreateBookmarkData';
 import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
-import { bookmarkAPI } from '@/lib/async/constants';
+import { axiosInstance } from '@/lib/async/axiosInstance';
 import { useDisclosure } from '@chakra-ui/react';
-import { FocusableElement } from '@chakra-ui/utils';
-import React, { RefObject, useRef, useState } from 'react';
+
+import * as buffer from 'buffer';
+import React, { useRef, useState } from 'react';
 
 import BookmarkGrid from '@/feature/index/components/molecules/BookmarkGrid';
 import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 
-export interface UrlData {
-  url: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  faviconUrl: string;
-}
 export default function IndexTemplate() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
-  const [checkedData, setCheckedData] = useState<CheckBookmarkReturn | undefined>(undefined);
+  const [checkedData, setCheckedData] = useState<CheckBookmarkReturn>({
+    url: undefined,
+    title: undefined,
+    description: undefined,
+    imageUrl: undefined,
+    faviconUrl: undefined,
+    type: undefined,
+    alt: undefined,
+    width: undefined,
+    height: undefined,
+    locale: undefined,
+    site_name: undefined,
+  });
   const initialRef = useRef(null);
   const urlRef = useRef<HTMLInputElement>(null);
   const { user } = useUser();
-
-  const checkHandle = async () => {
-    if (!urlRef.current) return;
+  const create = useCreateBookmark();
+  const checkHandler = async () => {
     if (!user) return;
+    if (urlRef.current?.value === '') {
+      return;
+    }
+    onOpen();
     setIsLoading(() => true);
-    const data = await checkUrl(urlRef.current.value);
+    const data = await checkUrl(urlRef.current?.value);
     setCheckedData(data);
     setIsLoading(() => false);
-    onOpen();
-    return data;
+  };
+
+  const createHandler = async () => {
+    const bookmarkData: CreateBookmarkData = {
+      url: checkedData.url,
+      title: checkedData.title,
+      description: checkedData.description,
+      imageUrl: checkedData.imageUrl,
+      faviconUrl: checkedData.faviconUrl,
+    };
+    create(bookmarkData);
+    onClose();
   };
 
   return (
@@ -41,12 +61,13 @@ export default function IndexTemplate() {
       <BookmarkAddForm
         urlRef={urlRef}
         user={user}
-        checkHandle={checkHandle}
+        checkHandler={checkHandler}
         initialRef={initialRef}
         isOpen={isOpen}
         isLoading={isLoading}
         onClose={onClose}
         checkedData={checkedData}
+        createHandler={createHandler}
       />
       <BookmarkGrid />
     </>
