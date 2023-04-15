@@ -5,14 +5,14 @@ export class BookmarkDto {
   url: string;
 
   @IsString()
-  @MinLength(1)
-  @MaxLength(30)
   title: string;
 
   @IsString()
-  @MaxLength(200)
   description: string;
 
   @IsUrl()
   imageUrl: string;
+
+  @IsString()
+  faviconUrl: string;
 }
