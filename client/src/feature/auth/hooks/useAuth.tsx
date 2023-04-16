@@ -1,8 +1,8 @@
 import { useUser } from '@/feature/auth/hooks/useUser';
 import { axiosInstance } from '@/lib/async/axiosInstance';
-import { authAPI } from '@/lib/async/constants';
+import { authAPI } from '@/lib/async/apiRoutes';
 import { COOKIE_NAME, deleteCookie, setCookie } from '@/lib/cookie/cookie';
-import { User } from '@/types/User';
+import { User } from '@/types/api/User';
 import { createStandaloneToast } from '@chakra-ui/react';
 import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';

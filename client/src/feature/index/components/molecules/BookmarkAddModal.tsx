@@ -1,4 +1,4 @@
-import { CreateBookmarkModalProps } from '@/feature/index/interface/CreateBookmarkModalProps';
+import { CreateBookmarkModalProps } from '@/types/props/CreateBookmarkModalProps';
 import {
   Box,
   Button,
@@ -20,7 +20,6 @@ import React from 'react';
 
 export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
   const { isOpen, onClose, initialRef, isLoading, checkedData, createHandler } = props;
-
   const { url, title, description, imageUrl, faviconUrl } = checkedData;
   const { t } = useTranslation('common');
 

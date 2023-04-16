@@ -1,5 +1,5 @@
 import { getUser, UserWidthToken } from '@/feature/auth/hooks/useUser';
-import { authAPI } from '@/lib/async/constants';
+import { authAPI } from '@/lib/async/apiRoutes';
 import { COOKIE_NAME } from '@/lib/cookie/cookie';
 import { GetServerSidePropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

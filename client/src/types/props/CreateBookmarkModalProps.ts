@@ -1,4 +1,4 @@
-import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
+import { CheckBookmarkReturn } from '@/types/props/CreateBookmarkProps';
 import { MouseEventHandler, MutableRefObject } from 'react';
 
 export interface CreateBookmarkModalProps {

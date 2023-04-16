@@ -1,6 +1,6 @@
 import { useGetColor } from '@/core/hooks/useGetColor';
 import InputForm from '@/feature/auth/components/molecules/InputForm';
-import { AuthProps } from '@/feature/auth/interface/AuthProps';
+import { AuthProps } from '@/types/props/AuthProps';
 import SocialMediaButtons from '@/layout/components/molecules/SocialMediaButtons';
 import { Link } from '@chakra-ui/next-js';
 import { Box, Button, Checkbox, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';

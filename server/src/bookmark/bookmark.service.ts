@@ -26,8 +26,18 @@ interface PageData {
 export class BookmarkService {
   constructor(private prisma: PrismaService) {}
 
-  async getBookmark(): Promise<Bookmark[] | null> {
-    return this.prisma.bookmark.findMany({});
+  async getBookmark(userName): Promise<Bookmark[] | null> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        userName: userName,
+      },
+    });
+    console.log(user);
+    return this.prisma.bookmark.findMany({
+      where: {
+        userId: user.id,
+      },
+    });
   }
 
   async checkUrl(user: User, url: string) {

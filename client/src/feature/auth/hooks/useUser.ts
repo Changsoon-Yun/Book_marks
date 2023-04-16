@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/lib/async/axiosInstance';
-import { authAPI } from '@/lib/async/constants';
+import { authAPI } from '@/lib/async/apiRoutes';
 import { COOKIE_NAME, deleteCookie, setCookie } from '@/lib/cookie/cookie';
 import { useQuery, useQueryClient } from 'react-query';
 

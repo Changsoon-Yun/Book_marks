@@ -1,9 +1,11 @@
-import { UnKnownUserToken } from '@/feature/auth/hooks/useUser';
+import { UnKnownUserToken, useUser } from '@/feature/auth/hooks/useUser';
 import BookmarkAddModal from '@/feature/index/components/molecules/BookmarkAddModal';
-import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
-import { Box, Button, Flex, Input, Tooltip } from '@chakra-ui/react';
+import useCreateBookmark, { checkUrl } from '@/feature/index/hooks/useCreateBookmark';
+import { BookmarkItem } from '@/types/api/Bookmark';
+import { CheckBookmarkReturn } from '@/types/props/CreateBookmarkProps';
+import { Box, Button, Flex, Input, Tooltip, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import React, { MouseEventHandler, RefObject } from 'react';
+import React, { MouseEventHandler, RefObject, useRef, useState } from 'react';
 
 export interface BookmarkAddFormProps {
   urlRef: RefObject<HTMLInputElement>;
@@ -17,18 +19,38 @@ export interface BookmarkAddFormProps {
   createHandler: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function BookmarkAddForm({
-  urlRef,
-  user,
-  checkHandler,
-  initialRef,
-  isOpen,
-  onClose,
-  isLoading,
-  checkedData,
-  createHandler,
-}: BookmarkAddFormProps) {
+export default function BookmarkAddForm() {
   const { t } = useTranslation('common');
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
+  const [checkedData, setCheckedData] = useState<CheckBookmarkReturn>({});
+  const initialRef = useRef(null);
+  const urlRef = useRef<HTMLInputElement>(null);
+  const { user } = useUser();
+  const create = useCreateBookmark();
+  const checkHandler = async () => {
+    if (!user) return;
+    if (urlRef.current?.value === '') {
+      return;
+    }
+    onOpen();
+    setIsLoading(() => true);
+    const data = await checkUrl(urlRef.current?.value);
+    setCheckedData(data);
+    setIsLoading(() => false);
+  };
+
+  const createHandler = async () => {
+    const bookmarkData: BookmarkItem = {
+      url: checkedData.url,
+      title: checkedData.title,
+      description: checkedData.description,
+      imageUrl: checkedData.imageUrl,
+      faviconUrl: checkedData.faviconUrl,
+    };
+    create(bookmarkData);
+    onClose();
+  };
 
   return (
     <>

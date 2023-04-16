@@ -1,13 +1,14 @@
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
-import BookmarkEditTemplate from '@/feature/bookmark/BookmarkEditTemplate';
+import BookmarkUserTemplate from '@/feature/bookmark/BookmarkUserTemplate';
 import Layout from '@/layout/components/templates/Layout';
 import { GetServerSideProps } from 'next';
+import React from 'react';
 
-export default function Edit() {
+export default function BookmarkUser() {
   return (
     <>
       <Layout>
-        <BookmarkEditTemplate />
+        <BookmarkUserTemplate />
       </Layout>
     </>
   );

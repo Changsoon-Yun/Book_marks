@@ -1,9 +1,9 @@
 import SignupTemplate from '@/feature/auth/components/templates/SignupTemplate';
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
-import { AuthProps, ConfirmPassword } from '@/feature/auth/interface/AuthProps';
+import { AuthProps, ConfirmPassword } from '@/types/props/AuthProps';
 import Layout from '@/layout/components/templates/Layout';
-import { User } from '@/types/User';
+import { User } from '@/types/api/User';
 import { useBoolean } from '@chakra-ui/hooks';
 import { useToast } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';

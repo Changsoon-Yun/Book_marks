@@ -1,9 +1,11 @@
 import { useAuth } from '@/feature/auth/hooks/useAuth';
+import { useUser } from '@/feature/auth/hooks/useUser';
+import { Link } from '@chakra-ui/next-js';
 import { Avatar, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 
 export default function UserAvatar() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const { t } = useTranslation('common');
   return (
     <>
@@ -18,6 +20,9 @@ export default function UserAvatar() {
             />
           </MenuButton>
           <MenuList>
+            <MenuItem>
+              <Link href={`/bookmark/${user?.userName}`}>{t('header.common.logout')}</Link>
+            </MenuItem>
             <MenuItem onClick={logout}>{t('header.common.logout')}</MenuItem>
           </MenuList>
         </Menu>

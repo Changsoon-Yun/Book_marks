@@ -1,4 +1,4 @@
-import { InputFormProps } from '@/feature/auth/interface/AuthProps';
+import { InputFormProps } from '@/types/props/AuthProps';
 import { FormControl, FormLabel, IconButton, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 

@@ -1,7 +1,8 @@
-import { CreateBookmarkData } from '@/feature/index/interface/CreateBookmarkData';
-import { CheckBookmarkReturn } from '@/feature/index/interface/CreateBookmarkProps';
+import { useUser } from '@/feature/auth/hooks/useUser';
+import { BookmarkItem } from '@/types/api/Bookmark';
+import { CheckBookmarkReturn } from '@/types/props/CreateBookmarkProps';
 import { axiosInstance } from '@/lib/async/axiosInstance';
-import { bookmarkAPI } from '@/lib/async/constants';
+import { bookmarkAPI } from '@/lib/async/apiRoutes';
 import { getJWTHeader } from '@/lib/async/queryClient';
 import { createStandaloneToast } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
@@ -22,7 +23,7 @@ export async function checkUrl(url?: string): Promise<CheckBookmarkReturn> {
   }
 }
 
-const createBookmark = async (bookmarkData: CreateBookmarkData) => {
+const createBookmark = async (bookmarkData: BookmarkItem) => {
   return await axiosInstance.post(bookmarkAPI.create(), bookmarkData, {
     headers: getJWTHeader(),
   });
@@ -31,10 +32,10 @@ const createBookmark = async (bookmarkData: CreateBookmarkData) => {
 const useCreateBookmark = () => {
   const queryClient = useQueryClient();
   const { toast } = createStandaloneToast();
-
-  const { mutate } = useMutation((bookmarkData: CreateBookmarkData) => createBookmark(bookmarkData), {
+  const { user } = useUser();
+  const { mutate } = useMutation((bookmarkData: BookmarkItem) => createBookmark(bookmarkData), {
     onSuccess: () => {
-      queryClient.invalidateQueries([bookmarkAPI.getBookmarks]);
+      queryClient.invalidateQueries([bookmarkAPI.getBookmarks(user?.userName)]);
       toast({
         title: 'You have reserved the appointment!',
         status: 'success',

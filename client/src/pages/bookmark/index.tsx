@@ -6,11 +6,10 @@ import { GetServerSideProps } from 'next';
 import React from 'react';
 
 export default function Post() {
-  const { data: bookmarks } = useGetBookmarks();
   return (
     <>
       <Layout>
-        <BookmarkTemplate bookmarks={bookmarks} />
+        <div>bookmark index</div>
       </Layout>
     </>
   );

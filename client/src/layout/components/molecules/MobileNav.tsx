@@ -1,5 +1,5 @@
-import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
-import { NavItem } from '@/types/NavItem';
+import { NAV_ITEMS } from '@/constant/NAV_ITEMS';
+import { NavItem } from '@/constant/NAV_ITEMS';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from '@chakra-ui/next-js';
 import { Collapse, Flex, Icon, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';

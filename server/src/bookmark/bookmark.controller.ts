@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/get-user.decorator';
@@ -9,9 +9,9 @@ import { BookmarkDto } from './dto/bookmark.dto';
 export class BookmarkController {
   constructor(private bookmarkService: BookmarkService) {}
 
-  @Get()
-  getBookmarks() {
-    return this.bookmarkService.getBookmark();
+  @Get('/:userName')
+  getBookmarks(@Param('userName') userName: string | string[]) {
+    return this.bookmarkService.getBookmark(userName);
   }
 
   @Post('/check')

@@ -10,7 +10,8 @@
     "common": {
       "login": "로그인",
       "signup": "회원가입",
-      "logout": "로그아웃"
+      "logout": "로그아웃",
+      "my-bookmark": "내 즐겨찾기"
     }
   },
   "auth": {

@@ -17,7 +17,6 @@ const Header = () => {
   const { locale } = useRouter();
   const { isOpen, onToggle } = useDisclosure();
   const { user } = useAuth();
-
   return (
     <Box borderBottom={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.900')}>
       <Flex

@@ -1,4 +1,4 @@
-import { Folder } from '@/types/Folder';
+import { Folder } from '@/types/api/Folder';
 
 export interface Bookmark {
   id: number;
@@ -14,4 +14,12 @@ export interface Bookmark {
   imageUrl: string;
   folder: Folder[];
   user: string;
+}
+
+export interface BookmarkItem {
+  url?: string;
+  title?: string;
+  description?: string;
+  imageUrl?: string;
+  faviconUrl?: string;
 }
