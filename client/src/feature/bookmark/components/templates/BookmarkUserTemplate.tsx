@@ -1,7 +1,8 @@
-import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
 import BookmarkGrid from '@/feature/index/components/molecules/BookmarkGrid';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { Flex } from '@chakra-ui/react';
+import SideNav from '@/feature/bookmark/components/molecules/SideNav';
 
 export default function BookmarkUserTemplate() {
   const router = useRouter();
@@ -10,5 +11,16 @@ export default function BookmarkUserTemplate() {
     router.push('/');
   }
 
-  return <>{userName && <BookmarkGrid userName={userName} />}</>;
+  return (
+    <>
+      {userName && (
+        <>
+          <Flex>
+            <SideNav userName={userName} />
+            <BookmarkGrid userName={userName} />
+          </Flex>
+        </>
+      )}
+    </>
+  );
 }
