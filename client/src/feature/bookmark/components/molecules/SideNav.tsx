@@ -15,7 +15,7 @@ function Item({ item }: { item: Folder }) {
           <AccordionIcon />
         </AccordionButton>
       </h2>
-      <AccordionPanel pb={4} px={0} pl={4}>
+      <AccordionPanel pb={4} px={0} pl={3}>
         {hasChildren && (
           <>
             {item.children?.map((child) => (
@@ -35,9 +35,7 @@ export default function SideNav({ userName }: { userName: string | string[] }) {
     <Box as={'nav'} w={'200px'} mr={'20px'}>
       {folders.map((folder) => (
         <Accordion defaultIndex={[0]} allowMultiple key={folder.id}>
-          {folder.children?.map((child) => (
-            <Item key={child.id} item={child} />
-          ))}
+          <Item item={folder} />
         </Accordion>
       ))}
     </Box>
