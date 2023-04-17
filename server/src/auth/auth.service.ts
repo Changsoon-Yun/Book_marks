@@ -11,7 +11,6 @@ export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
   async getUser(user: User) {
-    console.log('is here?');
     const userData = await this.prisma.user.findUnique({
       where: {
         id: user.id,
@@ -78,8 +77,6 @@ export class AuthService {
 
       const payload = { userName };
       const accessToken = this.jwtService.sign(payload);
-
-      console.log(accessToken, 'accessToken');
 
       res.cookie('Authorization', accessToken, {
         httpOnly: true,

@@ -7,8 +7,9 @@ import { dehydrate, QueryClient } from 'react-query';
 
 /**
  * @param context GetServerSidePropsContext
+ * @param slugName slugName
  */
-const prefetchUserData = async (context: GetServerSidePropsContext) => {
+const prefetchUserData = async (context: GetServerSidePropsContext, slugName?: string | string[] | undefined) => {
   const { locale = 'ko' } = context;
   const userData: UserWidthToken | null = context.req.cookies[COOKIE_NAME]
     ? JSON.parse(context.req.cookies[COOKIE_NAME])
@@ -20,6 +21,7 @@ const prefetchUserData = async (context: GetServerSidePropsContext) => {
     props: {
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'])),
+      slugName,
     },
   };
 };

@@ -3,10 +3,17 @@ import { useUser } from '@/feature/auth/hooks/useUser';
 import { Link } from '@chakra-ui/next-js';
 import { Avatar, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export default function UserAvatar() {
   const { user, logout } = useAuth();
   const { t } = useTranslation('common');
+  const router = useRouter();
+  const goMypage = () => {
+    if (user) {
+      router.push(`/bookmark/${user.userName}`);
+    }
+  };
   return (
     <>
       <Flex alignItems={'center'}>
@@ -20,9 +27,7 @@ export default function UserAvatar() {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem>
-              <Link href={`/bookmark/${user?.userName}`}>{t('header.common.logout')}</Link>
-            </MenuItem>
+            <MenuItem onClick={goMypage}>Mypage</MenuItem>
             <MenuItem onClick={logout}>{t('header.common.logout')}</MenuItem>
           </MenuList>
         </Menu>

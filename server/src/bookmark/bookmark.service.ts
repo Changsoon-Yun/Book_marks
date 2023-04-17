@@ -32,7 +32,7 @@ export class BookmarkService {
         userName: userName,
       },
     });
-    console.log(user);
+
     return this.prisma.bookmark.findMany({
       where: {
         userId: user.id,
@@ -110,7 +110,6 @@ const getPageInfo = async (url: string) => {
       const property = $(element).attr('property');
       if (property?.startsWith('og:')) {
         const key = property.replace('og:', '');
-        key.replace('image', '');
         ogTags[key] = $(element).attr('content');
       }
     });
@@ -125,6 +124,14 @@ const getPageInfo = async (url: string) => {
         faviconTags.push(hrefUrl);
       }
     });
+
+    if (!ogTags.title) {
+      ogTags.title = head.find('title').text();
+    }
+
+    if (!ogTags.description) {
+      ogTags.description = head.find('meta[name="description"]').attr('content');
+    }
 
     return {
       ...ogTags,

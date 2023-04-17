@@ -10,21 +10,16 @@ export default function BookmarkGridItem(props: BookmarkItem) {
   const { title, description, url, imageUrl, faviconUrl } = props;
   return (
     <GridItem gridTemplateColumns={'1fr 2fr 100px 25%'}>
-      <Link href={url ?? ''} target={'_blank'}>
+      <Link href={url ?? ''} target={'_blank'} _hover={{ textDecorator: 'none' }}>
         <Box rounded={'sm'} overflow={'hidden'} bg='white' border={'1px'} borderColor='black' boxShadow={'md'}>
-          <Box borderBottom={'1px'} borderColor='black'>
+          <Box borderBottom={'1px'} borderColor='black' h={'120px'}>
             <Img src={imageUrl} roundedTop={'sm'} objectFit='cover' h='full' w='full' alt={'Blog Image'} />
           </Box>
           <Box p={4}>
-            <Box bg='black' display={'inline-block'} px={2} py={1} color='white' mb={2}>
-              <Text fontSize={'xs'} fontWeight='medium'>
-                React
-              </Text>
-            </Box>
             <Heading color={'black'} fontSize={'md'} noOfLines={1}>
               {title}
             </Heading>
-            <Text color={'gray.500'} noOfLines={2} fontSize={'sm'}>
+            <Text color={'gray.500'} noOfLines={2} h={'42px'} fontSize={'sm'}>
               {description}
             </Text>
           </Box>

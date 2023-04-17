@@ -29,6 +29,7 @@ model Bookmark {
   url         String
   imageUrl    String?
   faviconUrl  String
+  viewCount   Int      @default(0)
   folder      Folder   @relation(fields: [folderId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 
