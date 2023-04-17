@@ -8,7 +8,6 @@ export interface Bookmark {
   createdAt: Date;
   description: string;
   folderId: number;
-  parentId: number;
   updatedAt: Date;
   url: string;
   imageUrl: string;

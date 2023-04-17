@@ -6,10 +6,7 @@ export interface Folder {
   name: string;
   createdAt: Date;
   updatedAt: Date;
-  parentId?: number;
+  parentId: number | null;
   userId: number;
-  bookmarks: Bookmark[];
-  parent?: Folder;
-  children: Folder[];
-  user: User;
+  children?: Folder[];
 }
