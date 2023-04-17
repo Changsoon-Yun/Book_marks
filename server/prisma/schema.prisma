@@ -24,7 +24,6 @@ model Bookmark {
   createdAt   DateTime @default(now())
   description String?
   folderId    Int
-  parentId    Int?
   updatedAt   DateTime @updatedAt
   url         String
   imageUrl    String?

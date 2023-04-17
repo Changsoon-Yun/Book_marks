@@ -1,7 +1,7 @@
 import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
 import BookmarkGrid from '@/feature/index/components/molecules/BookmarkGrid';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function BookmarkUserTemplate() {
   const router = useRouter();
@@ -9,10 +9,6 @@ export default function BookmarkUserTemplate() {
   if (!userName) {
     router.push('/');
   }
-  return (
-    <>
-      <BookmarkAddForm />
-      {userName && <BookmarkGrid userName={userName} />}
-    </>
-  );
+
+  return <>{userName && <BookmarkGrid userName={userName} />}</>;
 }

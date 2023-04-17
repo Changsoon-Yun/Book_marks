@@ -5,22 +5,13 @@ import { BookmarkItem } from '@/types/api/Bookmark';
 import { CheckBookmarkReturn } from '@/types/props/CreateBookmarkProps';
 import { Box, Button, Flex, Input, Tooltip, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import React, { MouseEventHandler, RefObject, useRef, useState } from 'react';
-
-export interface BookmarkAddFormProps {
-  urlRef: RefObject<HTMLInputElement>;
-  user: UnKnownUserToken;
-  checkHandler: MouseEventHandler<HTMLButtonElement>;
-  initialRef: React.MutableRefObject<null>;
-  isOpen: boolean;
-  onClose: () => void;
-  isLoading: boolean;
-  checkedData: CheckBookmarkReturn;
-  createHandler: MouseEventHandler<HTMLButtonElement>;
-}
+import React, { MouseEventHandler, RefObject, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { bookmarkAPI } from '@/lib/async/apiRoutes';
 
 export default function BookmarkAddForm() {
   const { t } = useTranslation('common');
+  const router = useRouter();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const [checkedData, setCheckedData] = useState<CheckBookmarkReturn>({});
@@ -50,11 +41,15 @@ export default function BookmarkAddForm() {
     };
     create(bookmarkData);
     onClose();
+
+    if (router.query.userName !== user?.userName) {
+      router.push(bookmarkAPI.getBookmarks(user?.userName));
+    }
   };
 
   return (
     <>
-      <Flex py={10}>
+      <Flex>
         <Box flex={1} />
         <Input ref={urlRef} maxW={'md'} placeholder={'https://example.com'} borderRadius={'6px 0 0 6px'} />
         <Tooltip label={user ? null : 'Need login!'} aria-label='A tooltip'>

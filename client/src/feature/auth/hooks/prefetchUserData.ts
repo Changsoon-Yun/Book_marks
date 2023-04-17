@@ -17,13 +17,22 @@ const prefetchUserData = async (context: GetServerSidePropsContext, slugName?: s
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([authAPI.getUser], () => getUser(userData));
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      ...(await serverSideTranslations(locale, ['common'])),
-      slugName,
-    },
-  };
+  if (slugName) {
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+        ...(await serverSideTranslations(locale, ['common'])),
+        slugName,
+      },
+    };
+  } else {
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  }
 };
 
 export default prefetchUserData;

@@ -11,7 +11,7 @@ export default function BookmarkGrid({ userName }: { userName: string | string[]
   return (
     <>
       <Box>
-        <Grid templateColumns='repeat(auto-fill ,minmax(200px, 1fr))' gap={10}>
+        <Grid templateColumns='repeat(auto-fill ,minmax(200px, 1fr))' gap={10} py={10}>
           {bookmarks.map((bookmark) => (
             <BookmarkGridItem key={bookmark.id} {...bookmark} />
           ))}

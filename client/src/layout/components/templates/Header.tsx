@@ -11,12 +11,14 @@ import { Link } from '@chakra-ui/next-js';
 import { Box, Collapse, Flex, IconButton, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
 
 const Header = () => {
   const { locale } = useRouter();
   const { isOpen, onToggle } = useDisclosure();
   const { user } = useAuth();
+
   return (
     <Box borderBottom={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.900')}>
       <Flex
@@ -45,7 +47,8 @@ const Header = () => {
             <DesktopNav />
           </Flex>
         </Flex>
-        {user ? <UserAvatar /> : <AuthButtons />}
+        <BookmarkAddForm />
+        <Box ml={10}>{user ? <UserAvatar /> : <AuthButtons />}</Box>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
