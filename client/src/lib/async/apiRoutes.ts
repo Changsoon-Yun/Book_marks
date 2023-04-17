@@ -9,10 +9,15 @@ const bookmarkAPI = {
   create: (url?: string) => (url ? `/bookmark/check/${url}` : `/bookmark/create`),
 };
 
+const folderAPI = {
+  getFolders: (userName: string | string[]) => `folder/${userName}`,
+  create: '/folder/create',
+};
+
 const authAPI = {
   getUser: '/auth/get-user',
   login: '/auth/login',
   signup: '/auth/signup',
 };
 
-export { bookmarkAPI, authAPI };
+export { bookmarkAPI, authAPI, folderAPI };
