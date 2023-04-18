@@ -42,6 +42,9 @@
     "add": {
       "add-button": "Save"
     },
+    "sideNav": {
+      "setting": "Settings"
+    },
     "modal": {
       "title": "Save Bookmark",
       "label-url": "URL",

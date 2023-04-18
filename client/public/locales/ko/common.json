@@ -41,6 +41,9 @@
     "add": {
       "add-button": "저장"
     },
+    "sideNav": {
+      "setting": "설정"
+    },
     "modal": {
       "title": "북마크 저장하기",
       "label-url": "URL",
