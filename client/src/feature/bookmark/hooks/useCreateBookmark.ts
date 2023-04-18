@@ -3,6 +3,7 @@ import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { axiosInstance } from '@/lib/async/axiosInstance';
+import { locale } from 'dayjs';
 
 export type UserInput = {
   url: string;
@@ -22,7 +23,7 @@ export function useCreateBookmark() {
       });
       if (res.status === 201) {
         toast({ title: '북마크에 성공!', status: 'error', variant: 'subtle', isClosable: true });
-        return router.push('/');
+        return router.push('/', undefined, { locale: router.locale });
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

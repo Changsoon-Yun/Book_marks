@@ -8,12 +8,17 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
   Flex,
   Icon,
   Text,
 } from '@chakra-ui/react';
 import { AiFillFolder, AiFillFolderOpen } from 'react-icons/ai';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { getJWTHeader } from '@/lib/async/queryClient';
+import { axiosInstance } from '@/lib/async/axiosInstance';
+import { useTranslation } from 'next-i18next';
+import { FiSettings } from 'react-icons/fi';
 
 function Item({
   item,
@@ -63,16 +68,40 @@ function Item({
 export default function SideNav({ userName }: { userName: string | string[] }) {
   const { data: folders = [] } = useGetFolders(userName);
   const [clickedFolder, setClickedFolder] = useState<Folder>(folders[0]);
+  const { t } = useTranslation('common');
   useEffect(() => {
     setClickedFolder(folders[0]);
   }, [folders]);
+  //TODO:고도화
+  const createFolderHandler = async () => {
+    const data = {
+      parentId: 2,
+      name: 'test-child',
+    };
+    const res = await axiosInstance.post('/folder/create', data, {
+      headers: getJWTHeader(),
+    });
+  };
   return (
-    <Box as={'nav'} w={'250px'} mr={'20px'}>
+    <Flex
+      as={'nav'}
+      minW={'180px'}
+      maxH={'full'}
+      h={'full'}
+      pt={10}
+      pb={2}
+      pr={2}
+      direction={'column'}
+      justify={'space-between'}
+      overflow={'auto'}>
       {folders.map((folder) => (
         <Accordion defaultIndex={[0]} allowMultiple key={folder.id}>
           <Item item={folder} clickedFolder={clickedFolder} setClickedFolder={setClickedFolder} />
         </Accordion>
       ))}
-    </Box>
+      <Button w={'full'} onClick={createFolderHandler} leftIcon={<FiSettings />}>
+        {t('bookmark.sideNav.setting')}
+      </Button>
+    </Flex>
   );
 }

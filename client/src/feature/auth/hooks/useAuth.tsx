@@ -32,17 +32,13 @@ export function useAuth() {
           updateUser(response.data);
           toast({ title: '로그인 성공 !', status: 'success', variant: 'subtle', isClosable: true });
 
-          return router.push('/', undefined, {
-            shallow: true,
-          });
+          return router.push('/', undefined, { locale: router.locale });
         }
       }
 
       if (urlEndpoint === authAPI.signup) {
         toast({ title: '계정 생성 성공 !', status: 'success', variant: 'subtle', isClosable: true });
-        return router.push('/auth/login', undefined, {
-          shallow: true,
-        });
+        return router.push('/auth/login', undefined, { locale: router.locale });
       }
     } catch (err) {
       const message =

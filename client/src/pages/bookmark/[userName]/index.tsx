@@ -15,7 +15,7 @@ export default function BookmarkUser(props: PageProps) {
         <title>{slugName + "'s bookmark"}</title>
       </Head>
       <Layout>
-        <BookmarkUserTemplate />
+        <BookmarkUserTemplate slugName={slugName} />
       </Layout>
     </>
   );
