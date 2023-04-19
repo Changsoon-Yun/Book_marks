@@ -6,7 +6,7 @@ import { PrismaService } from '../prisma.service';
 import { BookmarkDto } from './dto/bookmark.dto';
 
 //import iconv from 'iconv-lite';
-const DEFAULT_IMAGE = 'http://localhost:4000/public/images/image.jpg';
+const DEFAULT_IMAGE = 'http://localhost:4000/images/default.jpg';
 
 interface PageData {
   url?: string;
@@ -43,22 +43,7 @@ export class BookmarkService {
   async checkUrl(user: User, url: string) {
     if (!url) return;
     try {
-      const { title, description, image, faviconUrl, type, alt, width, height, locale, site_name } = await getPageInfo(
-        url
-      );
-      return {
-        url,
-        title: title ?? '페이지 제목을 찾을 수 없습니다.',
-        description: description ?? '페이지 설명을 찾을 수 없습니다.',
-        imageUrl: image ?? '대표 이미지가 없습니다.',
-        faviconUrl: faviconUrl ?? '파비콘을 찾을 수 없습니다.',
-        type,
-        alt,
-        width,
-        height,
-        locale,
-        site_name,
-      };
+      return await getPageInfo(url);
     } catch (err) {
       console.log(err);
     }
@@ -84,6 +69,29 @@ export class BookmarkService {
           faviconUrl,
           folderId: folder.id,
         },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async updateBookmark(user: User, bookmark: Bookmark, id: number) {
+    const { title, description, imageUrl, faviconUrl, url } = bookmark;
+    try {
+      return await this.prisma.bookmark.update({
+        where: { id },
+        data: { title, description, imageUrl, faviconUrl, url },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async deleteBookmark(user: User, id: number) {
+    console.log(id);
+    try {
+      return this.prisma.bookmark.delete({
+        where: { id },
       });
     } catch (err) {
       console.log(err);

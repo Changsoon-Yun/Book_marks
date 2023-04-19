@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from '@prisma/client';
+import { Bookmark, User } from '@prisma/client';
 import { GetUser } from '../auth/get-user.decorator';
 import { BookmarkService } from './bookmark.service';
 import { BookmarkDto } from './dto/bookmark.dto';
@@ -22,7 +22,19 @@ export class BookmarkController {
 
   @Post('/create')
   @UseGuards(AuthGuard())
-  createPost(@GetUser() user: User, @Body() bookmarkDto: BookmarkDto) {
+  createBookmark(@GetUser() user: User, @Body() bookmarkDto: BookmarkDto) {
     return this.bookmarkService.createBookmark(user, bookmarkDto);
+  }
+
+  @Patch('/edit/:id')
+  @UseGuards(AuthGuard())
+  updateBookmark(@GetUser() user: User, @Body() bookmark: Bookmark, @Param('id') id: number) {
+    return this.bookmarkService.updateBookmark(user, bookmark, id);
+  }
+
+  @Delete('/delete/:id')
+  @UseGuards(AuthGuard())
+  deleteBookmark(@GetUser() user: User, @Param('id') id: number) {
+    return this.bookmarkService.deleteBookmark(user, id);
   }
 }
