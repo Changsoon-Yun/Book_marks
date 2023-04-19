@@ -46,14 +46,16 @@
     },
     "modal": {
       "title": "북마크 저장하기",
+      "title-edit": "북마크 수정하기",
       "label-url": "URL",
       "label-title": "제목",
       "label-description": "설명",
       "input-placeholder-title": "이 페이지의 제목은 ...",
       "input-placeholder-description": "이 페이지의 내용은 ...",
       "close-button": "닫기",
+      "delete-button": "삭제",
       "save-button": "저장",
-      "modify-button": "수정"
+      "edit-button": "수정"
     }
   }
 }

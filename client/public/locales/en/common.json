@@ -47,14 +47,16 @@
     },
     "modal": {
       "title": "Save Bookmark",
+      "title-edit": "Edit Bookmark",
       "label-url": "URL",
       "label-title": "Title",
       "label-description": "Description",
       "input-placeholder-title": "This page's title is ...",
       "input-placeholder-description": "This page is ...",
       "close-button": "Close",
+      "delete-button": "Delete",
       "save-button": "Save",
-      "modify-button": "Modify"
+      "edit-button": "Edit"
     }
   }
 }

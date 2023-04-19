@@ -8,14 +8,14 @@ import { MobileNav } from '@/layout/components/molecules/MobileNav';
 import UserAvatar from '@/layout/components/molecules/UserAvatar';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { Link } from '@chakra-ui/next-js';
-import { Box, Collapse, Flex, IconButton, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Collapse, Flex, IconButton, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { memo, useEffect } from 'react';
-import BookmarkAddForm from '@/feature/index/components/molecules/BookmarkAddForm';
+import BookmarkAddForm from '@/layout/components/molecules/BookmarkAddForm';
 
 const Header = () => {
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
   const { isOpen, onToggle } = useDisclosure();
   const { user } = useAuth();
 
@@ -39,9 +39,9 @@ const Header = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Link href={'/'} locale={locale}>
+          <Button onClick={() => push('/')} variant={'unstyled'} cursor={'pointer'}>
             <Image src={homepageLogo} alt={'logo'} width={30} height={30} />
-          </Link>
+          </Button>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />

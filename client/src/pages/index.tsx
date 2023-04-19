@@ -6,8 +6,12 @@ import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { Link } from '@chakra-ui/next-js';
+import { Button } from '@chakra-ui/react';
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   return (
     <>
       <Layout>

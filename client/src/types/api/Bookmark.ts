@@ -1,4 +1,5 @@
 import { Folder } from '@/types/api/Folder';
+import React from 'react';
 
 export interface Bookmark {
   id: number;
@@ -13,12 +14,13 @@ export interface Bookmark {
   imageUrl: string;
   folder: Folder[];
   user: string;
+  faviconUrl: string;
 }
 
 export interface BookmarkItem {
-  url?: string;
-  title?: string;
-  description?: string;
-  imageUrl?: string;
-  faviconUrl?: string;
+  url: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  faviconUrl: string;
 }

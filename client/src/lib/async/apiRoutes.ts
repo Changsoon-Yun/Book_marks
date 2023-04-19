@@ -7,6 +7,8 @@ const bookmarkAPI = {
   getBookmarks: (userName?: string | string[]) => `/bookmark/${userName}`,
   check: (url?: string) => (url ? `/bookmark/check/${url}` : `/bookmark/check`),
   create: (url?: string) => (url ? `/bookmark/check/${url}` : `/bookmark/create`),
+  edit: (id: number) => `/bookmark/edit/${id}`,
+  delete: (id: number) => `/bookmark/delete/${id}`,
 };
 
 const folderAPI = {

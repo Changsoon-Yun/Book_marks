@@ -1,5 +1,5 @@
 import { UnKnownUserToken, useUser } from '@/feature/auth/hooks/useUser';
-import BookmarkAddModal from '@/feature/index/components/molecules/BookmarkAddModal';
+import BookmarkAddModal from '@/layout/components/molecules/BookmarkAddModal';
 import useCreateBookmark, { checkUrl } from '@/feature/index/hooks/useCreateBookmark';
 import { BookmarkItem } from '@/types/api/Bookmark';
 import { CheckBookmarkReturn } from '@/types/props/CreateBookmarkProps';
@@ -14,7 +14,7 @@ export default function BookmarkAddForm() {
   const router = useRouter();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
-  const [checkedData, setCheckedData] = useState<CheckBookmarkReturn>({});
+  const [checkedData, setCheckedData] = useState<CheckBookmarkReturn>();
   const initialRef = useRef(null);
   const urlRef = useRef<HTMLInputElement>(null);
   const { user } = useUser();
@@ -32,15 +32,17 @@ export default function BookmarkAddForm() {
   };
 
   const createHandler = async () => {
-    const bookmarkData: BookmarkItem = {
-      url: checkedData.url,
-      title: checkedData.title,
-      description: checkedData.description,
-      imageUrl: checkedData.imageUrl,
-      faviconUrl: checkedData.faviconUrl,
-    };
-    create(bookmarkData);
-    onClose();
+    if (checkedData) {
+      const bookmarkData: BookmarkItem = {
+        url: checkedData.url,
+        title: checkedData.title,
+        description: checkedData.description,
+        imageUrl: checkedData.imageUrl,
+        faviconUrl: checkedData.faviconUrl,
+      };
+      create(bookmarkData);
+      onClose();
+    }
 
     if (router.query.userName !== user?.userName) {
       router.push(bookmarkAPI.getBookmarks(user?.userName));
@@ -57,15 +59,17 @@ export default function BookmarkAddForm() {
             {t('bookmark.add.add-button')}
           </Button>
         </Tooltip>
-        <BookmarkAddModal
-          isLoading={isLoading}
-          checkedData={checkedData}
-          initialRef={initialRef}
-          isOpen={isOpen}
-          onClose={onClose}
-          isCentered={true}
-          createHandler={createHandler}
-        />
+        {checkedData && (
+          <BookmarkAddModal
+            isLoading={isLoading}
+            checkedData={checkedData}
+            initialRef={initialRef}
+            isOpen={isOpen}
+            onClose={onClose}
+            isCentered={true}
+            createHandler={createHandler}
+          />
+        )}
       </Flex>
     </>
   );

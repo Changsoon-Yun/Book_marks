@@ -38,13 +38,13 @@ function Item({
             <AccordionButton
               px={2}
               bg={clickedFolder === item ? 'rgba(40, 87, 234, 0.3)' : 'inherit'}
-              _hover={{ bg: 'rgba(40,87,234,0.1)' }}
+              _hover={{ bg: clickedFolder === item ? 'rgba(40,87,234,0.3)' : 'rgba(40,87,234,0.1)' }}
               onClick={() => {
                 setClickedFolder(item);
               }}
               borderRadius={'10px'}>
               <Flex flex='1' textAlign='left' align={'center'}>
-                <Icon as={isExpanded ? AiFillFolderOpen : AiFillFolder} />
+                <Icon as={clickedFolder === item ? AiFillFolderOpen : AiFillFolder} />
                 <Text pl={2}>{item.name}</Text>
               </Flex>
               <AccordionIcon />
@@ -65,23 +65,21 @@ function Item({
   );
 }
 
-export default function SideNav({ userName }: { userName: string | string[] }) {
-  const { data: folders = [] } = useGetFolders(userName);
-  const [clickedFolder, setClickedFolder] = useState<Folder>(folders[0]);
+export default function SideNav({
+  userName,
+  folders,
+  clickedFolder,
+  setClickedFolder,
+  createFolderHandler,
+}: {
+  userName: string | string[];
+  folders: Folder[];
+  clickedFolder: Folder;
+  setClickedFolder: React.Dispatch<React.SetStateAction<Folder>>;
+  createFolderHandler: () => Promise<void>;
+}) {
   const { t } = useTranslation('common');
-  useEffect(() => {
-    setClickedFolder(folders[0]);
-  }, [folders]);
-  //TODO:고도화
-  const createFolderHandler = async () => {
-    const data = {
-      parentId: 2,
-      name: 'test-child',
-    };
-    const res = await axiosInstance.post('/folder/create', data, {
-      headers: getJWTHeader(),
-    });
-  };
+
   return (
     <Flex
       as={'nav'}

@@ -9,6 +9,11 @@ import { PageProps } from '@/types/props/PageProps';
 
 export default function BookmarkUser(props: PageProps) {
   const { slugName } = props;
+  const { push } = useRouter();
+  if (slugName === undefined) {
+    push('/');
+    return <></>;
+  }
   return (
     <>
       <Head>

@@ -4,6 +4,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Link } from '@chakra-ui/next-js';
 import {
   Box,
+  Button,
   Flex,
   Icon,
   Popover,
@@ -21,26 +22,27 @@ export const DesktopNav = () => {
   const linkHoverColor = useColorModeValue('gray.800', 'white');
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link
-                href={navItem.href ?? ''}
-                locale={locale}
+              <Button
+                onClick={() => push(navItem.href ?? '')}
                 p={2}
                 fontSize={'sm'}
                 fontWeight={500}
+                variant={'unstyled'}
+                cursor={'pointer'}
                 color={linkColor}
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
                 }}>
                 {t(navItem.label)}
-              </Link>
+              </Button>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -61,13 +63,13 @@ export const DesktopNav = () => {
 
 export const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
   return (
-    <Link
-      href={href}
-      locale={locale}
+    <Box
+      onClick={() => push(href)}
       role={'group'}
-      display={'block'}
+      as={'button'}
+      textAlign={'left'}
       p={2}
       rounded={'md'}
       _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
@@ -89,6 +91,6 @@ export const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
-    </Link>
+    </Box>
   );
 };
