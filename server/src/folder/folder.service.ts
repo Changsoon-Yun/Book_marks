@@ -8,34 +8,25 @@ export class FolderService {
   constructor(private prisma: PrismaService) {}
 
   async getFolders(userName) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        userName,
-      },
+    const user = await this.prisma.user.findUnique({ where: { userName } });
+    const topLevelFolders = await this.prisma.folder.findMany({
+      where: { userId: user.id, parentId: null },
+      include: { children: true },
     });
-    const unFilteredFolders = await this.prisma.folder.findMany({
-      where: {
-        userId: user.id,
-        parentId: null,
-      },
-      include: {
-        children: {
-          include: {
-            children: {
-              include: {
-                children: true,
-                bookmarks: true,
-              },
-            },
-          },
-        },
-      },
-    });
-
-    console.log(unFilteredFolders);
-    return unFilteredFolders;
+    const fetchChildren = async (folders) => {
+      for (const folder of folders) {
+        if (folder.children.length > 0) {
+          folder.children = await this.prisma.folder.findMany({
+            where: { parentId: folder.id },
+            include: { children: true, bookmarks: true },
+          });
+          await fetchChildren(folder.children);
+        }
+      }
+    };
+    await fetchChildren(topLevelFolders);
+    return topLevelFolders;
   }
-
   async createFolder(user: User, folderDto: FolderDto) {
     const { parentId, name } = folderDto;
 
