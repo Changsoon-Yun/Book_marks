@@ -1,4 +1,3 @@
-import { Link } from '@chakra-ui/next-js';
 import { Button, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';

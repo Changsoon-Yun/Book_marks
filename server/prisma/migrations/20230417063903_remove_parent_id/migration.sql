@@ -5,4 +5,5 @@
 
 */
 -- AlterTable
-ALTER TABLE `Bookmark` DROP COLUMN `parentId`;
+ALTER TABLE `Bookmark`
+    DROP COLUMN `parentId`;

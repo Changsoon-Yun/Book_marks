@@ -1,6 +1,4 @@
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
-import BookmarkTemplate from '@/feature/bookmark/components/templates/BookmarkTemplate';
-import { useGetBookmarks } from '@/feature/bookmark/hooks/useGetBookmarks';
 import Layout from '@/layout/components/templates/Layout';
 import { GetServerSideProps } from 'next';
 import React from 'react';

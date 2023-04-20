@@ -1,11 +1,11 @@
-import { UnKnownUserToken, useUser } from '@/feature/auth/hooks/useUser';
+import { useUser } from '@/feature/auth/hooks/useUser';
 import BookmarkAddModal from '@/layout/components/molecules/BookmarkAddModal';
 import useCreateBookmark, { checkUrl } from '@/feature/index/hooks/useCreateBookmark';
 import { BookmarkItem } from '@/types/api/Bookmark';
 import { CheckBookmarkReturn } from '@/types/props/CreateBookmarkProps';
 import { Box, Button, Flex, Input, Tooltip, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import React, { MouseEventHandler, RefObject, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { bookmarkAPI } from '@/lib/async/apiRoutes';
 

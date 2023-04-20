@@ -1,13 +1,7 @@
-import { useUser } from '@/feature/auth/hooks/useUser';
-import { useGetBookmarks } from '@/feature/bookmark/hooks/useGetBookmarks';
 import BookmarkGridItem from '@/feature/bookmark/components/elements/BookmarkGridItem';
-import { Box, Button, Grid, theme, useDisclosure } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { axiosInstance } from '@/lib/async/axiosInstance';
-import { getJWTHeader } from '@/lib/async/queryClient';
+import { Box, Grid, theme } from '@chakra-ui/react';
+import React from 'react';
 import { Bookmark } from '@/types/api/Bookmark';
-import BookmarkSettingModal from '@/feature/bookmark/components/molecules/BookmarkSettingModal';
 
 export default function BookmarkGrid({
   bookmarks,

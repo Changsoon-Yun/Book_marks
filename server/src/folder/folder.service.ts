@@ -27,6 +27,7 @@ export class FolderService {
     await fetchChildren(topLevelFolders);
     return topLevelFolders;
   }
+
   async createFolder(user: User, folderDto: FolderDto) {
     const { parentId, name } = folderDto;
 

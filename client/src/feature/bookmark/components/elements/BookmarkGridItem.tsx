@@ -1,11 +1,10 @@
-import { Bookmark, BookmarkItem } from '@/types/api/Bookmark';
+import { Bookmark } from '@/types/api/Bookmark';
 import { Link } from '@chakra-ui/next-js';
-import { Box, Button, Flex, GridItem, Heading, HStack, Icon, IconButton, Img, Text, theme } from '@chakra-ui/react';
+import { Box, Flex, GridItem, Heading, HStack, Icon, Img, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import React, { useState } from 'react';
-import { BsArrowUpRight, BsHeart, BsHeartFill } from 'react-icons/bs';
+import React from 'react';
+import { BsArrowUpRight } from 'react-icons/bs';
 import faviconImage from '../../../../../public/asset/images/logos/homepageLogo.png';
-import { useGetColor } from '@/core/hooks/useGetColor';
 import { AiOutlineSetting } from 'react-icons/ai';
 
 interface Props extends Bookmark {

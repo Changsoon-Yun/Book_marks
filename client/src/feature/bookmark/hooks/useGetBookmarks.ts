@@ -1,4 +1,3 @@
-import { useUser } from '@/feature/auth/hooks/useUser';
 import { bookmarkAPI } from '@/lib/async/apiRoutes';
 import { Bookmark } from '@/types/api/Bookmark';
 import { useQuery } from 'react-query';

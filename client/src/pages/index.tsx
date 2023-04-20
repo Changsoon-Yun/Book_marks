@@ -1,13 +1,10 @@
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
-import { useUser } from '@/feature/auth/hooks/useUser';
 import IndexTemplate from '@/feature/index/components/templates/IndexTemplate';
 import Layout from '@/layout/components/templates/Layout';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
-import { Link } from '@chakra-ui/next-js';
-import { Button } from '@chakra-ui/react';
+import React from 'react';
 
 const Home: NextPage = () => {
   const router = useRouter();

@@ -1,5 +1,4 @@
 import { Folder } from '@/types/api/Folder';
-import React from 'react';
 
 export interface Bookmark {
   id: number;

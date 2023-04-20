@@ -1,6 +1,4 @@
-import { useUser } from '@/feature/auth/hooks/useUser';
-import { bookmarkAPI, folderAPI } from '@/lib/async/apiRoutes';
-import { Bookmark } from '@/types/api/Bookmark';
+import { folderAPI } from '@/lib/async/apiRoutes';
 import { useQuery } from 'react-query';
 import { axiosInstance } from '@/lib/async/axiosInstance';
 import { Folder } from '@/types/api/Folder';

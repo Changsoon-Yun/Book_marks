@@ -1,5 +1,3 @@
-import { useUser } from '@/feature/auth/hooks/useUser';
-import { COOKIE_NAME, getCookie } from '@/lib/cookie/cookie';
 import { Url } from 'next/dist/shared/lib/router/router';
 
 export interface NavItem {

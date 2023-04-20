@@ -1,4 +1,3 @@
-import { CreateBookmarkModalProps } from '@/types/props/CreateBookmarkModalProps';
 import {
   Box,
   Button,
@@ -13,11 +12,10 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Skeleton,
   Stack,
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { Bookmark } from '@/types/api/Bookmark';
 
 interface Props {
@@ -33,6 +31,7 @@ interface Props {
   editBookmarkHandler: () => void;
   deleteBookmarkHandler: () => void;
 }
+
 export default function BookmarkSettingModal(props: Props) {
   const {
     isOpen,

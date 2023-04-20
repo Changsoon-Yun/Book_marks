@@ -1,7 +1,6 @@
 import { NAV_ITEMS, NavItem } from '@/constant/NAV_ITEMS';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Link } from '@chakra-ui/next-js';
 import {
   Box,
   Button,

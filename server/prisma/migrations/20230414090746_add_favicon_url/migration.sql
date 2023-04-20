@@ -5,5 +5,6 @@
 
 */
 -- AlterTable
-ALTER TABLE `Bookmark` ADD COLUMN `faviconUrl` VARCHAR(191) NOT NULL,
+ALTER TABLE `Bookmark`
+    ADD COLUMN `faviconUrl` VARCHAR(191) NOT NULL,
     MODIFY `imageUrl` VARCHAR(191) NULL;

@@ -16,7 +16,7 @@
   },
   "auth": {
     "common": {
-      "message-1":"to enjoy all of our cool",
+      "message-1": "to enjoy all of our cool",
       "message-2": "features",
       "login-button": "Log In",
       "signup-button": "Sign Up",
@@ -26,7 +26,7 @@
       "placeholder-input-pw": "Please enter your Password."
     },
     "login": {
-      "heading":"Log In",
+      "heading": "Log In",
       "checkbox-auto-login": "Remember me",
       "label-confirm-pw": "Confirm Password",
       "link-forgot-password": "Forgot password",

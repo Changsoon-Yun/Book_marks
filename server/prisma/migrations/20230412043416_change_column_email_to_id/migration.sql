@@ -10,8 +10,9 @@
 DROP INDEX `User_email_key` ON `User`;
 
 -- AlterTable
-ALTER TABLE `User` DROP COLUMN `email`,
+ALTER TABLE `User`
+    DROP COLUMN `email`,
     ADD COLUMN `userName` VARCHAR(191) NOT NULL;
 
 -- CreateIndex
-CREATE UNIQUE INDEX `User_userName_key` ON `User`(`userName`);
+CREATE UNIQUE INDEX `User_userName_key` ON `User` (`userName`);

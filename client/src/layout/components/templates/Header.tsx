@@ -7,11 +7,10 @@ import { DesktopNav } from '@/layout/components/molecules/DesktopNav';
 import { MobileNav } from '@/layout/components/molecules/MobileNav';
 import UserAvatar from '@/layout/components/molecules/UserAvatar';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { Link } from '@chakra-ui/next-js';
 import { Box, Button, Collapse, Flex, IconButton, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import BookmarkAddForm from '@/layout/components/molecules/BookmarkAddForm';
 
 const Header = () => {

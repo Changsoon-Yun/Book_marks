@@ -1,5 +1,3 @@
-import { useGetFolders } from '@/feature/bookmark/hooks/useGetFolders';
-import styled from '@emotion/styled';
 import { Folder } from '@/types/api/Folder';
 import {
   Accordion,
@@ -7,16 +5,13 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   Button,
   Flex,
   Icon,
   Text,
 } from '@chakra-ui/react';
 import { AiFillFolder, AiFillFolderOpen } from 'react-icons/ai';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { getJWTHeader } from '@/lib/async/queryClient';
-import { axiosInstance } from '@/lib/async/axiosInstance';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'next-i18next';
 import { FiSettings } from 'react-icons/fi';
 
