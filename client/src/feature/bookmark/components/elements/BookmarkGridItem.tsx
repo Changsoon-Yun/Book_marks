@@ -4,7 +4,7 @@ import { Box, Button, Flex, GridItem, Heading, HStack, Icon, IconButton, Img, Te
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { BsArrowUpRight, BsHeart, BsHeartFill } from 'react-icons/bs';
-import faviconImage from '@/asset/images/logos/homepageLogo.png';
+import faviconImage from '../../../../../public/asset/images/logos/homepageLogo.png';
 import { useGetColor } from '@/core/hooks/useGetColor';
 import { AiOutlineSetting } from 'react-icons/ai';
 

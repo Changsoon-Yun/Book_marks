@@ -18,18 +18,18 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import logo from '../../../asset/images/default/default.jpg';
 
 export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
-  const { isOpen, onClose, initialRef, isLoading, checkedData, createHandler } = props;
+  const { isOpen, onClose, titleRef, descriptionRef, imageRef, faviconRef, isLoading, checkedData, createHandler } =
+    props;
   const { url, title, description, imageUrl, faviconUrl } = checkedData;
   const { t } = useTranslation('common');
 
-  console.log(checkedData);
+  console.log(faviconUrl);
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef} isCentered closeOnOverlayClick={false}>
+      <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={titleRef} isCentered closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent mx={2}>
           <ModalHeader>{t('bookmark.modal.title')}</ModalHeader>
@@ -43,9 +43,18 @@ export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
                 border={'1px solid gray'}
                 borderRadius={'8px'}
                 overflow={'hidden'}>
-                <Img src={imageUrl ?? logo} roundedTop={'sm'} objectFit='cover' h='full' w='full' alt={'image'} />
                 <Img
-                  src={faviconUrl ?? logo}
+                  ref={imageRef}
+                  src={imageUrl ?? process.env.NEXT_PUBLIC_AWS_ADDR + '/default.jpg'}
+                  roundedTop={'sm'}
+                  objectFit='cover'
+                  h='full'
+                  w='full'
+                  alt={'image'}
+                />
+                <Img
+                  ref={faviconRef}
+                  src={faviconUrl ?? process.env.NEXT_PUBLIC_AWS_ADDR + '/default.jpg'}
                   position={'absolute'}
                   border={'1px solid gray'}
                   borderRadius={'50%'}
@@ -70,7 +79,7 @@ export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
                 <FormLabel>{t('bookmark.modal.label-title')}</FormLabel>
                 <Skeleton height='40px' isLoaded={!isLoading}>
                   <Input
-                    ref={initialRef}
+                    ref={titleRef}
                     defaultValue={title}
                     placeholder={`${t('bookmark.modal.input-placeholder-title')}`}
                   />
@@ -81,6 +90,7 @@ export default function BookmarkAddModal(props: CreateBookmarkModalProps) {
                 <FormLabel>{t('bookmark.modal.label-description')}</FormLabel>
                 <Skeleton height='40px' isLoaded={!isLoading}>
                   <Input
+                    ref={descriptionRef}
                     defaultValue={description}
                     placeholder={`${t('bookmark.modal.input-placeholder-description')}`}
                   />

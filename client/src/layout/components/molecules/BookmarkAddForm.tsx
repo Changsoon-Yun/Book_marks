@@ -15,10 +15,14 @@ export default function BookmarkAddForm() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const [checkedData, setCheckedData] = useState<CheckBookmarkReturn>();
-  const initialRef = useRef(null);
   const urlRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const faviconRef = useRef<HTMLImageElement>(null);
   const { user } = useUser();
   const create = useCreateBookmark();
+
   const checkHandler = async () => {
     if (!user) return;
     if (urlRef.current?.value === '') {
@@ -32,17 +36,16 @@ export default function BookmarkAddForm() {
   };
 
   const createHandler = async () => {
-    if (checkedData) {
-      const bookmarkData: BookmarkItem = {
-        url: checkedData.url,
-        title: checkedData.title,
-        description: checkedData.description,
-        imageUrl: checkedData.imageUrl,
-        faviconUrl: checkedData.faviconUrl,
-      };
-      create(bookmarkData);
-      onClose();
-    }
+    const bookmarkData: BookmarkItem = {
+      url: urlRef.current?.value || '',
+      title: titleRef.current?.value || '',
+      description: descriptionRef.current?.value || '',
+      imageUrl: imageRef.current?.currentSrc || '',
+      faviconUrl: faviconRef.current?.currentSrc || '',
+    };
+
+    create(bookmarkData);
+    onClose();
 
     if (router.query.userName !== user?.userName) {
       router.push(bookmarkAPI.getBookmarks(user?.userName));
@@ -63,7 +66,10 @@ export default function BookmarkAddForm() {
           <BookmarkAddModal
             isLoading={isLoading}
             checkedData={checkedData}
-            initialRef={initialRef}
+            titleRef={titleRef}
+            descriptionRef={descriptionRef}
+            imageRef={imageRef}
+            faviconRef={faviconRef}
             isOpen={isOpen}
             onClose={onClose}
             isCentered={true}

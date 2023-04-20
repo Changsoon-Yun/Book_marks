@@ -1,6 +1,6 @@
 'use client';
 
-import homepageLogo from '@/asset/images/logos/homepageLogo.png';
+import homepageLogo from '../../../../public/asset/images/logos/homepageLogo.png';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import AuthButtons from '@/layout/components/molecules/AuthButtons';
 import { DesktopNav } from '@/layout/components/molecules/DesktopNav';
