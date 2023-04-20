@@ -1,9 +1,62 @@
 {
-  "menu-1":"Bookmark",
-  "menu-1-label-1": "Explore Bookmarks",
-  "menu-1-sub-1" : "Trending Bookmarks that inspire to you",
-  "menu-1-label-2": "Explore New Bookmarks",
-  "menu-1-sub-2" : "New Bookmarks that inspire to you",
-  "signin": "Sign In",
-  "signup": "Sign Up"
+  "menu-1": {
+    "title": "Bookmark",
+    "label-1": "Explore Bookmarks",
+    "sub-1": "Trending Bookmarks that inspire to you",
+    "label-2": "Explore New Bookmarks",
+    "sub-2": "New Bookmarks that inspire to you"
+  },
+  "header": {
+    "common": {
+      "login": "Log In",
+      "signup": "Sign Up",
+      "logout": "Log Out",
+      "my-bookmark": "My Bookmark"
+    }
+  },
+  "auth": {
+    "common": {
+      "message-1": "to enjoy all of our cool",
+      "message-2": "features",
+      "login-button": "Log In",
+      "signup-button": "Sign Up",
+      "label-id": "ID",
+      "label-pw": "Password",
+      "placeholder-input-id": "Please enter your ID.",
+      "placeholder-input-pw": "Please enter your Password."
+    },
+    "login": {
+      "heading": "Log In",
+      "checkbox-auto-login": "Remember me",
+      "label-confirm-pw": "Confirm Password",
+      "link-forgot-password": "Forgot password",
+      "dont-have-account": "Don't you have an account ?"
+    },
+    "signup": {
+      "heading": "Sign up",
+      "placeholder-input-confirm-pw": "Please enter your Confirm Password.",
+      "password-not-matched": "Password and confirm password do not match. Please try again."
+    }
+  },
+  "bookmark": {
+    "add": {
+      "add-button": "Save"
+    },
+    "sideNav": {
+      "setting": "Settings"
+    },
+    "modal": {
+      "title": "Save Bookmark",
+      "title-edit": "Edit Bookmark",
+      "label-url": "URL",
+      "label-title": "Title",
+      "label-description": "Description",
+      "input-placeholder-title": "This page's title is ...",
+      "input-placeholder-description": "This page is ...",
+      "close-button": "Close",
+      "delete-button": "Delete",
+      "save-button": "Save",
+      "edit-button": "Edit"
+    }
+  }
 }

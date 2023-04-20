@@ -47,7 +47,7 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
 };
 
 export default function SmallWithSocial() {
-  const { locale, locales, pathname, push } = useRouter();
+  const { locale, locales, pathname, asPath, push } = useRouter();
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
@@ -55,7 +55,7 @@ export default function SmallWithSocial() {
   const { color: footerText } = useGetColor(700);
 
   const languageHandler = (language: string) => {
-    push(pathname, undefined, { locale: language });
+    push(asPath, undefined, { locale: language });
   };
   return (
     <Box bg={footerBg} color={footerText}>

@@ -24,10 +24,11 @@ model Bookmark {
   createdAt   DateTime @default(now())
   description String?
   folderId    Int
-  parentId    Int?
   updatedAt   DateTime @updatedAt
   url         String
-  imageUrl    String
+  imageUrl    String?
+  faviconUrl  String
+  viewCount   Int      @default(0)
   folder      Folder   @relation(fields: [folderId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 

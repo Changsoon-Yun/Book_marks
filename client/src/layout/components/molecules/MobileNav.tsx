@@ -1,19 +1,8 @@
-import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
-import { NavItem } from '@/types/NavItem';
+import { NAV_ITEMS, NavItem } from '@/constant/NAV_ITEMS';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import {
-  Collapse,
-  Flex,
-  Icon,
-  Link as ChakraLink,
-  Stack,
-  Text,
-  useColorModeValue,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Button, Collapse, Flex, Icon, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { Url } from 'next/dist/shared/lib/router/router';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export const MobileNav = () => {
@@ -29,14 +18,14 @@ export const MobileNav = () => {
 export const MobileNavItem = ({ label, children, href }: { label: string; href?: Url; children?: NavItem[] }) => {
   const { isOpen, onToggle } = useDisclosure();
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        as={Link}
-        href={href ?? '#'}
+        as={'button'}
+        onClick={() => push(href ?? '')}
         justify={'space-between'}
         align={'center'}
         _hover={{
@@ -66,11 +55,9 @@ export const MobileNavItem = ({ label, children, href }: { label: string; href?:
           align={'start'}>
           {children &&
             children.map((child) => (
-              <Link key={child.label} href={child.href} locale={locale}>
-                <ChakraLink as={'span'} py={2}>
-                  {t(child.label)}
-                </ChakraLink>
-              </Link>
+              <Button key={child.label} cursor={'pointer'} py={2} onClick={() => push(child.href)} variant={'unstyled'}>
+                {t(child.label)}
+              </Button>
             ))}
         </Stack>
       </Collapse>

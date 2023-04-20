@@ -1,11 +1,11 @@
-import { NAV_ITEMS } from '@/layout/constant/NAV_ITEMS';
-import { NavItem } from '@/types/NavItem';
+import { NAV_ITEMS, NavItem } from '@/constant/NAV_ITEMS';
+
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
   Box,
+  Button,
   Flex,
   Icon,
-  Link as ChakraLink,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -14,7 +14,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export const DesktopNav = () => {
@@ -22,27 +21,27 @@ export const DesktopNav = () => {
   const linkHoverColor = useColorModeValue('gray.800', 'white');
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <ChakraLink
-                as={'span'}
+              <Button
+                onClick={() => push(navItem.href ?? '')}
                 p={2}
                 fontSize={'sm'}
                 fontWeight={500}
+                variant={'unstyled'}
+                cursor={'pointer'}
                 color={linkColor}
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
                 }}>
-                <Link href={navItem.href ?? '#'} locale={locale}>
-                  {t(navItem.label)}
-                </Link>
-              </ChakraLink>
+                {t(navItem.label)}
+              </Button>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -63,35 +62,34 @@ export const DesktopNav = () => {
 
 export const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
   return (
-    <Link href={href} locale={locale}>
-      <ChakraLink
-        as={'span'}
-        role={'group'}
-        display={'block'}
-        p={2}
-        rounded={'md'}
-        _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
-        <Stack direction={'row'} align={'center'}>
-          <Box>
-            <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
-              {t(label)}
-            </Text>
-            {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
-          </Box>
-          <Flex
-            transition={'all .3s ease'}
-            transform={'translateX(-10px)'}
-            opacity={0}
-            _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-            justify={'flex-end'}
-            align={'center'}
-            flex={1}>
-            <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
-          </Flex>
-        </Stack>
-      </ChakraLink>
-    </Link>
+    <Box
+      onClick={() => push(href)}
+      role={'group'}
+      as={'button'}
+      textAlign={'left'}
+      p={2}
+      rounded={'md'}
+      _hover={{ bg: useColorModeValue('blue.50', 'gray.900') }}>
+      <Stack direction={'row'} align={'center'}>
+        <Box>
+          <Text transition={'all .3s ease'} _groupHover={{ color: 'blue.400' }} fontWeight={500}>
+            {t(label)}
+          </Text>
+          {subLabel && <Text fontSize={'sm'}>{t(subLabel)}</Text>}
+        </Box>
+        <Flex
+          transition={'all .3s ease'}
+          transform={'translateX(-10px)'}
+          opacity={0}
+          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+          justify={'flex-end'}
+          align={'center'}
+          flex={1}>
+          <Icon color={'blue.400'} w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Box>
   );
 };

@@ -1,6 +1,6 @@
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import { useUser } from '@/feature/auth/hooks/useUser';
-import BookmarkCreateTemplate from '@/feature/bookmark/BookmarkCreateTemplate';
+import BookmarkCreateTemplate from '@/feature/bookmark/components/templates/BookmarkCreateTemplate';
 import { useCreateBookmark, UserInput } from '@/feature/bookmark/hooks/useCreateBookmark';
 import Layout from '@/layout/components/templates/Layout';
 import { GetServerSideProps } from 'next';
@@ -42,5 +42,5 @@ export default function Create() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return prefetchUserData(context, ['common']);
+  return prefetchUserData(context);
 };

@@ -2,7 +2,7 @@ import LoginTemplate from '@/feature/auth/components/templates/LoginTemplate';
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
 import Layout from '@/layout/components/templates/Layout';
-import { User } from '@/types/User';
+import { User } from '@/types/api/User';
 import { useBoolean } from '@chakra-ui/hooks';
 import { GetServerSideProps } from 'next';
 import React, { FormEvent, useRef } from 'react';
@@ -41,5 +41,5 @@ export default function Login() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return prefetchUserData(context, ['common', 'auth']);
+  return prefetchUserData(context);
 };

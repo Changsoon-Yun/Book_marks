@@ -1,5 +1,5 @@
-import '@/asset/styles/globals.css';
-import { config } from '@/lib/axios/queryClient';
+import '../../public/asset/styles/globals.css';
+import { config } from '@/lib/async/queryClient';
 //import { queryClient } from '@/lib/axios/queryClient';
 import { ChakraProvider } from '@chakra-ui/react';
 import { appWithTranslation } from 'next-i18next';
