@@ -10,3 +10,8 @@ export const userDataAtom = atom<UserWidthToken>({
     accessToken: '',
   },
 });
+
+export const dropedTarget = atom<number>({
+  key: `dropedTarget/${Math.random()}`,
+  default: 0,
+});
