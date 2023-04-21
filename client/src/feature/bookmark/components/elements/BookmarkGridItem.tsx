@@ -2,10 +2,12 @@ import { Bookmark } from '@/types/api/Bookmark';
 import { Link } from '@chakra-ui/next-js';
 import { Box, Flex, GridItem, Heading, HStack, Icon, Img, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import faviconImage from '../../../../../public/asset/images/logos/homepageLogo.png';
 import { AiOutlineSetting } from 'react-icons/ai';
+import { useRecoilState } from 'recoil';
+import { grabbedTargetAtom } from '@/lib/recoil/atom';
 
 interface Props extends Bookmark {
   openSettingHandler: (e: React.MouseEvent<HTMLOrSVGElement>, bookmark: Bookmark) => void;
@@ -13,19 +15,25 @@ interface Props extends Bookmark {
 
 export default function BookmarkGridItem(props: Props) {
   const { title, description, url, imageUrl, faviconUrl, openSettingHandler } = props;
-  const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+  const [grabbedTarget, setGrabbedTarget] = useRecoilState(grabbedTargetAtom);
+  const onDragStart = (e: React.DragEvent<HTMLDivElement>, item: Bookmark) => {
     console.log('start!!!!');
 
-    const target = e.target as HTMLElement;
+    const target = e.currentTarget as HTMLElement;
     target.classList.add('grabbing');
 
+    setGrabbedTarget({
+      grabbedTarget: item,
+    });
+
     console.log(target);
+    console.log(grabbedTarget);
   };
 
   const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
     console.log('end!!!!');
 
-    const target = e.target as HTMLElement;
+    const target = e.currentTarget as HTMLElement;
     target.classList.remove('grabbing');
 
     console.log(target);
@@ -38,7 +46,7 @@ export default function BookmarkGridItem(props: Props) {
         overflow={'hidden'}
         bg={'white'}
         boxShadow={'lg'}
-        onDragStart={onDragStart}
+        onDragStart={(e) => onDragStart(e, props)}
         onDragEnd={onDragEnd}
         draggable>
         <Link href={url} target={'_blank'} textDecoration={'none'} draggable={false}>

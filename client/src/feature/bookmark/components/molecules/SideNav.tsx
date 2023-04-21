@@ -17,6 +17,10 @@ import { useTranslation } from 'next-i18next';
 import { FiSettings } from 'react-icons/fi';
 import { BsArrowDownShort, BsArrowLeftShort } from 'react-icons/bs';
 import styled from '@emotion/styled';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { droppedTargetAtom, grabbedTargetAtom } from '@/lib/recoil/atom';
+import useUpdateBookmark from '@/feature/bookmark/hooks/useUpdateBookmark';
+import { Bookmark } from '@/types/api/Bookmark';
 
 function Item({
   item,
@@ -28,18 +32,29 @@ function Item({
   setClickedFolder: Dispatch<SetStateAction<Folder>>;
 }) {
   const hasChildren = item.children && item.children.length > 0;
+  const [{ droppedTarget }, setDroppedTarget] = useRecoilState(droppedTargetAtom);
+  const grabbedTarget = useRecoilValue<{ grabbedTarget: Bookmark | undefined }>(grabbedTargetAtom);
+  const updateBookmark = useUpdateBookmark();
 
-  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const dragFunction = async (e: React.DragEvent<HTMLDivElement>, type: string, item: Folder) => {
+    e.preventDefault();
+    e.stopPropagation();
     const target = e.currentTarget as HTMLElement;
-    target.classList.add('overMe');
-    console.log(target);
-  };
 
-  const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('leave!!!!!!!!!!!');
-    const target = e.target as HTMLElement;
-    target.classList.remove('overMe');
-    console.log(e.target);
+    if (type === 'over') {
+      target.classList.add('grabbing');
+      setDroppedTarget({
+        droppedTarget: item,
+      });
+    }
+
+    if (type === 'leave') {
+      target.classList.remove('grabbing');
+    }
+
+    if (type === 'drop' && droppedTarget && grabbedTarget.grabbedTarget) {
+      await updateBookmark({ ...grabbedTarget.grabbedTarget, folderId: droppedTarget.id });
+    }
   };
 
   return (
@@ -48,8 +63,13 @@ function Item({
         <>
           <h2>
             <Flex
-              onDragOver={onDragOver}
-              onDragLeave={onDragLeave}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                alert('수정하시겠습니까');
+              }}
+              onDrop={(e) => dragFunction(e, 'drop', item)}
+              onDragOver={(e) => dragFunction(e, 'over', item)}
+              onDragLeave={(e) => dragFunction(e, 'leave', item)}
               px={2}
               h={9}
               bg={clickedFolder === item ? 'rgba(40, 87, 234, 0.3)' : 'inherit'}

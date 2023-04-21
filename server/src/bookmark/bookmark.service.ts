@@ -76,14 +76,14 @@ export class BookmarkService {
   }
 
   async updateBookmark(user: User, bookmark: Bookmark, id: number) {
-    const { title, description, imageUrl, faviconUrl, url } = bookmark;
+    const { title, description, imageUrl, faviconUrl, url, folderId } = bookmark;
     try {
       return await this.prisma.bookmark.update({
         where: { id },
-        data: { title, description, imageUrl, faviconUrl, url },
+        data: { title, description, imageUrl, faviconUrl, url, folderId },
       });
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
 

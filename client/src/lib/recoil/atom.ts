@@ -1,5 +1,7 @@
 import { UserWidthToken } from '@/feature/auth/hooks/useUser';
 import { atom } from 'recoil';
+import { Bookmark } from '@/types/api/Bookmark';
+import { Folder } from '@/types/api/Folder';
 
 export const userDataAtom = atom<UserWidthToken>({
   // next + recoil 사용시 atom key 관련 duplicated 문제가 있음
@@ -11,7 +13,12 @@ export const userDataAtom = atom<UserWidthToken>({
   },
 });
 
-export const dropedTarget = atom<number>({
+export const grabbedTargetAtom = atom<{ grabbedTarget: Bookmark | undefined }>({
   key: `dropedTarget/${Math.random()}`,
-  default: 0,
+  default: { grabbedTarget: undefined },
+});
+
+export const droppedTargetAtom = atom<{ droppedTarget: Folder | undefined }>({
+  key: `dropedTarget/${Math.random()}`,
+  default: { droppedTarget: undefined },
 });

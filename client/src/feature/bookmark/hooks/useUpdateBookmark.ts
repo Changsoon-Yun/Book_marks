@@ -4,6 +4,7 @@ import { Bookmark } from '@/types/api/Bookmark';
 import { bookmarkAPI } from '@/lib/async/apiRoutes';
 import { useUser } from '@/feature/auth/hooks/useUser';
 import { getJWTHeader } from '@/lib/async/queryClient';
+import { useToast } from '@chakra-ui/react';
 
 const updateBookmark = async (bookmark: Bookmark): Promise<Bookmark> => {
   console.log(bookmark.id);
@@ -13,10 +14,12 @@ const updateBookmark = async (bookmark: Bookmark): Promise<Bookmark> => {
 };
 export default function useUpdateBookmark() {
   const queryClient = useQueryClient();
+  const toast = useToast();
   const { user } = useUser();
   const { mutate } = useMutation((bookmark: Bookmark) => updateBookmark(bookmark), {
     onSuccess: () => {
       queryClient.invalidateQueries([bookmarkAPI.getBookmarks(user?.userName)]);
+      toast({ title: '성공했어요!', status: 'success' });
     },
   });
 
