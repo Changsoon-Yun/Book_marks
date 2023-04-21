@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Bookmark, User } from '@prisma/client';
+import { Bookmark, Prisma, PrismaClient, User } from '@prisma/client';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { PrismaService } from '../prisma.service';
@@ -24,7 +24,12 @@ interface PageData {
 
 @Injectable()
 export class BookmarkService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {
+    // prisma.$on<any>('query', (event: Prisma.QueryEvent) => {
+    //   console.log('BookmarkQuery: ' + event.query);
+    //   console.log('Duration: ' + event.duration + 'ms');
+    // });
+  }
 
   async getBookmark(userName): Promise<Bookmark[] | null> {
     const user = await this.prisma.user.findUnique({

@@ -1,6 +1,6 @@
 import { Bookmark } from '@/types/api/Bookmark';
 import { Link } from '@chakra-ui/next-js';
-import { Box, Flex, GridItem, Heading, HStack, Icon, Img, Text } from '@chakra-ui/react';
+import { Box, Flex, GridItem, Heading, HStack, Icon, Img, Text, theme } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
@@ -11,32 +11,25 @@ import { grabbedTargetAtom } from '@/lib/recoil/atom';
 
 interface Props extends Bookmark {
   openSettingHandler: (e: React.MouseEvent<HTMLOrSVGElement>, bookmark: Bookmark) => void;
+  host: boolean;
 }
 
 export default function BookmarkGridItem(props: Props) {
-  const { title, description, url, imageUrl, faviconUrl, openSettingHandler } = props;
+  const { host, title, description, url, imageUrl, faviconUrl, openSettingHandler } = props;
   const [grabbedTarget, setGrabbedTarget] = useRecoilState(grabbedTargetAtom);
-  const onDragStart = (e: React.DragEvent<HTMLDivElement>, item: Bookmark) => {
-    console.log('start!!!!');
 
+  const onDragStart = (e: React.DragEvent<HTMLDivElement>, item: Bookmark) => {
+    if (!host) return;
     const target = e.currentTarget as HTMLElement;
     target.classList.add('grabbing');
-
     setGrabbedTarget({
       grabbedTarget: item,
     });
-
-    console.log(target);
-    console.log(grabbedTarget);
   };
 
   const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('end!!!!');
-
     const target = e.currentTarget as HTMLElement;
     target.classList.remove('grabbing');
-
-    console.log(target);
   };
 
   return (
@@ -44,11 +37,11 @@ export default function BookmarkGridItem(props: Props) {
       <Box
         rounded={'lg'}
         overflow={'hidden'}
-        bg={'white'}
+        bg={theme.colors.white}
         boxShadow={'lg'}
         onDragStart={(e) => onDragStart(e, props)}
         onDragEnd={onDragEnd}
-        draggable>
+        draggable={host}>
         <Link href={url} target={'_blank'} textDecoration={'none'} draggable={false}>
           <Flex h={'120px'} p={4} justify={'space-between'}>
             <Img
@@ -61,7 +54,7 @@ export default function BookmarkGridItem(props: Props) {
               border={'1px solid rgba(0,0,0,0.1)'}
               alt={'Blog Image'}
             />
-            <Icon as={AiOutlineSetting} p={2} w={10} h={10} onClick={(e) => openSettingHandler(e, props)} />
+            {host && <Icon as={AiOutlineSetting} p={2} w={10} h={10} onClick={(e) => openSettingHandler(e, props)} />}
           </Flex>
           <Box p={4}>
             <Heading color={'black'} fontSize={'sm'} noOfLines={1}>

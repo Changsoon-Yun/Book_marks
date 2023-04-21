@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { AiFillFolder, AiFillFolderOpen } from 'react-icons/ai';
-import React, { Dispatch, DragEventHandler, SetStateAction, useRef } from 'react';
+import React, { Dispatch, DragEventHandler, SetStateAction, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { FiSettings } from 'react-icons/fi';
 import { BsArrowDownShort, BsArrowLeftShort } from 'react-icons/bs';
@@ -34,6 +34,7 @@ function Item({
   const hasChildren = item.children && item.children.length > 0;
   const [{ droppedTarget }, setDroppedTarget] = useRecoilState(droppedTargetAtom);
   const grabbedTarget = useRecoilValue<{ grabbedTarget: Bookmark | undefined }>(grabbedTargetAtom);
+  const [grab, setGrab] = useState(false);
   const updateBookmark = useUpdateBookmark();
 
   const dragFunction = async (e: React.DragEvent<HTMLDivElement>, type: string, item: Folder) => {
@@ -42,18 +43,27 @@ function Item({
     const target = e.currentTarget as HTMLElement;
 
     if (type === 'over') {
+      if (target.classList.contains('grabbing')) {
+        return;
+      }
+
       target.classList.add('grabbing');
       setDroppedTarget({
         droppedTarget: item,
       });
+
+      setGrab(true);
     }
 
     if (type === 'leave') {
       target.classList.remove('grabbing');
+      setGrab(false);
     }
 
     if (type === 'drop' && droppedTarget && grabbedTarget.grabbedTarget) {
+      console.log('drop???');
       await updateBookmark({ ...grabbedTarget.grabbedTarget, folderId: droppedTarget.id });
+      setGrab(false);
     }
   };
 
@@ -63,16 +73,12 @@ function Item({
         <>
           <h2>
             <Flex
-              onContextMenu={(e) => {
-                e.preventDefault();
-                alert('수정하시겠습니까');
-              }}
               onDrop={(e) => dragFunction(e, 'drop', item)}
               onDragOver={(e) => dragFunction(e, 'over', item)}
               onDragLeave={(e) => dragFunction(e, 'leave', item)}
               px={2}
               h={9}
-              bg={clickedFolder === item ? 'rgba(40, 87, 234, 0.3)' : 'inherit'}
+              bg={grab ? 'rgba(40, 87, 234, 0.3)' : clickedFolder === item ? 'rgba(40, 87, 234, 0.3)' : 'inherit'}
               _hover={{ bg: clickedFolder === item ? 'rgba(40,87,234,0.3)' : 'rgba(40,87,234,0.1)' }}
               onClick={() => {
                 setClickedFolder(item);

@@ -7,11 +7,16 @@ import BookmarkSettingModal from '@/feature/bookmark/components/molecules/Bookma
 import { Bookmark } from '@/types/api/Bookmark';
 import useUpdateBookmark from '@/feature/bookmark/hooks/useUpdateBookmark';
 import useDeleteBookmark from '@/feature/bookmark/hooks/useDeleteBookmark';
+import { useUser } from '@/feature/auth/hooks/useUser';
+import { useRouter } from 'next/router';
 
 export default function BookmarkUserTemplate({ slugName: userName }: { slugName: string | string[] }) {
   const { bookmarks, folders, clickedFolder, setClickedFolder } = useGetBookmarks(userName);
   const updateBookmark = useUpdateBookmark();
   const deleteBookmark = useDeleteBookmark();
+
+  const { user } = useUser();
+  const { query } = useRouter();
   const [clickedBookmark, setClickedBookmark] = useState<Bookmark>();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +24,8 @@ export default function BookmarkUserTemplate({ slugName: userName }: { slugName:
   const urlRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
+
+  const host = user?.userName === query.userName;
 
   // 최초 렌더링시 루트폴더 열림
   useEffect(() => {
@@ -65,7 +72,7 @@ export default function BookmarkUserTemplate({ slugName: userName }: { slugName:
           setClickedFolder={setClickedFolder}
           createFolderHandler={createFolderHandler}
         />
-        <BookmarkGrid bookmarks={bookmarks} onOpen={onOpen} setClickedBookmark={setClickedBookmark} />
+        <BookmarkGrid host={host} bookmarks={bookmarks} onOpen={onOpen} setClickedBookmark={setClickedBookmark} />
         {clickedBookmark && (
           <BookmarkSettingModal
             isOpen={isOpen}
