@@ -14,11 +14,11 @@ export const userDataAtom = atom<UserWidthToken>({
 });
 
 export const grabbedTargetAtom = atom<{ grabbedTarget: Bookmark | undefined }>({
-  key: `dropedTarget/${Math.random()}`,
+  key: `grabbedTarget/${Math.random()}`,
   default: { grabbedTarget: undefined },
 });
 
-export const droppedTargetAtom = atom<{ droppedTarget: Folder | undefined }>({
-  key: `dropedTarget/${Math.random()}`,
+export const droppedTargetAtom = atom<{ droppedTarget: Folder | Bookmark | undefined }>({
+  key: `droppedTarget/${Math.random()}`,
   default: { droppedTarget: undefined },
 });

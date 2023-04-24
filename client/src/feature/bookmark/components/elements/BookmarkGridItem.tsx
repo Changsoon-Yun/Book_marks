@@ -8,6 +8,8 @@ import faviconImage from '../../../../../public/asset/images/logos/homepageLogo.
 import { AiOutlineSetting } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 import { grabbedTargetAtom } from '@/lib/recoil/atom';
+import { Folder } from '@/types/api/Folder';
+import UseDragBookmark from '@/feature/bookmark/hooks/useDragBookmark';
 
 interface Props extends Bookmark {
   openSettingHandler: (e: React.MouseEvent<HTMLOrSVGElement>, bookmark: Bookmark) => void;
@@ -17,20 +19,7 @@ interface Props extends Bookmark {
 export default function BookmarkGridItem(props: Props) {
   const { host, title, description, url, imageUrl, faviconUrl, openSettingHandler } = props;
   const [grabbedTarget, setGrabbedTarget] = useRecoilState(grabbedTargetAtom);
-
-  const onDragStart = (e: React.DragEvent<HTMLDivElement>, item: Bookmark) => {
-    if (!host) return;
-    const target = e.currentTarget as HTMLElement;
-    target.classList.add('grabbing');
-    setGrabbedTarget({
-      grabbedTarget: item,
-    });
-  };
-
-  const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    const target = e.currentTarget as HTMLElement;
-    target.classList.remove('grabbing');
-  };
+  const { dragFunction } = UseDragBookmark('bookmark');
 
   return (
     <GridItem gridTemplateColumns={'1fr 2fr 100px 25%'} position={'relative'} cursor={'pointer'}>
@@ -39,8 +28,11 @@ export default function BookmarkGridItem(props: Props) {
         overflow={'hidden'}
         bg={theme.colors.white}
         boxShadow={'lg'}
-        onDragStart={(e) => onDragStart(e, props)}
-        onDragEnd={onDragEnd}
+        onDragStart={(e) => dragFunction(e, 'dragStart', props)}
+        onDragEnd={(e) => dragFunction(e, 'dragEnd', props)}
+        onDrop={(e) => dragFunction(e, 'drop', props)}
+        onDragOver={(e) => dragFunction(e, 'over', props)}
+        onDragLeave={(e) => dragFunction(e, 'leave', props)}
         draggable={host}>
         <Link href={url} target={'_blank'} textDecoration={'none'} draggable={false}>
           <Flex h={'120px'} p={4} justify={'space-between'}>

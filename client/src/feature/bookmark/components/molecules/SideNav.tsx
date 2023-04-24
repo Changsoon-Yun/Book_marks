@@ -21,6 +21,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { droppedTargetAtom, grabbedTargetAtom } from '@/lib/recoil/atom';
 import useUpdateBookmark from '@/feature/bookmark/hooks/useUpdateBookmark';
 import { Bookmark } from '@/types/api/Bookmark';
+import UseDragBookmark from '@/feature/bookmark/hooks/useDragBookmark';
 
 function Item({
   item,
@@ -32,40 +33,7 @@ function Item({
   setClickedFolder: Dispatch<SetStateAction<Folder>>;
 }) {
   const hasChildren = item.children && item.children.length > 0;
-  const [{ droppedTarget }, setDroppedTarget] = useRecoilState(droppedTargetAtom);
-  const grabbedTarget = useRecoilValue<{ grabbedTarget: Bookmark | undefined }>(grabbedTargetAtom);
-  const [grab, setGrab] = useState(false);
-  const updateBookmark = useUpdateBookmark();
-
-  const dragFunction = async (e: React.DragEvent<HTMLDivElement>, type: string, item: Folder) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const target = e.currentTarget as HTMLElement;
-
-    if (type === 'over') {
-      if (target.classList.contains('grabbing')) {
-        return;
-      }
-
-      target.classList.add('grabbing');
-      setDroppedTarget({
-        droppedTarget: item,
-      });
-
-      setGrab(true);
-    }
-
-    if (type === 'leave') {
-      target.classList.remove('grabbing');
-      setGrab(false);
-    }
-
-    if (type === 'drop' && droppedTarget && grabbedTarget.grabbedTarget) {
-      console.log('drop???');
-      await updateBookmark({ ...grabbedTarget.grabbedTarget, folderId: droppedTarget.id });
-      setGrab(false);
-    }
-  };
+  const { grab, dragFunction } = UseDragBookmark('folder');
 
   return (
     <AccordionItem border={'none'}>

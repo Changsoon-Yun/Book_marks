@@ -14,7 +14,7 @@ export default function BookmarkUserTemplate({ slugName: userName }: { slugName:
   const { bookmarks, folders, clickedFolder, setClickedFolder } = useGetBookmarks(userName);
   const updateBookmark = useUpdateBookmark();
   const deleteBookmark = useDeleteBookmark();
-
+  console.log(bookmarks.map((item) => item.orderId));
   const { user } = useUser();
   const { query } = useRouter();
   const [clickedBookmark, setClickedBookmark] = useState<Bookmark>();
@@ -48,7 +48,7 @@ export default function BookmarkUserTemplate({ slugName: userName }: { slugName:
     const description = descriptionRef.current?.value;
 
     if (url && title && description && clickedBookmark) {
-      await updateBookmark({ ...clickedBookmark, url, title, description });
+      await updateBookmark({ bookmark: { ...clickedBookmark, url, title, description } });
     }
 
     return onClose();
