@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `Bookmark` MODIFY `orderId` INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE `Folder` MODIFY `orderId` INTEGER NOT NULL DEFAULT 0;

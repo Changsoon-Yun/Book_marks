@@ -29,6 +29,7 @@ model Bookmark {
   imageUrl    String?
   faviconUrl  String
   viewCount   Int      @default(0)
+  orderId     Int      @default(0)
   folder      Folder   @relation(fields: [folderId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 
@@ -43,6 +44,7 @@ model Folder {
   updatedAt DateTime   @updatedAt
   parentId  Int?
   userId    Int
+  orderId   Int        @default(0)
   bookmarks Bookmark[]
   parent    Folder?    @relation("ChildOf", fields: [parentId], references: [id])
   children  Folder[]   @relation("ChildOf")

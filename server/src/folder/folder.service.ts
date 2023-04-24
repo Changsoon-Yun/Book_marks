@@ -36,12 +36,17 @@ export class FolderService {
   async createFolder(user: User, folderDto: FolderDto) {
     const { parentId, name } = folderDto;
 
-    return this.prisma.folder.create({
+    const res = await this.prisma.folder.create({
       data: {
         name,
         parentId,
         userId: user.id,
       },
+    });
+
+    return this.prisma.folder.update({
+      where: { id: res.id },
+      data: { orderId: res.id },
     });
   }
 }
