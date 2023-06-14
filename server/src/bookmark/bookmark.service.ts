@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { PrismaService } from '../prisma.service';
 import { BookmarkDto } from './dto/bookmark.dto';
+import { BookmarkWithType } from './bookmark.controller';
 
 //import iconv from 'iconv-lite';
 const DEFAULT_IMAGE = 'http://localhost:4000/images/default.jpg';
@@ -24,7 +25,12 @@ interface PageData {
 
 @Injectable()
 export class BookmarkService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {
+    // prisma.$on<any>('query', (event: Prisma.QueryEvent) => {
+    //   console.log('BookmarkQuery: ' + event.query);
+    //   console.log('Duration: ' + event.duration + 'ms');
+    // });
+  }
 
   async getBookmark(userName): Promise<Bookmark[] | null> {
     const user = await this.prisma.user.findUnique({
@@ -36,6 +42,9 @@ export class BookmarkService {
     return this.prisma.bookmark.findMany({
       where: {
         userId: user.id,
+      },
+      orderBy: {
+        orderId: 'asc',
       },
     });
   }
@@ -59,7 +68,7 @@ export class BookmarkService {
     });
 
     try {
-      return this.prisma.bookmark.create({
+      const res = await this.prisma.bookmark.create({
         data: {
           url,
           title: title,
@@ -70,20 +79,67 @@ export class BookmarkService {
           folderId: folder.id,
         },
       });
+
+      return this.prisma.bookmark.update({
+        where: {
+          id: res.id,
+        },
+        data: {
+          orderId: res.id,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
   }
 
-  async updateBookmark(user: User, bookmark: Bookmark, id: number) {
-    const { title, description, imageUrl, faviconUrl, url } = bookmark;
-    try {
-      return await this.prisma.bookmark.update({
-        where: { id },
-        data: { title, description, imageUrl, faviconUrl, url },
-      });
-    } catch (err) {
-      console.error(err);
+  async updateBookmark(user: User, bookmark: BookmarkWithType, id: number) {
+    const { title, description, imageUrl, faviconUrl, url, folderId, orderId, type } = bookmark;
+    console.log(type);
+    if (type === 'order') {
+      try {
+        //파라미터로 받은 교체전 id
+
+        const originData = await this.prisma.bookmark.findUnique({
+          where: { id: id },
+        });
+
+        //파라미터로 받은 교체할 id
+        const replaceData = await this.prisma.bookmark.findFirst({
+          where: { orderId: orderId },
+        });
+
+        //originData의 orderId를 replaceData.orderId로 교체
+        await this.prisma.bookmark.update({
+          where: {
+            id: replaceData.id,
+          },
+          data: {
+            orderId: originData.orderId,
+          },
+        });
+
+        console.log('orderId', orderId);
+
+        console.log('originData', originData.orderId, 'replaceData', replaceData.orderId);
+
+        //replaceData의 orderId를 originData.orderId로 교체
+        return this.prisma.bookmark.update({
+          where: { id },
+          data: { title, description, imageUrl, faviconUrl, url, folderId, orderId },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        return await this.prisma.bookmark.update({
+          where: { id },
+          data: { title, description, imageUrl, faviconUrl, url, folderId },
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 

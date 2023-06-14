@@ -5,6 +5,9 @@ import { GetUser } from '../auth/get-user.decorator';
 import { BookmarkService } from './bookmark.service';
 import { BookmarkDto } from './dto/bookmark.dto';
 
+export interface BookmarkWithType extends Bookmark {
+  type?: 'order';
+}
 @Controller('bookmark')
 export class BookmarkController {
   constructor(private bookmarkService: BookmarkService) {}
@@ -28,7 +31,7 @@ export class BookmarkController {
 
   @Patch('/edit/:id')
   @UseGuards(AuthGuard())
-  updateBookmark(@GetUser() user: User, @Body() bookmark: Bookmark, @Param('id') id: number) {
+  updateBookmark(@GetUser() user: User, @Body() bookmark: BookmarkWithType, @Param('id') id: number) {
     return this.bookmarkService.updateBookmark(user, bookmark, id);
   }
 

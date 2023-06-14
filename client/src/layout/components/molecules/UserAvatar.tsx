@@ -7,9 +7,10 @@ export default function UserAvatar() {
   const { user, logout } = useAuth();
   const { t } = useTranslation('common');
   const router = useRouter();
-  const goMypage = () => {
+  const goMyPage = (page: 'bookmark' | 'profile') => {
     if (user) {
-      router.push(`/bookmark/${user.userName}`);
+      if (page === 'bookmark') return router.push(`/bookmark/${user.userName}`);
+      if (page === 'profile') return router.push(`/profile/${user.userName}`);
     }
   };
   return (
@@ -20,7 +21,8 @@ export default function UserAvatar() {
             <Text>{user?.userName}</Text>
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={goMypage}>Mypage</MenuItem>
+            <MenuItem onClick={() => goMyPage('bookmark')}>My Bookmark</MenuItem>
+            <MenuItem onClick={() => goMyPage('profile')}>My Profile</MenuItem>
             <MenuItem onClick={logout}>{t('header.common.logout')}</MenuItem>
           </MenuList>
         </Menu>

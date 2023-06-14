@@ -14,6 +14,7 @@ export interface Bookmark {
   folder: Folder[];
   user: string;
   faviconUrl: string;
+  orderId?: number;
 }
 
 export interface BookmarkItem {

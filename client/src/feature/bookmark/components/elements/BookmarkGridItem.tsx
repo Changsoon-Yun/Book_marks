@@ -1,25 +1,43 @@
 import { Bookmark } from '@/types/api/Bookmark';
 import { Link } from '@chakra-ui/next-js';
-import { Box, Flex, GridItem, Heading, HStack, Icon, Img, Text } from '@chakra-ui/react';
+import { Box, Flex, GridItem, Heading, HStack, Icon, Img, Text, theme } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import faviconImage from '../../../../../public/asset/images/logos/homepageLogo.png';
 import { AiOutlineSetting } from 'react-icons/ai';
+import { useRecoilState } from 'recoil';
+import { grabbedTargetAtom } from '@/lib/recoil/atom';
+import { Folder } from '@/types/api/Folder';
+import UseDragBookmark from '@/feature/bookmark/hooks/useDragBookmark';
 
 interface Props extends Bookmark {
   openSettingHandler: (e: React.MouseEvent<HTMLOrSVGElement>, bookmark: Bookmark) => void;
+  host: boolean;
 }
 
 export default function BookmarkGridItem(props: Props) {
-  const { title, description, url, imageUrl, faviconUrl, openSettingHandler } = props;
+  const { host, title, description, url, imageUrl, faviconUrl, openSettingHandler } = props;
+  const [grabbedTarget, setGrabbedTarget] = useRecoilState(grabbedTargetAtom);
+  const { dragFunction } = UseDragBookmark('bookmark');
 
   return (
-    <GridItem gridTemplateColumns={'1fr 2fr 100px 25%'} position={'relative'}>
-      <Box rounded={'lg'} overflow={'hidden'} bg={'white'} boxShadow={'lg'}>
-        <Link href={url} target={'_blank'} textDecoration={'none'}>
+    <GridItem gridTemplateColumns={'1fr 2fr 100px 25%'} position={'relative'} cursor={'pointer'}>
+      <Box
+        rounded={'lg'}
+        overflow={'hidden'}
+        bg={theme.colors.white}
+        boxShadow={'lg'}
+        onDragStart={(e) => dragFunction(e, 'dragStart', props)}
+        onDragEnd={(e) => dragFunction(e, 'dragEnd', props)}
+        onDrop={(e) => dragFunction(e, 'drop', props)}
+        onDragOver={(e) => dragFunction(e, 'over', props)}
+        onDragLeave={(e) => dragFunction(e, 'leave', props)}
+        draggable={host}>
+        <Link href={url} target={'_blank'} textDecoration={'none'} draggable={false}>
           <Flex h={'120px'} p={4} justify={'space-between'}>
             <Img
+              draggable={false}
               src={imageUrl}
               objectFit='cover'
               w={'100px'}
@@ -28,7 +46,7 @@ export default function BookmarkGridItem(props: Props) {
               border={'1px solid rgba(0,0,0,0.1)'}
               alt={'Blog Image'}
             />
-            <Icon as={AiOutlineSetting} p={2} w={10} h={10} onClick={(e) => openSettingHandler(e, props)} />
+            {host && <Icon as={AiOutlineSetting} p={2} w={10} h={10} onClick={(e) => openSettingHandler(e, props)} />}
           </Flex>
           <Box p={4}>
             <Heading color={'black'} fontSize={'sm'} noOfLines={1}>
@@ -58,7 +76,7 @@ export default function BookmarkGridItem(props: Props) {
               roundedBottom={'sm'}
               borderLeft={'1px'}
               cursor='pointer'>
-              <Image src={faviconUrl ?? faviconImage} alt={'favicon'} width={32} height={32} />
+              <Image draggable={false} src={faviconUrl ?? faviconImage} alt={'favicon'} width={32} height={32} />
             </Flex>
           </HStack>
         </Link>

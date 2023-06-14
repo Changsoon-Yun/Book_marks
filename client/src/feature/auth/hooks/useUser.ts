@@ -35,6 +35,8 @@ export function useUser(): UseUser {
         setCookie(COOKIE_NAME, received);
       }
     },
+    staleTime: 10000,
+    cacheTime: 15000,
   });
 
   function updateUser(user: UserWidthToken) {

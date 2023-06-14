@@ -5,15 +5,23 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  Box,
   Button,
   Flex,
   Icon,
   Text,
 } from '@chakra-ui/react';
 import { AiFillFolder, AiFillFolderOpen } from 'react-icons/ai';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, DragEventHandler, SetStateAction, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { FiSettings } from 'react-icons/fi';
+import { BsArrowDownShort, BsArrowLeftShort } from 'react-icons/bs';
+import styled from '@emotion/styled';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { droppedTargetAtom, grabbedTargetAtom } from '@/lib/recoil/atom';
+import useUpdateBookmark from '@/feature/bookmark/hooks/useUpdateBookmark';
+import { Bookmark } from '@/types/api/Bookmark';
+import UseDragBookmark from '@/feature/bookmark/hooks/useDragBookmark';
 
 function Item({
   item,
@@ -25,27 +33,44 @@ function Item({
   setClickedFolder: Dispatch<SetStateAction<Folder>>;
 }) {
   const hasChildren = item.children && item.children.length > 0;
+  const { grab, dragFunction } = UseDragBookmark('folder');
+
   return (
     <AccordionItem border={'none'}>
       {({ isExpanded }) => (
         <>
           <h2>
-            <AccordionButton
+            <Flex
+              onDrop={(e) => dragFunction(e, 'drop', item)}
+              onDragOver={(e) => dragFunction(e, 'over', item)}
+              onDragLeave={(e) => dragFunction(e, 'leave', item)}
               px={2}
-              bg={clickedFolder === item ? 'rgba(40, 87, 234, 0.3)' : 'inherit'}
+              h={9}
+              bg={grab ? 'rgba(40, 87, 234, 0.3)' : clickedFolder === item ? 'rgba(40, 87, 234, 0.3)' : 'inherit'}
               _hover={{ bg: clickedFolder === item ? 'rgba(40,87,234,0.3)' : 'rgba(40,87,234,0.1)' }}
               onClick={() => {
                 setClickedFolder(item);
               }}
+              cursor={'pointer'}
               borderRadius={'10px'}>
-              <Flex flex='1' textAlign='left' align={'center'}>
+              <Flex flex='1' textAlign='left' align={'center'} transition={'0.5s'}>
                 <Icon as={clickedFolder === item ? AiFillFolderOpen : AiFillFolder} />
                 <Text pl={2}>{item.name}</Text>
               </Flex>
-              <AccordionIcon />
-            </AccordionButton>
+              {hasChildren && (
+                <AccordionButton
+                  w={9}
+                  h={9}
+                  p={0}
+                  sx={{ justifyContent: 'center', alignItems: 'center' }}
+                  borderRadius={'full'}
+                  onClick={(e) => e.stopPropagation()}>
+                  {isExpanded ? <BsArrowDownShort fontSize={'20px'} /> : <BsArrowLeftShort fontSize={'20px'} />}
+                </AccordionButton>
+              )}
+            </Flex>
           </h2>
-          <AccordionPanel px={0} py={0} pl={2} borderRadius={'10px'}>
+          <AccordionPanel px={0} py={0} pl={4} borderRadius={'10px'}>
             {hasChildren && (
               <>
                 {item.children?.map((child) => (
