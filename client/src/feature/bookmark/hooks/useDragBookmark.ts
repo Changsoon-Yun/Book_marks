@@ -15,7 +15,7 @@ export default function UseDragBookmark(dropItemTarget: 'bookmark' | 'folder') {
   const [{ grabbedTarget }, setGrabbedTarget] = useRecoilState(grabbedTargetAtom);
   const [{ droppedTarget }, setDroppedTarget] = useRecoilState(droppedTargetAtom);
   const updateBookmark = useUpdateBookmark();
-  const dragFunction = async (e: React.DragEvent<HTMLDivElement>, type: string, item: Bookmark) => {
+  const dragFunction = async (e: React.DragEvent<HTMLDivElement>, type: string, item: Bookmark | Folder) => {
     // e.preventDefault();
     // e.stopPropagation();
     const target = e.currentTarget as HTMLElement;
