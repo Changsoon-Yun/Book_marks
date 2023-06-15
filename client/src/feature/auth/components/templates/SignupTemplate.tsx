@@ -6,7 +6,17 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 export default function SignupTemplate(props: signupProps) {
-  const { onSubmit, userNameRef, pwRef, pwWatch, pwConfirmWatch, setPwWatch, setPwConfirmWatch, pwConfirmRef } = props;
+  const {
+    onSubmit,
+    emailRef,
+    userNameRef,
+    pwRef,
+    pwWatch,
+    pwConfirmWatch,
+    setPwWatch,
+    setPwConfirmWatch,
+    pwConfirmRef,
+  } = props;
   const { t } = useTranslation('common');
   const { locale } = useRouter();
 
@@ -37,6 +47,13 @@ export default function SignupTemplate(props: signupProps) {
               id={'id'}
               label={t('auth.common.label-id')}
               inputRef={userNameRef}
+              inputType={'text'}
+              isRequired={true}
+            />
+            <InputForm
+              id={'id'}
+              label={t('auth.common.label-email')}
+              inputRef={emailRef}
               inputType={'text'}
               isRequired={true}
             />

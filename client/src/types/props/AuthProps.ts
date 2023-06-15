@@ -5,6 +5,7 @@ export interface AuthProps {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   pwWatch: boolean;
   setPwWatch: { toggle: () => void };
+  emailRef: React.RefObject<HTMLInputElement>;
   userNameRef: React.RefObject<HTMLInputElement>;
   pwRef: React.RefObject<HTMLInputElement>;
 }

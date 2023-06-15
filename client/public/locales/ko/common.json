@@ -20,6 +20,7 @@
       "message-2": "여기로",
       "login-button": "로그인",
       "signup-button": "회원가입",
+      "label-email": "아이디 찾기용 이메일",
       "label-id": "아이디",
       "label-pw": "비밀번호",
       "placeholder-input-id": "아이디를 입력해 주세요.",

@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   async signup(authCredentialDto: AuthCredentialDto) {
-    const { userName, password } = authCredentialDto;
+    const { email, userName, password } = authCredentialDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -41,6 +41,7 @@ export class AuthService {
     try {
       const userData = await this.prisma.user.create({
         data: {
+          email,
           userName,
           password: hashedPassword,
         },

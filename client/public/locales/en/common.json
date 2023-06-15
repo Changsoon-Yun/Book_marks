@@ -20,6 +20,7 @@
       "message-2": "features",
       "login-button": "Log In",
       "signup-button": "Sign Up",
+      "label-email": "E-mail for find ID",
       "label-id": "ID",
       "label-pw": "Password",
       "placeholder-input-id": "Please enter your ID.",

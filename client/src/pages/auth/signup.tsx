@@ -20,12 +20,14 @@ export default function Signup() {
   const [pwWatch, setPwWatch] = useBoolean(false);
   const [pwConfirmWatch, setPwConfirmWatch] = useBoolean(false);
 
+  const emailRef = useRef<HTMLInputElement>(null);
   const userNameRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
   const pwConfirmRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const email = emailRef.current?.value;
     const userName = userNameRef.current?.value;
     const password = pwRef.current?.value;
     const confirmPassword = pwConfirmRef.current?.value;
@@ -34,8 +36,8 @@ export default function Signup() {
       return;
     }
 
-    if (userName && password) {
-      const data: User = { userName, password };
+    if (email && userName && password) {
+      const data: User = { email, userName, password };
       auth.signup(data);
     }
   };
@@ -44,6 +46,7 @@ export default function Signup() {
       <Layout>
         <SignupTemplate
           onSubmit={onSubmit}
+          emailRef={emailRef}
           userNameRef={userNameRef}
           pwRef={pwRef}
           pwWatch={pwWatch}
