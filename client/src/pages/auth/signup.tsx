@@ -18,13 +18,10 @@ export default function Signup() {
   const { t } = useTranslation('common');
   const toast = useToast();
 
-  const [pwWatch, setPwWatch] = useBoolean(false);
-  const [pwConfirmWatch, setPwConfirmWatch] = useBoolean(false);
-
   const { ref: userNameRef, data: userName } = useInput();
   const { ref: emailRef, data: email } = useInput();
-  const { ref: pwRef, data: password } = useInput();
-  const { ref: pwConfirmRef, data: confirmPassword } = useInput();
+  const { ref: pwRef, data: password, watch: pwWatch, setWatch: setPwWatch } = useInput();
+  const { ref: pwConfirmRef, data: confirmPassword, watch: pwConfirmWatch, setWatch: setPwConfirmWatch } = useInput();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
