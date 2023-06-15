@@ -4,6 +4,7 @@ import React, { FormEvent } from 'react';
 export interface EmailProp {
   emailRef: React.RefObject<HTMLInputElement>;
 }
+
 export interface AuthProps {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   pwWatch: boolean;
@@ -25,4 +26,8 @@ export interface InputFormProps {
   inputType: boolean | 'text';
   isRequired: boolean;
   setInputType?: { toggle: () => void };
+}
+
+export interface FindProps extends EmailProp {
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }

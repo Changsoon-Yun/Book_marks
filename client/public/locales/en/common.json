@@ -11,6 +11,8 @@
       "login": "Log In",
       "signup": "Sign Up",
       "logout": "Log Out",
+      "find-id": "Find ID",
+      "find-pw": "Find Password",
       "my-bookmark": "My Bookmark"
     }
   },
@@ -31,7 +33,8 @@
       "checkbox-auto-login": "Remember me",
       "label-confirm-pw": "Confirm Password",
       "link-forgot-password": "Forgot password",
-      "dont-have-account": "Don't you have an account ?"
+      "dont-have-account": "Don't you have an account ?",
+      "know-account": "Do you Know ID ?"
     },
     "signup": {
       "heading": "Sign up",

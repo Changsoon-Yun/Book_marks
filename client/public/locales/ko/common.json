@@ -11,6 +11,8 @@
       "login": "로그인",
       "signup": "회원가입",
       "logout": "로그아웃",
+      "find-id": "아이디 찾기",
+      "find-pw": "비밀번호 찾기",
       "my-bookmark": "내 즐겨찾기"
     }
   },
@@ -30,7 +32,8 @@
       "heading": "로그인",
       "checkbox-auto-login": "날 기억해줘!",
       "link-forgot-password": "비밀번호를 분실 했어요",
-      "dont-have-account": "계정이 없으신가요?"
+      "dont-have-account": "계정이 없으신가요?",
+      "know-account": "아이디를 아시나요?"
     },
     "signup": {
       "heading": "회원가입",
