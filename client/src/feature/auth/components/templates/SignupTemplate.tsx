@@ -51,7 +51,7 @@ export default function SignupTemplate(props: signupProps) {
               isRequired={true}
             />
             <InputForm
-              id={'id'}
+              id={'email'}
               label={t('auth.common.label-email')}
               inputRef={emailRef}
               inputType={'text'}

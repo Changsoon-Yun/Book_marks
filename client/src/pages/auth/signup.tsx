@@ -9,6 +9,7 @@ import { useToast } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import React, { FormEvent, useRef } from 'react';
+import { useInput } from '@/feature/auth/hooks/useInput';
 
 export interface signupProps extends ConfirmPassword, AuthProps {}
 
@@ -20,17 +21,13 @@ export default function Signup() {
   const [pwWatch, setPwWatch] = useBoolean(false);
   const [pwConfirmWatch, setPwConfirmWatch] = useBoolean(false);
 
-  const emailRef = useRef<HTMLInputElement>(null);
-  const userNameRef = useRef<HTMLInputElement>(null);
-  const pwRef = useRef<HTMLInputElement>(null);
-  const pwConfirmRef = useRef<HTMLInputElement>(null);
+  const { ref: userNameRef, data: userName } = useInput();
+  const { ref: emailRef, data: email } = useInput();
+  const { ref: pwRef, data: password } = useInput();
+  const { ref: pwConfirmRef, data: confirmPassword } = useInput();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = emailRef.current?.value;
-    const userName = userNameRef.current?.value;
-    const password = pwRef.current?.value;
-    const confirmPassword = pwConfirmRef.current?.value;
     if (password !== confirmPassword) {
       toast({ title: t('password-not-matched'), status: 'warning', isClosable: true });
       return;
