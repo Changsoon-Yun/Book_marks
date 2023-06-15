@@ -4,7 +4,7 @@ import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
 import { PrismaService } from '../prisma.service';
-import { AuthCredentialDto } from './dto/auth-credential.dto';
+import { AuthCredentialDto, WithEmailAuthCredentialDto } from './dto/auth-credential.dto';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
 
-  async signup(authCredentialDto: AuthCredentialDto) {
+  async signup(authCredentialDto: WithEmailAuthCredentialDto) {
     const { email, userName, password } = authCredentialDto;
 
     const salt = await bcrypt.genSalt();

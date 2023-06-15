@@ -3,7 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
-import { AuthCredentialDto } from './dto/auth-credential.dto';
+import { AuthCredentialDto, WithEmailAuthCredentialDto } from './dto/auth-credential.dto';
 import { GetUser } from './get-user.decorator';
 
 @Controller('auth')
@@ -23,7 +23,7 @@ export class AuthController {
   }
 
   @Post('/signup')
-  async signup(@Body(ValidationPipe) authCredentialDto: AuthCredentialDto) {
+  async signup(@Body(ValidationPipe) authCredentialDto: WithEmailAuthCredentialDto) {
     return this.authService.signup(authCredentialDto);
   }
 }

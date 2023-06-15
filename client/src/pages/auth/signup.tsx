@@ -1,17 +1,16 @@
 import SignupTemplate from '@/feature/auth/components/templates/SignupTemplate';
 import prefetchUserData from '@/feature/auth/hooks/prefetchUserData';
 import { useAuth } from '@/feature/auth/hooks/useAuth';
-import { AuthProps, ConfirmPassword } from '@/types/props/AuthProps';
+import { AuthProps, ConfirmPassword, EmailProp } from '@/types/props/AuthProps';
 import Layout from '@/layout/components/templates/Layout';
 import { User } from '@/types/api/User';
-import { useBoolean } from '@chakra-ui/hooks';
 import { useToast } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
-import React, { FormEvent, useRef } from 'react';
+import React, { FormEvent } from 'react';
 import { useInput } from '@/feature/auth/hooks/useInput';
 
-export interface signupProps extends ConfirmPassword, AuthProps {}
+export interface signupProps extends ConfirmPassword, AuthProps, EmailProp {}
 
 export default function Signup() {
   const auth = useAuth();
