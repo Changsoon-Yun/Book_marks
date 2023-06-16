@@ -17,7 +17,7 @@ export default function FindIdTemplate(props: FindProps) {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading maxW={'380px'} w={'full'} textAlign={'center'} fontSize={'3xl'}>
-            {t('header.common.find-id')}
+            {t('auth.find-id.heading')}
           </Heading>
         </Stack>
         <Box
@@ -35,7 +35,6 @@ export default function FindIdTemplate(props: FindProps) {
               inputType={'text'}
               isRequired={false}
             />
-
             <Stack spacing={10}>
               <Button
                 type={'submit'}

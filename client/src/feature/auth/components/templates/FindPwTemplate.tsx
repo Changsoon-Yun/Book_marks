@@ -17,7 +17,7 @@ export default function FindPwTemplate(props: FindProps) {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading maxW={'380px'} w={'full'} textAlign={'center'} fontSize={'3xl'}>
-            {t('header.common.find-id')}
+            {t('auth.find-id.heading')}
           </Heading>
         </Stack>
         <Box

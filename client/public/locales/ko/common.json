@@ -11,8 +11,6 @@
       "login": "로그인",
       "signup": "회원가입",
       "logout": "로그아웃",
-      "find-id": "아이디 찾기",
-      "find-pw": "비밀번호 찾기",
       "my-bookmark": "내 즐겨찾기"
     }
   },
@@ -39,6 +37,12 @@
       "heading": "회원가입",
       "label-confirm-pw": "비밀번호 확인",
       "password-not-matched": "비밀번호와 확인용 비밀번호가 일치하지 않습니다. 다시 입력해주세요."
+    },
+    "find-id": {
+      "heading": "아이디 찾기"
+    },
+    "find-pw": {
+      "heading": "비밀번호 찾기"
     }
   },
   "bookmark": {
